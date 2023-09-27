@@ -5,13 +5,13 @@
 {% block content %}
 
 <div class="container-fluid">
-<div class="page-header">
-    <h4>{{ heading }}</h4>
-</div>
+    <div class="col-lg-4 col-md-6 col-sm-8 mx-auto page-header">
+        <h4>{{ heading }}</h4>
+    </div>
 
-<!-- Form rendering is simple and easy if using bootstrap -->
-<div class="col-md-6 ml-5">
-    {{ render_form(form) }}
+    <!-- Form rendering is simple and easy if using bootstrap -->
+    <div class="col-lg-4 col-md-6 col-sm-8 mx-auto">
+        {{ render_form(form) }}
+    </div>
 </div>
-
-{% endblock %}
+    {% endblock %}
