@@ -1,0 +1,51 @@
+<html lang="en">
+
+<!-- Head -->
+
+<head>
+    <!-- Viewport -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- App title & Bootstrap style import -->
+    <title>LiveLocal</title>
+
+    <!--- NOTE TO MARKER - Favicon only worked when saved in root directory so couldn't save in img directory -->
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <!-- Custom style sheet-->
+    <link rel="stylesheet" type="text/css" href="./static/style/style.css">
+
+    <!-- Boostrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <!-- Change font to Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+    {% block header %}
+    
+    {% endblock %}
+
+
+    {% block content %}
+    
+    {% endblock %}
+
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <footer class="d-flex flex-wrap justify-content-center align-items-center py-3 my-4 border-top">
+                <p class="col-md-12 mb-0 text-muted">© 2023 LiveLocal, Inc. All rights reserved.</p>
+                <p class="col-md-12 mb-0 text-muted">Crafting extraordinary experiences for your next getaway.</p>
+            </footer>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,779 @@
+/*Affects the whole document */
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/* --------------------------------------- Buttons  --------------------------------------- */
+
+/*Adjusts space beween nav bar buttons, make them skinnier*/
+.custom-btn {
+    margin-left: 10px;
+    margin-right: 10px;
+    box-shadow: 0 0 0 1.5px #849BFF;
+    padding: 3px 18px;
+}
+
+/* Primary button styling - create experience page */
+#next-button.button-custom {
+    display: none;
+    background-color: #849BFF;
+    border-color: #849BFF;
+}
+
+/* Primary button hover styling */
+#next-button.button-custom:hover {
+    background-color: #647ef1;
+}
+
+
+/* Primary button styling - create experience page */
+#confirm-button.button-custom {
+    display: none;
+    background-color: #849BFF;
+    border-color: #849BFF;
+}
+
+/* Primary button hover styling */
+#confirm-button.button-custom:hover {
+    background-color: #647ef1;
+}
+
+/* Primary button styling - Login button */
+#loginButton.custom-btn {
+    background-color: #849BFF;
+    border-color: #849BFF;
+}
+
+/* Primary button hover styling */
+#loginButton.custom-btn:hover {
+    background-color: #647ef1;
+}
+
+/*Move login button down */
+#loginButton {
+    margin-top: 3px;
+
+}
+/* Primary button styling - Login Modal Button */
+#loginModalButton.custom-btn {
+    background-color: #849BFF;
+    border-color: #849BFF;
+}
+
+/* Primary button hover styling */
+#loginModalButton.custom-btn:hover {
+    background-color: #647ef1;
+}
+
+/* Primary button styling - Login Modal Button */
+#bookNowBtn.custom-btn {
+    background-color: #849BFF;
+    border-color: #849BFF;
+    height: 38px;
+}
+
+/* Primary button hover styling */
+#bookNowBtn.custom-btn:hover {
+    background-color: #647ef1;
+}
+
+/* Primary button styling - Login Modal Button */
+#update-event-button.custom-btn {
+    background-color: #849BFF;
+    border-color: #849BFF;
+    height: 38px;
+}
+
+/* Primary button hover styling */
+#update-event-button.custom-btn:hover {
+    background-color: #647ef1;
+}
+
+/* Primary button styling - Login button */
+#createAnotherExperienceButton.custom-btn {
+    background-color: #849BFF;
+    border-color: #849BFF;
+}
+
+/* Primary button hover styling */
+#createAnotherExperienceButton.custom-btn:hover {
+    background-color: #647ef1;
+}
+
+
+/* --------------------------------------- Nav bar  --------------------------------------- */
+
+/* Custom style for adjusting navbar to center of the page */
+.custom-nav-brand {
+    color: #849BFF;
+    padding: 0;
+    padding-left: 500;/* Set padding to 0 */
+    margin: 0;/* Set margin to 0 */
+    display: flex;
+    align-items: center;/* Vertically center the text */
+    height: 100%;/* Ensure the text fills the height of the navbar */
+    text-decoration: none;/* Remove underline from the link */
+}
+
+/* Change the hover color */
+.custom-nav-brand:hover {
+    color: #6a7fdd;
+}
+
+.navbar {
+    padding-left: calc(20%);
+    padding-right: calc(20%);
+}
+
+/* Class for the custom icon */
+.custom-icon {
+    font-size: 1.6rem;
+    color: #849BFF;
+    margin-right: 5px;
+}
+
+/* Styling for <i> element */
+.custom-icon-list {
+    font-size: 1rem;
+}
+
+
+
+/* --------------------------------------- Carousel  --------------------------------------- */
+
+/* Carousel container */
+.carousel-container {
+    background-color: #849BFF;
+    color: white;
+}
+
+/* Carousel text size on smaller screens */
+.max-width-500 {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* Small screens (350px or less) */
+@media (max-width: 350px) {
+    .mb-5 {
+        margin-bottom: 20px;
+    }
+}
+
+/* ---------------------------------------  Lottie image  --------------------------------------- */
+
+  /* ------ Lotti animation - large ----------*/
+  /* For large screens, set the lottie-container to 450x450 */
+  @media (min-width: 1200px) {
+      .lottie-container {
+          width: 450px;
+          padding-bottom: 0;
+      }
+  }
+
+  /* Disappear on small screens */
+  @media (max-width: 768px) {
+    .lottie-container {
+        display: none;
+    }
+}
+
+  /* ------ Lotti animation - mid-medium ----------*/
+  /* Hide on screens larger than 768px */
+  @media (min-width: 769px) {
+      .lottie-container-mid-medium {
+          display: none;
+      }
+  }
+
+  /* Appear on small screens between 768 + 651px */
+  @media (max-width: 768px) {
+      .lottie-container-mid-medium {
+          display: block;
+      }
+  }
+
+  /* Disappear on small screens */
+  @media (max-width: 651px) {
+      .lottie-container-mid-medium {
+          display: none;
+      }
+  }
+
+
+  /* ------ Lotti animation - medium ----------*/
+  /* Hide on screens larger than 768px */
+  @media (min-width: 650px) {
+      .lottie-container-medium {
+          display: none;
+      }
+  }
+
+/* Appear on small screens between 650 + 551px */
+  @media (max-width: 651px) {
+      .lottie-container-medium {
+          display: block;
+      }
+  }
+
+  /* Disappear on small screens */
+  @media (max-width: 551px) {
+      .lottie-container-medium {
+          display: none;
+      }
+  }
+
+
+  /* ------ Lotti animation - small ----------*/
+/* Hide on screens larger than 768px */
+@media (min-width: 551px) {
+    .lottie-container-small {
+        display: none;
+    }
+}
+
+/* Appear on small screens between 551 + 350px */
+@media (max-width: 551px) {
+    .lottie-container-small {
+        display: block;
+    }
+}
+
+/* Disappear on small screens */
+@media (max-width: 350px) {
+    .lottie-container-small {
+        display: none;
+    }
+}
+
+
+/* ---------------------------------------  Homepage radio buttons  --------------------------------------- */
+
+/* ------ Homepage radio buttons - hover + depress colours ----------*/
+/* Default styles for the buttons */
+.toggle-button {
+    color: #849BFF;
+    border-color: #849BFF;
+}
+
+/* Define styles for the "pressed" state */
+.toggle-button.active {
+    background-color: #849BFF;
+    color: #fff;
+    border-color: #849BFF;
+}
+
+/* Define styles for the hover state */
+.toggle-button:hover {
+    background-color: #849BFF;
+        color: #fff;
+        border-color: #849BFF;
+}
+
+
+/* ------ Homepage radio buttons stacking ----------*/
+
+/* Media query for large screens */
+@media (min-width: 1200px) {
+    .toggle-button-group {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .toggle-button {
+        margin: 0;
+    }
+}
+
+
+/* Media query for screens between 769px and 1199px */
+@media (min-width: 769px) and (max-width: 1199px) {
+    .toggle-button-group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .toggle-button {
+        margin: 5px;
+    }
+}
+        
+/* Media query for medium-sized screens */
+@media (max-width: 768px) {
+    .toggle-button-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .toggle-button {
+        margin: 0;
+        margin-top: 10px;
+    }
+}
+
+/* ------ Custom heading ----------*/
+.custom-heading {
+    margin: 0;
+    color: #474545;
+}
+
+/* Filter icon on index page */
+.custom-filter-icon {
+    color: #000000;
+}
+
+/* ------ Filter custom CSS ----------*/
+/* Style the filter button */
+.filter-button {
+    background-color: transparent;/* Remove background color */
+    border: none; /* Remove borders */
+    padding: 0; /* Remove padding */
+    box-shadow: none; /* Remove box shadow */
+    outline: none; /* Remove outline */
+}
+
+.filter-button .bi-filter {
+    font-size: 1.5rem; /* Adjust icon size */
+    vertical-align: middle; /* Center the icon vertically */
+}
+
+/* Adjust the color of the icon on hover */
+.filter-button:hover .bi-filter {
+    color: #010101;
+}
+
+/* Shange the filter options' background color when clicked */
+.dropdown-item.active,
+.dropdown-item:active {
+    background-color: #849BFF;
+    color: #ffffff;
+}
+
+/* Dropdown filter styling */
+.drop-down-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+
+/* ---------------------------------------  Homepage cards  --------------------------------------- */
+
+/* Card styling*/
+p {
+    padding-bottom: 1rem;
+}
+
+h5 {
+    font-weight: bold;
+    color: #2b2b2b;
+}
+
+.box-shadow {
+    -webkit-box-shadow: 0 1px 1px rgba(72, 78, 85, .6);
+    box-shadow: 0 1px 1px rgba(72, 78, 85, .6);
+    -webkit-transition: all .2s ease-out;
+    -moz-transition: all .2s ease-out;
+    -ms-transition: all .2s ease-out;
+    -o-transition: all .2s ease-out;
+    transition: all .2s ease-out;
+}
+
+.box-shadow:hover {
+    -webkit-box-shadow: 0 20px 40px rgba(72, 78, 85, .6);
+    box-shadow: 0 20px 40px rgba(72, 78, 85, .6);
+    -webkit-transform: translateY(-15px);
+    -moz-transform: translateY(-15px);
+    -ms-transform: translateY(-15px);
+    -o-transform: translateY(-15px);
+    transform: translateY(-15px);
+}
+
+.card {
+    border-radius: 25px;
+
+}
+
+.card img {
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+
+/* Remove underlined styling from card text links */
+.card-body a {
+    text-decoration: none !important;
+}
+
+/* ---------------------------------------  Status icons  --------------------------------------- */
+
+/* Card overlay colours */
+/* Green for Open */
+.status-green {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+/* Black for Cancelled */
+.status-black {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+/* Grey for Inactive */
+.status-grey {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: grey;
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+/* Red for Sold Out */
+.status-red {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: red;
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+/* Center no results found message */
+.centered-message {
+    display: flex;
+    justify-content: center;
+    /* Horizontally center-align */
+    align-items: center;
+}
+
+/* Hide no result message until needed */
+#noResultsMessage {
+    display: none;
+}
+
+/* ---------------------------------------  Custom cards HomePage  --------------------------------------- */
+.homepage-card {
+    width: 18rem;
+    position: relative;
+}
+
+/* Homepage card name */
+.homepage-card-name {
+    float: left;
+}
+
+/* Homepage card duration */
+.homepage-card-duration {
+    float: right;
+}
+
+/* Homepage card spacer */
+.homepage-card-spacer {
+    clear: both;
+}
+
+/* Homepage card spacer */
+.hosted-by-text {
+    margin: 0;
+    color: #474545;
+
+}
+
+/* Geo alt icon */
+.geo-alt-icon {
+    font-size: 1rem;
+}
+
+/* Calendar icon */
+.calendar3-icon {
+    font-size: 1rem;
+}
+
+/* Water icon */
+.water-icon {
+    font-size: 1rem;
+}
+
+/* Clock icon */
+.clock-icon {
+    font-size: 1rem;
+}
+
+/* ---------------------------------------  Custom cards --------------------------------------- */
+
+/* Custom card sizing */
+.custom-card {
+    height: 500px;/* Set a fixed height for the cards */
+}
+
+/* For screens 1400px and above */
+@media (min-width: 1400px) {
+    .custom-card {
+        width: 25%; /* 4 cards spanning 3 cols each */
+    }
+}
+
+/* For screens between 991px and 1399px */
+@media (min-width: 991px) and (max-width: 1399px) {
+    .custom-card {
+        width: 33.33%; /* 3 cards spanning 3 cols each */
+    }
+}
+
+/* For screens between 768px and 990px */
+@media (min-width: 768px) and (max-width: 990px) {
+    .custom-card {
+        width: 50%; /* 2 cards spanning 6 cols each */
+    }
+}
+
+/* For screens 767px and below */
+@media (max-width: 767px) {
+    .custom-card {
+        width: 100%; /* 1 card spanning all cols */
+    }
+}
+
+/* Left align cards when they are in the row*/
+.left-align-card {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+/* --------------------------------------- Image styling on event page  --------------------------------------- */
+
+/* Custom styling for images */
+.image {
+    border-radius: 25px;
+    overflow: hidden;
+    position: relative;
+}
+
+.image::before,
+.image::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background: inherit;
+    border-radius: 0 0 25px 25px;
+}
+
+.image::before {
+    left: 0;
+    transform: skewX(165deg);
+    transform-origin: 100%;
+}
+
+.image::after {
+    right: 0;
+    transform: skewX(-165deg);
+    transform-origin: 0;
+}
+
+.image:hover {
+    -webkit-box-shadow: 0 20px 40px rgba(72, 78, 85, .6);
+    box-shadow: 0 20px 40px rgba(72, 78, 85, .6);
+    -webkit-transform: translateY(-15px);
+    -moz-transform: translateY(-15px);
+    -ms-transform: translateY(-15px);
+    -o-transform: translateY(-15px);
+    transform: translateY(-15px);
+}
+
+.image img {
+    border-radius: 25px 25px 0 0;
+}
+
+
+/* ---------------------------------------  Event page paragraph spacing  --------------------------------------- */
+/* Event page paragraph spacing */
+ .paragraph-spacing {
+     margin-bottom: 0px;
+ }
+
+
+/* ---------------------------------------  Event page header  --------------------------------------- */
+/* Define a CSS class for the event-header */
+.custom-event-header {
+    margin-bottom: 40px;
+}
+
+.event-header {
+    margin-top: 30px;
+}
+
+/* Define a CSS class for the div with float and width styles */
+.event-page-header {
+    float: left;
+    width: 70%;
+}
+
+/* Define a CSS class for the h3 element */
+.event-page-header-small {
+    margin: 0;
+    color: #474545;
+}
+
+/* Define a CSS class for the h3 element */
+.event-page-right-header {
+    float: right;
+    width: 30%;
+    text-align: right;
+}
+
+/* Define a CSS class for the h3 element */
+.event-page-left-header {
+    float: left;
+    width: 70%;
+}
+
+/* Comment section header */
+.custom-event-header {
+    margin-top: 30px;
+}
+
+/* Comment section header */
+.comment-spacer {
+    margin-bottom: 10px;
+}
+
+/* ---------------------------------------  Event page what to expect section  --------------------------------------- */
+
+/* What to expect header */
+.what-to-expect-header {
+    margin-top: 30px;
+}
+
+/* What to expect header */
+.what-to-expect-header-position {
+    float: left;
+    width: 70%;
+}
+
+/* What to expect text */
+.what-to-expect-header-text{
+    margin: 0;
+    color: #474545;
+}
+
+/* What to expect text */
+.card-text {
+    margin-bottom: 0;
+}
+
+/* What to expect text */
+.eventPageBookNowButton {
+    padding-bottom: 18px;
+}
+
+
+ /* ---------------------------------------  Comment Section  --------------------------------------- */
+ /* Style for comments section */
+ #commentsList {
+     margin-bottom: 20px;
+ }
+
+ #commentForm p {
+     color: #849BFF;
+     font-weight: bold;
+ }
+
+ #commentForm textarea {
+     margin-bottom: 10px;
+ }
+
+
+  /* ---------------------------------------  Create Experience Form  --------------------------------------- */
+  /* Form styling for spacing and form width */
+  .custom-form {
+      max-width: 600px; /* Limit the form width */
+  }
+
+  .form-group {
+      margin-bottom: 20px; /* Increase spacing between form groups */
+  }
+
+  /* Style for the currency symbol */
+  .input-group-prepend {
+      font-size: 18px;
+      color: #333;
+  }
+
+  .currency-symbol {
+      padding: 10px 12px;
+  }
+
+  /* Hide all questions initially */
+  .question {
+      display: none;
+  }
+
+  /* Show the first question initially */
+  .question:first-child {
+      display: block;
+  }
+
+  /* Style for the <i> element with class "bi-lightbulb-fill" */
+  .bi-lightbulb-fill {
+      font-size: 1rem;
+      color: #FFC107;
+  }
+
+  /* Style for the text inside the <i> element with class "text-warning" */
+  .text-warning {
+      color: #FF9800;  }
+
+
+  /* ---------------------------------------  Booking History Card  --------------------------------------- */
+
+  /* Custom CSS to make the right top and bottom corners of the image straight */
+  .card-img-history {
+      border-top-right-radius: 0; /* Straight top-right corner */
+      border-bottom-right-radius: 0;/* Straight bottom-right corner */
+  }
+
+
+  .card {
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Customize the shadow */
+  }
+
+  /* Custom CSS for hover effect on cards */
+  .card:hover {
+      background-color: #f8f8f8; /* Change to your desired hover background color */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a box shadow on hover */
+      transition: background-color 0.3s, box-shadow 0.3s;/* Smooth transition */
+  }
+
+
+   /* Custom CSS for screens 575px and smaller */
+   @media (max-width: 575px) {
+
+       /* Different class names to hide the image */
+       .card .row .col-md-4 {
+           display: none; /* Hide the image */
+       }
+   }
+
+
+
+
