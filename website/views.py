@@ -12,3 +12,8 @@ def index():
 @bp.route('/event')
 def event():
     return render_template('event.html')
+
+
+@bp.route('/create-experience')
+def experience():
+    return render_template('create-experience.html')
