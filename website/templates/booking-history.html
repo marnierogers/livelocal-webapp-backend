@@ -1,0 +1,238 @@
+{% extends 'base-footer-only.html' %}
+
+{% block header %}
+<!-- Header -->
+<header>
+    <!-- Nav bar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <!--- Icon and title-->
+            <i class="bi bi-geo-alt custom-icon"></i>
+            <a class="navbar-brand custom-nav-brand" href="index.html"><b>LiveLocal</b></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="bi bi-list custom-icon-list"></i>
+            </button>
+            <!--- Links and button -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="create-experience.html" id="experiencesLink">
+                            Create Experience
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="booking-history.html" id="bookingHistoryLink">
+                            Booking History
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <button id="loginButton" class="btn btn-primary btn-md custom-btn">
+                            Logout
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Modal for Login button -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">User Message</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    You're in! You can now create and book events.
+                </div>
+                <div class="modal-footer">
+                    <button id="loginModalButton" type="button" class="btn btn-primary btn-md custom-btn"
+                        data-bs-dismiss="modal">
+                        Got it!
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+{% endblock %}
+
+{% block content %}
+<main>
+    <!-- Carousel -->
+    <div class="carousel-container">
+        <div class="row">
+            <div class="col-12 col-md-3 col-lg-3 mx-md-auto text-center mt-4"></div>
+        </div>
+    </div>
+
+    <!-- Booking History -->
+    <div class="major-container" id="create-experience-section">
+        <div class="container wrapper">
+            <div class="row">
+                <div class="event-header" style="margin-top: 30px;">
+                    <div class="event-page-left-header">
+                        <h3 class="what-to-expect-header-text">Booking History<br></h3>
+                    </div>
+                    <br><br>
+                </div>
+                <div class="col-md-12">
+                    <p class="paragraph-spacing">Explore your booked adventures. 
+                    This is your journey through upcoming and past experiences, where memories are made and stories are written.</p>
+                </div>
+                <hr class="comment-spacer">
+            </div>
+        </div>
+    </div>  
+
+    <!-- Booking history cards -->
+    <div class="container">
+        <div class="row">
+
+            <!-- Booking History Entry 1 -->
+            <div class="col-12 col-md-12 col-lg-6">
+                <div class="card mb-4">
+                    <div class="row no-gutters">
+
+                        <!-- Image container (visible on screens 767px and smaller) -->
+                        <div class="col-md-4 d-none d-md-block">
+                            <img src="./static/img/acropolis-tour.png" class="card-img-history img-fluid" alt="Event 1">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Acropolis Guided Tour</h5>
+                                <p class="card-text">Hosted by Adonius<br>
+                                    Order ID: 77589<br>
+                                    Booked on: 11am 23rd Aug, 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Booking History Entry 2 -->
+            <div class="col-12 col-md-12 col-lg-6">
+                <div class="card mb-4">
+                    <div class="row no-gutters">
+
+                        <!-- Image container (visible on screens 767px and smaller) -->
+                        <div class="col-md-4 d-none d-md-block card-img-history">
+                            <img src="./static/img/cigar-tasting.png" class="card-img-history img-fluid" alt="Event 2">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Havana Cigar Tasting</h5>
+                                <p class="card-text">Hosted by Yoel<br>
+                                    Order ID: 77963<br>
+                                    Booked on: 4pm 1st May, 2023<br>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <!-- Booking History Entry 3 -->
+            <div class="col-12 col-md-12 col-lg-6">
+                <div class="card mb-4">
+                    <div class="row no-gutters">
+
+                        <!-- Image container (visible on screens 767px and smaller) -->
+                        <div class="col-md-4 d-none d-md-block">
+                            <img src="./static/img/tubing.png" class="card-img-history img-fluid" alt="Event 1">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Boozy Lazy Tipsy Tubing</h5>
+                                <p class="card-text">Hosted by Jack<br>
+                                    Order ID: 77589<br>
+                                    Booked on: 9am 23rd Mar, 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Booking History Entry 4 -->
+            <div class="col-12 col-md-12 col-lg-6">
+                <div class="card mb-4">
+                    <div class="row no-gutters">
+
+                        <!-- Image container (visible on screens 767px and smaller) -->
+                        <div class="col-md-4 d-none d-md-block card-img-history">
+                            <img src="./static/img/jack-ripper-tour.png" class="card-img-history img-fluid" alt="Event 2">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Jack Ripper Evening Tour</h5>
+                                <p class="card-text">Hosted by Jen<br>
+                                    Order ID: 77963<br>
+                                    Booked on: 2pm 1st Jan, 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS scripting import -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+    <!-- JS login modal script -->
+    <script>
+        const loginButton = document.getElementById("loginButton");
+        const loginModal = new bootstrap.Modal(document.getElementById("loginModal"));
+        const loginModalBody = document.querySelector("#loginModal .modal-body");
+        const experiencesLink = document.getElementById("experiencesLink");
+        const bookingHistoryLink = document.getElementById("bookingHistoryLink");
+        const ticketSelector = document.getElementById("ticketSelector");
+
+        let isLoggedIn = false;
+
+        loginButton.addEventListener("click", function () {
+
+            // User is logged out
+            if (isLoggedIn) {
+
+                // User is logged in
+                loginModalBody.textContent = "You're in! You can now create and book events.";
+                loginButton.textContent = "Logout";
+
+                // Show the Experiences link
+                experiencesLink.style.display = "block";
+
+                // Show the Booking History link
+                bookingHistoryLink.style.display = "block";
+
+            } else {
+
+                loginModalBody.textContent = "It was great having you. See you next time.";
+                loginButton.textContent = "Login";
+
+                // Hide the Experiences link
+                experiencesLink.style.display = "none";
+
+                // Hide the Booking History link
+                bookingHistoryLink.style.display = "none";
+
+            }
+
+            // Toggle the login state
+            isLoggedIn = !isLoggedIn;
+
+            // Show the login modal
+            loginModal.show();
+        });
+    </script>
+
+</main>
+{% endblock %}
