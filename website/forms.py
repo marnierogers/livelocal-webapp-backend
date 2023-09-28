@@ -30,12 +30,18 @@ class RegisterForm(FlaskForm):
     user_name = StringField("User Name", validators=[InputRequired()])
     email_id = StringField("Email Address", validators=[
                            Email("Please enter a valid email")])
+    
+    # Added contact number field
+    contact_number = StringField("Contact Number")
+    address = StringField("Address")
 
-    #linking two fields - password should be equal to data entered in confirm
-    password = PasswordField("Password", validators=[InputRequired(),
-                                                     EqualTo('confirm', message="Passwords should match")])
+
+    password = PasswordField("Password", validators=[
+        InputRequired(),
+        EqualTo('confirm', message="Passwords should match")
+    ])
     confirm = PasswordField("Confirm Password")
-    #submit button
+
     submit = SubmitField("Register")
 
 #User comment
