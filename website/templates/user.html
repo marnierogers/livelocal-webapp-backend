@@ -4,14 +4,39 @@
 
 {% block content %}
 
-<div class="container-fluid">
-    <div class="col-lg-4 col-md-6 col-sm-8 mx-auto page-header">
-        <h4>{{ heading }}</h4>
+    <!-- Carousel -->
+    <div class="carousel-container">
+        <div class="row">
+            <div class="col-12 col-md-3 col-lg-3 mx-md-auto text-center mt-4"></div>
+        </div>
     </div>
 
-    <!-- Form rendering is simple and easy if using bootstrap -->
+    <!-- Create an experience -->
+    <div class="col-lg-4 col-md-6 col-sm-8 mx-auto page-header" id="create-experience-section">
+    
+        <!-- Create an experience header-->
+        <div class="container wrapper">
+            <div class="row">
+                <div class="event-header">
+                    <div class="event-page-header">
+                        <h3 class="event-page-header-small">Register now<br></h3>
+                    </div><br><br>
+                </div>
+                <div class="col-md-12">
+                    <p class="paragraph-spacing">Your next memorable adventure starts here.
+                        Sign up now to join, craft and host one-of-a-kind experiences with memories that will last a lifetime.</p>
+                </div>
+                <hr class="comment-spacer">
+            </div>
+        </div>
+    
+    </div>
+
+<div class="container-fluid">
     <div class="col-lg-4 col-md-6 col-sm-8 mx-auto">
         {{ render_form(form) }}
     </div>
 </div>
+
+
     {% endblock %}

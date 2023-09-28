@@ -490,49 +490,6 @@
             });
         </script>
 
-        <!-- JS to handle login modal -->
-        <script>
-            const loginButton = document.getElementById("loginButton");
-            const loginModal = new bootstrap.Modal(document.getElementById("loginModal"));
-            const loginModalBody = document.querySelector("#loginModal .modal-body");
-            const experiencesLink = document.getElementById("experiencesLink");
-                        const bookingHistoryLink = document.getElementById("bookingHistoryLink");
-
-            let isLoggedIn = false;
-
-            loginButton.addEventListener("click", function () {
-                if (isLoggedIn) {
-
-                    // User is logged out
-                    loginModalBody.textContent = "It was great having you. See you next time.";
-                    loginButton.textContent = "Login";
-
-                    // Hide the Experiences link
-                    experiencesLink.style.display = "none";
-
-                    // Hide the Book History link
-                    bookingHistoryLink.style.display = "none";
-
-                } else {
-                    // User is logged in
-                    loginModalBody.textContent = "You're in! You can now create and book events.";
-                    loginButton.textContent = "Logout";
-
-                    // Show the Experiences link
-                    experiencesLink.style.display = "block";
-
-                    // Show the Book History link
-                    bookingHistoryLink.style.display = "block";
-                }
-
-                // Toggle the login state
-                isLoggedIn = !isLoggedIn;
-
-                // Show the login modal
-                loginModal.show();
-            });
-        </script>
-
 </main>
 
 {% endblock %}
