@@ -19,7 +19,7 @@
                     </div><br><br>
                 </div>
                 <div class="col-md-12">
-                    <p class="paragraph-spacing">{{ copy }}</p>
+                    <p class="paragraph-spacing">{{ top_copy }}</p>
     
                     <!-- Flash Messages -->
                     {% with messages = get_flashed_messages() %}
@@ -38,12 +38,16 @@
         </div>
     </div>
 
-    <!-- Registration form -->
+    <!-- Registration / Registration form -->
     <div class="container-fluid">
         <div class="col-lg-4 col-md-6 col-sm-8 mx-auto">
             {{ render_form(form) }}
+            <div>
+                <p>{{ bottom_copy }}</p>
+            </div>
         </div>
     </div>
+
 </div>
 
     {% endblock %}

@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
+from flask import Markup
 from website.forms import LoginForm, RegisterForm
 from flask_login import login_user, login_required, logout_user
 from flask_bcrypt import generate_password_hash, check_password_hash
@@ -45,7 +46,9 @@ def register():
     
     #the else is called when the HTTP request calling this page is a GET
     else:
-        return render_template('user.html', form=register, heading='Register Now', copy='Your next memorable adventure starts here. Sign up now to join, craft and host one-of-a-kind experiences with memories that will last a lifetime.')
+        return render_template('user.html', form=register, heading='Register Now', 
+                               top_copy='Your next memorable adventure starts here. Sign up now to join, craft and host one-of-a-kind experiences with memories that will last a lifetime.', 
+                               bottom_copy=Markup("Already have an account? Click <a href='/login'>here</a> to login now."))
 
 
 
@@ -77,7 +80,10 @@ def login():
             return redirect(url_for('main.index'))
         else:
             flash(error)
-    return render_template('user.html', form=login_form, heading='Login', copy="You're 1-click away from your next big adventure! Enter your details to login to get started.")
+    return render_template('user.html', form=login_form, heading='Login', 
+                           top_copy="You're 1-click away from your next big adventure! Enter your details to login to get started.", 
+                           bottom_copy=Markup("Don't have an account? Click <a href='/register'>here</a> to register now."))
+
 
 
 

@@ -1,76 +1,7 @@
-{% extends 'base-footer-only.html' %}
-
-{% block header %}
-<!-- Header -->
-<header>
-    <!-- Nav bar -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <!--- Icon and title-->
-            <i class="bi bi-geo-alt custom-icon"></i>
-            <a class="navbar-brand custom-nav-brand" href="index.html"><b>LiveLocal</b></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <i class="bi bi-list custom-icon-list"></i>
-            </button>
-            <!--- Links and button -->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex justify-content-center">
-                    <li class="nav-item">
-                        <a class="nav-link" href="create-experience.html" id="experiencesLink">
-                            Create Experience
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="booking-history.html" id="bookingHistoryLink">
-                            Booking History
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <button id="loginButton" class="btn btn-primary btn-md custom-btn">
-                            Logout
-                        </button>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-
-    <!-- Modal for Login button -->
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">User Message</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    You're in! You can now create and book events.
-                </div>
-                <div class="modal-footer">
-                    <button id="loginModalButton" type="button" class="btn btn-primary btn-md custom-btn"
-                        data-bs-dismiss="modal">
-                        Got it!
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
-{% endblock %}
+{% extends "base-inner.html" %}
 
 {% block content %}
 <main>
-    <!-- Carousel -->
-    <div class="carousel-container">
-        <div class="row">
-            <div class="col-12 col-md-3 col-lg-3 mx-md-auto text-center mt-4"></div>
-        </div>
-    </div>
-
     <!-- Booking History -->
     <div class="major-container" id="create-experience-section">
         <div class="container wrapper">
