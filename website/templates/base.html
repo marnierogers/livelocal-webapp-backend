@@ -48,7 +48,7 @@
                     <i class="bi bi-list custom-icon-list"></i>
                 </button>
                 <!--- Links and button -->
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex justify-content-center">
                         <li class="nav-item">
                             <a class="nav-link" href="create-experience.html" id="experiencesLink"
@@ -68,7 +68,24 @@
                             </button>
                         </li>
                     </ul>
+                </div> -->
+
+                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                    <div class="navbar-nav ml-auto">
+
+                        <!-- Register/Login/Logout and welcome -->
+                        {% if current_user.is_authenticated %}
+                        <a class="nav-item nav-link disabled text-muted" href="#">Welcome {{current_user.name}}</a>
+                        <a class="nav-item nav-link" href="{{ url_for('auth.logout') }}">Log Out</a>
+                        {% else %}
+                        <a class="nav-item nav-link" href="{{ url_for('auth.register') }}">Register</a>
+                        <a class="nav-item nav-link" href="{{ url_for('auth.login') }}">Log In</a>
+                        {% endif %}
+
+                    </div>
                 </div>
+
+
             </div>
         </nav>
 

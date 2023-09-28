@@ -41,6 +41,11 @@ def register():
     else:
         return render_template('user.html', form=register, heading='Register')
 
+
+
+
+
+
 @authbp.route('/login', methods=['GET', 'POST'])
 def login():
     login_form = LoginForm()
@@ -63,13 +68,17 @@ def login():
             
             #all good, set the login_user of flask_login to manage the user
             login_user(user)
-            return redirect(url_for('index.html'))
+            return redirect(url_for('main.index'))
         else:
             flash(error)
     return render_template('user.html', form=login_form, heading='Login')
+
+
+
+
 
 @authbp.route('/logout')
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('index.html'))
+    return redirect(url_for('main.index'))

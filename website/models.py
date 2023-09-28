@@ -13,5 +13,5 @@ class User(db.Model, UserMixin):
     # the storage should be at least 255 chars long
     password_hash = db.Column(db.String(255), nullable=False)
 
-    # relation to call user.comments and comment.created_by
-    comments = db.relationship('Comment', backref='user')
+    # # relation to call user.comments and comment.created_by
+    # comments = db.relationship('Comment', backref='user')

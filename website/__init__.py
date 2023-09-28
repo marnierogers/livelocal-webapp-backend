@@ -19,14 +19,14 @@ def create_app():
 
     #a secret key for the session object
     #(it would be better to use an environment variable here)
-    app.secret_key = 'somerandomvalue'
+    app.secret_key = 'livelocalpassword'
 
     #Configue and initialise DB
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///traveldb.sqlite'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///livelocaldb.sqlite'
     db.init_app(app)
 
     #config upload folder
-    UPLOAD_FOLDER = '/static/image'
+    UPLOAD_FOLDER = 'static/upload'
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
     #initialise the login manager
