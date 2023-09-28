@@ -37,7 +37,11 @@ class LoginForm(FlaskForm):
 
 #User register
 class RegisterForm(FlaskForm):
-    user_name = StringField("User Name", validators=[InputRequired()])
+    name = StringField("Name", validators=[
+        InputRequired(),
+        Regexp(r"^[a-zA-Z-' ]*$",
+               message="Name can only contain letters, hyphens, and apostrophes")
+    ])
     email_id = EmailField("Email Address", validators=[InputRequired(),
                            Email("Please enter a valid email")])
     

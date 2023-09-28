@@ -16,12 +16,17 @@ def register():
     if (register.validate_on_submit()==True):
             
             #get username, password and email from the form
-            uname = register.user_name.data
+            name = register.name.data
             pwd = register.password.data
             email = register.email_id.data
+            contact_number = register.contact_number.data
+            address_line1 = register.address_line1.data
+            suburb = register.suburb.data
+            postcode = register.postcode.data
+
 
             #check if a user exists
-            user = db.session.scalar(db.select(User).where(User.name==uname))
+            user = db.session.scalar(db.select(User).where(User.name==name))
             if user:#this returns true when user is not None
                 flash('Username already exists, please try another')
                 return redirect(url_for('auth.register'))
@@ -30,7 +35,8 @@ def register():
             pwd_hash = generate_password_hash(pwd)
 
             #create a new User model object
-            new_user = User(name=uname, password_hash=pwd_hash, emailid=email)
+            new_user = User(name=name, password_hash=pwd_hash, emailid=email,
+                            contact_number=contact_number, address_line1=address_line1, suburb=suburb, postcode=postcode)
             db.session.add(new_user)
             db.session.commit()
 
