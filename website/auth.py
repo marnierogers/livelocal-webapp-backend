@@ -39,7 +39,7 @@ def register():
     
     #the else is called when the HTTP request calling this page is a GET
     else:
-        return render_template('user.html', form=register, heading='Register')
+        return render_template('user.html', form=register, heading='Register Now', copy='Your next memorable adventure starts here. Sign up now to join, craft and host one-of-a-kind experiences with memories that will last a lifetime.')
 
 
 
@@ -71,7 +71,7 @@ def login():
             return redirect(url_for('main.index'))
         else:
             flash(error)
-    return render_template('user.html', form=login_form, heading='Login')
+    return render_template('user.html', form=login_form, heading='Login', copy="You're 1-click away from your next big adventure! Enter your details to login to get started.")
 
 
 

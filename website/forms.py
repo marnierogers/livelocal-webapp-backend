@@ -31,7 +31,8 @@ class LoginForm(FlaskForm):
                             InputRequired('Enter user name')])
     password = PasswordField("Password", validators=[
                              InputRequired('Enter user password')])
-    submit = SubmitField("Login")
+    submit = SubmitField("Login", render_kw={
+                         'class': 'ourClasses', 'style': 'width:100%; background-color: #849BFF; border-color: #849BFF;'})
 
 
 #User register
@@ -59,7 +60,9 @@ class RegisterForm(FlaskForm):
 
     password = PasswordField("Password", validators=[
         InputRequired(),
-        EqualTo('confirm', message="Passwords should match")
+        EqualTo('confirm', message="Passwords should match"),
+        Regexp('^(?=.*[A-Za-z])(?=.*[@#$%^&!]).{5,}$',
+               message='Password must contain at least 1 letter, 1 special character, and be 5 characters long.')
     ])
 
     confirm = PasswordField("Confirm Password", validators=[InputRequired()])

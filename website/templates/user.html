@@ -1,42 +1,35 @@
-{% extends "base.html" %}
+{% extends "base-inner.html" %}
 
 {% from 'bootstrap5/form.html' import render_form %}
 
 {% block content %}
 
-    <!-- Carousel -->
-    <div class="carousel-container">
-        <div class="row">
-            <div class="col-12 col-md-3 col-lg-3 mx-md-auto text-center mt-4"></div>
-        </div>
-    </div>
-
-    <!-- Create an experience -->
+<div>
+    <!-- Register / Login header -->
     <div class="col-lg-4 col-md-6 col-sm-8 mx-auto page-header" id="create-experience-section">
-    
-        <!-- Create an experience header-->
+
+        <!-- Register / Login header-->
         <div class="container wrapper">
             <div class="row">
                 <div class="event-header">
                     <div class="event-page-header">
-                        <h3 class="event-page-header-small">Register now<br></h3>
+                        <h3 class="event-page-header-small">{{ heading }}<br></h3>
                     </div><br><br>
                 </div>
                 <div class="col-md-12">
-                    <p class="paragraph-spacing">Your next memorable adventure starts here.
-                        Sign up now to join, craft and host one-of-a-kind experiences with memories that will last a lifetime.</p>
+                    <p class="paragraph-spacing">{{ copy }}</p>
                 </div>
                 <hr class="comment-spacer">
             </div>
         </div>
-    
     </div>
 
-<div class="container-fluid">
-    <div class="col-lg-4 col-md-6 col-sm-8 mx-auto">
-        {{ render_form(form) }}
+    <!-- Registration form -->
+    <div class="container-fluid">
+        <div class="col-lg-4 col-md-6 col-sm-8 mx-auto">
+            {{ render_form(form) }}
+        </div>
     </div>
 </div>
-
 
     {% endblock %}
