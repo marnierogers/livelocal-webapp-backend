@@ -18,7 +18,7 @@ def register():
             #get username, password and email from the form
             name = register.name.data
             pwd = register.password.data
-            email = register.email_id.data
+            email_id = register.email_id.data
             contact_number = register.contact_number.data
             address_line1 = register.address_line1.data
             suburb = register.suburb.data
@@ -26,16 +26,16 @@ def register():
 
 
             #check if a user exists
-            user = db.session.scalar(db.select(User).where(User.name==name))
-            if user:#this returns true when user is not None
-                flash('Username already exists, please try another')
+            emailid = db.session.scalar(db.select(User).where(User.email_id==email_id))
+            if emailid:  # this returns true when user is not None
+                flash('Email already exists, please try another', 'error')
                 return redirect(url_for('auth.register'))
             
             # don't store the password in plaintext!
             pwd_hash = generate_password_hash(pwd)
 
             #create a new User model object
-            new_user = User(name=name, password_hash=pwd_hash, emailid=email,
+            new_user = User(name=name, password_hash=pwd_hash, email_id=email_id,
                             contact_number=contact_number, address_line1=address_line1, suburb=suburb, postcode=postcode)
             db.session.add(new_user)
             db.session.commit()
@@ -59,13 +59,13 @@ def login():
     if(login_form.validate_on_submit()==True):
 
         #get the username and password from the database
-        user_name = login_form.user_name.data
+        email_id = login_form.email_id.data
         password = login_form.password.data
-        user = db.session.scalar(db.select(User).where(User.name==user_name))
+        user = db.session.scalar(db.select(User).where(User.email_id==email_id))
 
         #if there is no user with that name
         if user is None:
-            error = 'Incorrect username'#could be a security risk to give this much info away
+            error = 'Incorrect email address '#could be a security risk to give this much info away
 
         #check the password - notice password hash function
         elif not check_password_hash(user.password_hash, password): # takes the hash and password

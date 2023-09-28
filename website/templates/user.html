@@ -5,6 +5,8 @@
 {% block content %}
 
 <div>
+
+
     <!-- Register / Login header -->
     <div class="col-lg-4 col-md-6 col-sm-8 mx-auto page-header" id="create-experience-section">
 
@@ -18,9 +20,21 @@
                 </div>
                 <div class="col-md-12">
                     <p class="paragraph-spacing">{{ copy }}</p>
+    
+                    <!-- Flash Messages -->
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    <ul class="flashes">
+                        {% for message in messages %}
+                        <li class="flash-message">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% endwith %}
                 </div>
                 <hr class="comment-spacer">
             </div>
+
         </div>
     </div>
 

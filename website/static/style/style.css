@@ -776,5 +776,13 @@ h5 {
    }
 
 
+  /* ---------------------------------------  Flash message - Register Page  --------------------------------------- */
 
+   ul.flashes {
+       list-style-type: none;
+       padding: 0;
+   }
 
+   ul.flashes li.flash-message {
+       color: red;
+   }

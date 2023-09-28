@@ -27,10 +27,10 @@ class DestinationForm(FlaskForm):
 
 #User login
 class LoginForm(FlaskForm):
-    user_name = StringField("User Name", validators=[
-                            InputRequired('Enter user name')])
+    email_id = StringField("Email", validators=[
+                            InputRequired('Enter email')])
     password = PasswordField("Password", validators=[
-                             InputRequired('Enter user password')])
+                             InputRequired('Enter password')])
     submit = SubmitField("Login", render_kw={
                          'class': 'ourClasses', 'style': 'width:100%; background-color: #849BFF; border-color: #849BFF;'})
 
