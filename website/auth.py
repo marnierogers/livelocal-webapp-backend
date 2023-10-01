@@ -25,7 +25,6 @@ def register():
             suburb = register.suburb.data
             postcode = register.postcode.data
 
-
             #check if a user exists
             emailid = db.session.scalar(db.select(User).where(User.email_id==email_id))
             if emailid:  # this returns true when user is not None
@@ -49,10 +48,6 @@ def register():
         return render_template('user.html', form=register, heading='Register Now', 
                                top_copy='Your next memorable adventure starts here. Sign up now to join, craft and host one-of-a-kind experiences with memories that will last a lifetime.', 
                                bottom_copy=Markup("Already have an account? Click <a href='/login'>here</a> to login now."))
-
-
-
-
 
 
 @authbp.route('/login', methods=['GET', 'POST'])
@@ -83,10 +78,6 @@ def login():
     return render_template('user.html', form=login_form, heading='Login', 
                            top_copy="You're 1-click away from your next big adventure! Enter your details to login to get started.", 
                            bottom_copy=Markup("Don't have an account? Click <a href='/register'>here</a> to register now."))
-
-
-
-
 
 
 @authbp.route('/logout')
