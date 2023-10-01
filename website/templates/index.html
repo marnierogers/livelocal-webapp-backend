@@ -4,6 +4,26 @@
 <!--- Main -->
 <main>
 
+    <!-- Modal for Login button -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">User Message</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    You're in! You can now create and book events.
+                </div>
+                <div class="modal-footer">
+                    <button id="loginModalButton" type="button" class="btn btn-primary btn-md custom-btn"
+                        data-bs-dismiss="modal">
+                        Got it!
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Carousel -->
     <div class="carousel-container">
         <div class="row">
@@ -133,7 +153,7 @@
             <!-- Card 1 -->
             <div class="custom-card mx-auto mx-3 left-align-card" data-type="tours" data-status="open">
                     <div class="card box-shadow mx-auto homepage-card">
-                        <a href="event.html">
+                        <a href="/event">
                         <img src="./static/img/kayak-tour.png" class="card-img-top" alt="Man kayaking on river">
                         
                         <!-- Status box in the top right corner -->
@@ -157,7 +177,7 @@
             <!-- Card 2 -->
             <div class="custom-card mx-auto mx-3 left-align-card" data-type="tours" data-status="sold-out"> 
                 <div class="card box-shadow mx-auto homepage-card">
-                    <a href="event.html">
+                    <a href="/event">
                     <img src="./static/img/acropolis-tour.png" class="card-img-top" alt="Acropolis">
 
                     <!-- Status box in the top right corner -->
@@ -180,7 +200,7 @@
             <!-- Card 3 -->
             <div class="custom-card mx-auto mx-3 left-align-card" data-type="food-drink" data-status="cancelled"> 
                 <div class="card box-shadow mx-auto homepage-card">
-                    <a href="event.html">
+                    <a href="/event">
                     <img src="./static/img/pasta-class.png" class="card-img-top" alt="Nona rolling pasta with 2 women">
                     
                     <!-- Status box in the top right corner -->
@@ -201,7 +221,7 @@
             <!-- Card 4 -->
             <div class="custom-card mx-auto mx-3 left-align-card" data-type="unique" data-status="inactive">
                 <div class="card box-shadow mx-auto homepage-card">
-                    <a href="event.html">
+                    <a href="/event">
                     <img src="./static/img/atlas-camel-ride.png" class="card-img-top" alt="Group of people riding camels in desert">
 
                     <!-- Status box in the top right corner -->
@@ -224,7 +244,7 @@
             <!-- Card 1 -->
             <div class="custom-card mx-auto mx-3 left-align-card" data-type="tours" data-status="open">
                 <div class="card box-shadow mx-auto homepage-card">
-                    <a href="event.html">
+                    <a href="/event">
                     <img src="./static/img/Nanhbinh-day-trip.png" class="card-img-top" alt="Woman wearing red dress and hat floating in boat">
                     <!-- Status box in the top right corner -->
                     <div class="status-green">
@@ -246,7 +266,7 @@
             <!-- Card 2 -->
             <div class="custom-card mx-auto mx-3 left-align-card" data-type="tours" data-status="sold-out">
                 <div class="card box-shadow mx-auto homepage-card">
-                    <a href="event.html">
+                    <a href="/event">
                     <img src="./static/img/tubing.png" class="card-img-top" alt="Group of people floating down river in colourful rubber rings">
         
                     <!-- Status box in the top right corner -->
@@ -268,7 +288,7 @@
             <!-- Card 3 -->
             <div class="custom-card mx-auto mx-3 left-align-card" data-type="food-drink" data-status="cancelled">
                 <div class="card box-shadow mx-auto homepage-card">
-                    <a href="event.html">
+                    <a href="/event">
                     <img src="./static/img/strings-forest.png" class="card-img-top" alt="Man playing violine in woods to audience">
                     <!-- Status box in the top right corner -->
                     <div class="status-black">
@@ -288,7 +308,7 @@
             <!-- Card 4 -->
             <div class="custom-card mx-auto mx-3 left-align-card" data-type="unique" data-status="inactive">
                     <div class="card box-shadow mx-auto homepage-card">
-                        <a href="event.html">
+                        <a href="/event">
                         <img src="./static/img/chef-tour.png" class="card-img-top" alt="Chef wearing black clothes standing next to fruit hosting tour">
                         <!-- Status box in the top right corner -->
                         <div class="status-grey">
@@ -310,7 +330,7 @@
             <!-- Card 1 -->
             <div class="custom-card mx-auto mx-3 left-align-card" data-type="unique" data-status="open">
                 <div class="card box-shadow mx-auto homepage-card">
-                    <a href="event.html">
+                    <a href="/event">
                     <img src="./static/img/cigar-tasting.png" class="card-img-top" alt="Man wearing glasses and hat holding liquor and lit cigar">
 
                     <!-- Status box in the top right corner -->
@@ -333,7 +353,7 @@
             <!-- Card 2 -->
             <div class="custom-card mx-auto mx-3 left-align-card" data-type="tours" data-status="open">
                     <div class="card box-shadow mx-auto homepage-card">
-                        <a href="event.html">
+                        <a href="/event">
                         <img src="./static/img/jack-ripper-tour.png" class="card-img-top" alt="Foggy archway with people walking under it">
                 
                     <!-- Status box in the top right corner -->
@@ -355,7 +375,7 @@
             <!-- Card 3 -->
             <div class="custom-card mx-auto mx-3 left-align-card" data-type="art-culture" data-status="open">
                 <div class="card box-shadow mx-auto homepage-card">
-                    <a href="event.html">
+                    <a href="/event">
                     <img src="./static/img/kimino-kyoto.png" class="card-img-top" alt="Woman dressing another woman in kimono">
                     
                     <!-- Status box in the top right corner -->
@@ -379,7 +399,7 @@
             <!-- Card 4 -->
             <div class="custom-card mx-auto mx-3 left-align-card" data-type="tours" data-status="open">
                 <div class="card box-shadow mx-auto homepage-card">
-                    <a href="event.html">
+                    <a href="/event">
                     <img src="./static/img/cherry-blossom-tour.png" class="card-img-top" alt="...">
             
                     <!-- Status box in the top right corner -->
@@ -416,6 +436,63 @@
                         this.classList.add("active");
                     });
                 });
+            });
+        </script>
+
+        <!-- JS to handle login modal script -->
+        <script>
+            const loginButton = document.getElementById("loginButton");
+            const loginModal = new bootstrap.Modal(document.getElementById("loginModal"));
+            const loginModalBody = document.querySelector("#loginModal .modal-body");
+            const experiencesLink = document.getElementById("experiencesLink");
+            const bookingHistoryLink = document.getElementById("bookingHistoryLink");
+            const loginMessage = document.getElementById("loginMessage");
+            const ticketSelector = document.getElementById("ticketSelector");
+
+            let isLoggedIn = false;
+
+            loginButton.addEventListener("click", function () {
+
+                // User is logged out
+                if (isLoggedIn) {
+                    loginModalBody.textContent = "It was great having you. See you next time.";
+                    loginButton.textContent = "Login";
+
+                    // Hide the Experiences link
+                    experiencesLink.style.display = "none";
+
+                    // Hide the Book History link
+                    bookingHistoryLink.style.display = "none";
+
+                    // Disable Book now button
+                    bookNowBtn.disabled = true;
+
+                    // Disable ticket selector
+                    ticketSelector.disabled = true;
+
+                } else {
+                    // User is logged in
+                    loginModalBody.textContent = "You're in! You can now create and book events.";
+                    loginButton.textContent = "Logout";
+
+                    // Show the Experiences link
+                    experiencesLink.style.display = "block";
+
+                    // Show the Book History link
+                    bookingHistoryLink.style.display = "block";
+
+                    // Enable the "Book Now" button
+                    bookNowBtn.disabled = false;
+
+                    // Enable ticket selector
+                    ticketSelector.disabled = false;
+                }
+
+                // Toggle the login state
+                isLoggedIn = !isLoggedIn;
+
+                // Show the login modal
+                loginModal.show();
             });
         </script>
 
