@@ -40,18 +40,18 @@
 }
 
 /* Primary button styling - Login button */
-#loginButton.custom-btn {
+#loginButton.custom-btn, #registerButton.custom-btn {
     background-color: #849BFF;
     border-color: #849BFF;
 }
 
 /* Primary button hover styling */
-#loginButton.custom-btn:hover {
+#loginButton.custom-btn:hover, #registerButton.custom-btn:hover {
     background-color: #647ef1;
 }
 
 /*Move login button down */
-#loginButton {
+#loginButton, #registerButton {
     margin-top: 3px;
 
 }
@@ -109,7 +109,7 @@
 .custom-nav-brand {
     color: #849BFF;
     padding: 0;
-    padding-left: 500;/* Set padding to 0 */
+    padding-left: 0;/* Set padding to 0 */
     margin: 0;/* Set margin to 0 */
     display: flex;
     align-items: center;/* Vertically center the text */
@@ -123,8 +123,14 @@
 }
 
 .navbar {
-    padding-left: calc(20%);
-    padding-right: calc(20%);
+    padding-left: calc(0%);
+    padding-right: calc(0%);
+}
+
+/* Welcome messaage */
+#welcome_message {
+    display: flex;
+    align-items: center;
 }
 
 /* Class for the custom icon */
