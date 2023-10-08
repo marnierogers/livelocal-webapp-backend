@@ -44,8 +44,8 @@ def create_app():
     #add Blueprints
     from . import views
     app.register_blueprint(views.bp)
-    # from . import destinations
-    # app.register_blueprint(destinations.destbp)
+    from . import experiences
+    app.register_blueprint(experiences.eventbp)
 
     from .auth import authbp
     app.register_blueprint(authbp)

@@ -17,7 +17,7 @@ class User(db.Model, UserMixin):
     postcode = db.Column(db.Integer, nullable=False)
 
     # # relation to call user.comments and comment.created_by
-    # comments = db.relationship('Comment', backref='user')
+    comments = db.relationship('Comment', backref='user')
 
 
 class Experience(db.Model):
@@ -42,7 +42,7 @@ class Experience(db.Model):
 
     # ... Create the Comments db.relationship
     # relation to call destination.comments and comment.destination
-    # comments = db.relationship('Comment', backref='destination')
+    comments = db.relationship('Comment', backref='experience')
 
     def __repr__(self):  # string print method
         return f"Name: {self.name}"
@@ -53,15 +53,15 @@ class Experience(db.Model):
         # For this example, we'll assume the status is always 'Open'
         return 'Open'
 
-# class Comment(db.Model):
-#     __tablename__ = 'comments'
-#     id = db.Column(db.Integer, primary_key=True)
-#     text = db.Column(db.String(400))
-#     created_at = db.Column(db.DateTime, default=datetime.now())
+class Comment(db.Model):
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String(400))
+    created_at = db.Column(db.DateTime, default=datetime.now())
 
-#     #add the foreign keys
-#     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-#     destination_id = db.Column(db.Integer, db.ForeignKey('destinations.id'))
+    #add the foreign keys
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    experience_id = db.Column(db.Integer, db.ForeignKey('experiences.id'))
 
-#     def __repr__(self):
-#         return f"Comment: {self.text}"
+    def __repr__(self):
+        return f"Comment: {self.text}"
