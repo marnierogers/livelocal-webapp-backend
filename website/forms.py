@@ -14,16 +14,17 @@ def validate_contact_number(form, field):
         raise ValidationError('Contact number must contain only numbers.')
 
 
-#Create new destination
-class DestinationForm(FlaskForm):
-  name = StringField('Country', validators=[InputRequired()])
-  description = TextAreaField('Description',
-                              validators=[InputRequired()])
-  image = FileField('Destination Image', validators=[
-      FileRequired(message='Image cannot be empty'),
-      FileAllowed(ALLOWED_FILE, message='Only supports PNG, JPG, png, jpg')])
-  currency = StringField('Currency', validators=[InputRequired()])
-  submit = SubmitField("Create")
+# #Create new destination
+# class DestinationForm(FlaskForm):
+#   name = StringField('Country', validators=[InputRequired()])
+#   description = TextAreaField('Description',
+#                               validators=[InputRequired()])
+#   image = FileField('Destination Image', validators=[
+#       FileRequired(message='Image cannot be empty'),
+#       FileAllowed(ALLOWED_FILE, message='Only supports PNG, JPG, png, jpg')])
+#   currency = StringField('Currency', validators=[InputRequired()])
+#   submit = SubmitField("Create")
+
 
 #User login
 class LoginForm(FlaskForm):
@@ -74,7 +75,7 @@ class RegisterForm(FlaskForm):
     submit = SubmitField("Register", render_kw={
                          'class': 'ourClasses', 'style': 'width:100%; background-color: #849BFF; border-color: #849BFF;'})
 
-#User comment
-class CommentForm(FlaskForm):
-  text = TextAreaField('Comment', [InputRequired()])
-  submit = SubmitField('Create')
+# #User comment
+# class CommentForm(FlaskForm):
+#   text = TextAreaField('Comment', [InputRequired()])
+#   submit = SubmitField('Create')
