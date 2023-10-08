@@ -5,6 +5,8 @@ from . import db
 import os
 from werkzeug.utils import secure_filename
 from flask_login import login_required, current_user
+from sqlalchemy.orm import joinedload
+
 
 eventbp = Blueprint('experiences', __name__, url_prefix='/experiences')
 
@@ -58,6 +60,26 @@ def create():
     return redirect(url_for('experiences.create'))
   
   return render_template('experiences/create.html', form=form)
+
+
+
+
+
+@eventbp.route('/update', methods=['GET', 'POST'])
+@login_required
+def update():
+  print('Method type: ', request.method)
+  # Query the database to get experiences associated with the current user
+  user_experiences = Experience.query \
+      .filter(Experience.user == current_user) \
+      .options(joinedload(Experience.user)) \
+      .all()
+
+  return render_template('experiences/update.html', experiences=user_experiences)
+
+
+
+
 
 def check_upload_file(form):
   
