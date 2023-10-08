@@ -16,8 +16,9 @@ class User(db.Model, UserMixin):
     suburb = db.Column(db.String(255), nullable=False)
     postcode = db.Column(db.Integer, nullable=False)
 
-    # # relation to call user.comments and comment.created_by
+    # relation to call user.comments and comment.created_by
     comments = db.relationship('Comment', backref='user')
+    experiences = db.relationship('Experience', backref='user', lazy=True)
 
 
 class Experience(db.Model):
@@ -42,6 +43,9 @@ class Experience(db.Model):
     # ... Create the Comments db.relationship
     # relation to call destination.comments and comment.destination
     comments = db.relationship('Comment', backref='experience')
+
+    # Create user db.relationship
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
     def __repr__(self):  # string print method
         return f"Name: {self.name}"

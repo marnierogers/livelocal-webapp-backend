@@ -43,7 +43,7 @@ def create():
     #call the function that checks and returns image
     db_file_path = check_upload_file(form)
     experience = Experience(type=type, name=name, description=description, address_line1=address_line1, suburb=suburb, postcode=postcode, start_date=start_date, start_time=start_time, end_time=end_time, ticket_qty=ticket_qty, price=price,
-                            image=db_file_path)
+                            image=db_file_path, user=current_user)
 
     # add the object to the db session
     db.session.add(experience)
