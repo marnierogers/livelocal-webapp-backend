@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, EmailField, DecimalField
+from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, EmailField, DecimalField, SelectField, DateField, DateTimeField
 from wtforms.validators import InputRequired, Email, EqualTo, Regexp, NumberRange, Length
 from flask_wtf.file import FileRequired, FileField, FileAllowed
 import re
@@ -40,11 +40,8 @@ class LoginForm(FlaskForm):
 class RegisterForm(FlaskForm):
     name = StringField("Name", validators=[
         InputRequired(),
-        Regexp(r"^[a-zA-Z-' ]*$",
-               message="Name can only contain letters, hyphens, and apostrophes")
-    ])
-    email_id = EmailField("Email Address", validators=[InputRequired(),
-                           Email("Please enter a valid email")])
+        Regexp(r"^[a-zA-Z-' ]*$",message="Name can only contain letters, hyphens, and apostrophes")])
+    email_id = EmailField("Email Address", validators=[InputRequired(),Email("Please enter a valid email")])
     
     # Added contact number field
     contact_number = StringField("Contact Number", validators=[
@@ -79,3 +76,24 @@ class RegisterForm(FlaskForm):
 # class CommentForm(FlaskForm):
 #   text = TextAreaField('Comment', [InputRequired()])
 #   submit = SubmitField('Create')
+
+
+class ExperienceForm(FlaskForm):
+    type = SelectField('Type of Event', choices=[
+        ('', 'Select event type'),
+        ('ArtCulture', 'Art & Culture'),
+        ('Tours', 'Tours'),
+        ('FoodDrink', 'Food & Drink'),
+        ('Unique', 'Unique')
+    ], validators=[InputRequired()])
+    name = StringField('Experience Name', validators=[InputRequired()])
+    description = TextAreaField('Description', validators=[InputRequired()])
+    address_line1 = StringField('Address', validators=[InputRequired()])
+    suburb = StringField('Suburb', validators=[InputRequired()])
+    postcode = StringField("Postcode", validators=[InputRequired(),Regexp('^\d{4}$', message="Postcode must be a 4-digit number")])
+    start_date = DateField('Date', validators=[InputRequired()])
+    start_time = DateTimeField('Start Time', validators=[InputRequired()])
+    end_time = DateTimeField('End Time', validators=[InputRequired()])
+    ticket_qty = StringField("Number of tickets", validators=[InputRequired(),Regexp('^\d{3}$', message="Must have between 1 - 100 tickets")])
+    price = DecimalField('Price', validators=[InputRequired(), NumberRange(min=0.01)])
+    image = StringField('Image', validators=[InputRequired()])
