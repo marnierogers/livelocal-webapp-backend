@@ -3,59 +3,521 @@
 {% from 'bootstrap5/form.html' import render_form %}
 
 {% block content %}
+<!-- Main -->
+<main>
 
-<div class="container">
-    <div class="row mt-5 mb-3">
-        <div class="col-md-12">
-            <div class="float-left">
-                <h1 class="mb-0">{{ experience.name }}</h1>
-                <p>Popular Experiences</p>
+    <!-- Book Experience Header -->
+    <div class="container wrapper">
+        <div class="event-header">
+            <div class="event-page-header">
+                <h3 class="event-page-header-small">{{ experience.name }}</h3>
             </div>
 
-            <div class="float-right text-right">
-                <p class="mb-0">1 AUD equals</p>
-                <h2 id="exchange-rate">0.62 {{ experience.currency }}</h1>
+            <div class="event-page-right-header">
+                <i class="bi bi-water water-icon"></i> {{ experience.type }}
+            </div>
+
+            <div class="event-page-right-header">
+                <i class="bi bi-calendar3 calendar3-icon"></i> {{ experience.start_time }}, {{ experience.start_date }}
             </div>
         </div>
+
+        <div class="event-header" style="margin-bottom: 30px;">
+            <div class="event-page-left-header">
+                <h6 class="hosted-by-text">Hosted by Paul</h6>
+            </div>
+
+            <div class="event-page-right-header">
+                <i class="bi bi-geo-alt geo-alt-icon"></i> {{ experience.address_line1 }}
+            </div>
+        </div>
+
+        <hr class="homepage-card-spacer">
     </div>
 
-    <!-- Experience -->
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card my-3">
-                <div class="card-body">
-                    <div class="media">
-                        <div class="media-body">
-                            <small class="font-weight-bold text-muted">Stay 2 nights</small>
-                            <h5 class="mt-0">{{ experience.name }}</h5>
-                            <p>{{ experience.description }}</p>
-                            <a href="#" class="btn btn-danger">Book Now</a>
-                        </div>
-                    </div>
+    <!-- Images -->
+    <div class="container">
+        <div class="row">
+            <!-- Display only on screens smaller than 577px -->
+            <div class="col-6 d-block d-sm-none">
+                <div class="image">
+                    <img src="./static/img/kayak-tour.png" alt="Man in Kayak" class="img-fluid">
+                </div>
+            </div>
+            <div class="col-6 d-block d-sm-none">
+                <div class="image">
+                    <img src="./static/img/kayak-event2.png" alt="Two kayaks on water" class="img-fluid">
+                </div>
+            </div>
+
+            <!-- Display on larger screens -->
+            <div class="col-sm-4 col-md-4 col-lg-4 d-none d-sm-block">
+                <div class="image">
+                    <img src="./static/img/kayak-tour.png" alt="Man in Kayak" class="img-fluid">
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-4 col-lg-4 d-none d-sm-block">
+                <div class="image">
+                    <img src="./static/img/kayak-event2.png" alt="Two kayaks on water" class="img-fluid">
+                </div>
+            </div>
+
+            <!-- Additional image for larger screens -->
+            <div class="col-sm-4 col-md-4 col-lg-4 d-none d-sm-block">
+                <div class="image">
+                    <img src="./static/img/kayak-event1.png" alt="Group of kayakers" class="img-fluid">
                 </div>
             </div>
         </div>
     </div>
-    <hr>
 
+    <!-- Below image content  -->
+    <div class="container wrapper">
 
-    <!-- Comments -->
-    <div class="row">
-        <div class="col-md-12">
-            <h2>Comments</h1>
+        <!-- What to expect header -->
+        <div class="row">
+            <div class="what-to-expect-header">
+                <div class="what-to-expect-header-position">
+                    <h3 class="what-to-expect-header-text">What to expect</h3>
+                </div>
+            </div>
         </div>
+        <hr class="homepage-card-spacer">
+
+        <!--- What to expect content and Ticket selector -->
+        <div class="row">
+            <!--- What to expect text -->
+            <div class="col-12 col-md-5 col-lg-7">
+                <p class="paragraph-spacing">{{ experience.description }}</p>
+            </div>
+
+            <!--- Ticket selector -->
+            <div class="col-12 col-md-7 col-lg-5">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="status-green" id="change-status">
+                            Open
+                        </div>
+                        <h5 class="card-title">Price: $99pp</h5>
+                        <p class="card-text">Tickets available: <span id="availableTickets">9</span></p>
+                        <div class="row align-items-center">
+                            <div class="col-md-6 d-flex align-items-center">
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="ticketSelector">Tickets:</label>
+                                    <select class="form-select" id="ticketSelector">
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 d-flex align-items-center eventPageBookNowButton">
+                                <button class="btn btn-primary custom-btn" id="bookNowBtn">Book Now</button>
+                            </div>
+                            <div id="loginMessage" class="alert alert-warning">
+                                Please login to book tickets
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comment section header -->
+            <div class="container wrapper">
+                <div class="row">
+                    <div class="comment-section-header">
+                        <div class="event-page-left-header">
+                            <h3 class="event-page-header-small">User Comments</h3>
+                        </div>
+                    </div>
+                </div>
+                <hr class="comment-spacer">
+            </div>
+
+            <!-- Comment section existing and new comments -->
+            <div class="container">
+                <div class="row d-flex justify-content-left">
+                    <div class="col-md-12 col-lg-12">
+                        <div class="card text-dark">
+
+                            <!-- Existing comments -->
+                            <!--- Comment 1 -->
+                            <div class="card-body p-4">
+                                <div class="d-flex flex-start">
+                                    <img class="rounded-circle shadow-1-strong me-3"
+                                        src="./static/img/maggie-avatar.png" alt="avatar" width="60" height="60" />
+                                    <div>
+                                        <h6 class="fw-bold mb-1">Maggie Marsh</h6>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <p class="mb-0">
+                                                7th May, 2023
+                                            </p>
+                                        </div>
+                                        <p class="mb-0">
+                                            I'm so glad we booked the Noosa Islands Kayak Adventure! It felt like we
+                                            had the entire
+                                            paradise to ourselves, thanks to
+                                            Paul's guidance. The clear waters, the chance to swim at hidden reefs,
+                                            and the
+                                            encounters with sea turtles and dolphins
+                                            left us in awe. It's an exclusive journey into the heart of nature's
+                                            wonders, and we'll
+                                            cherish these memories forever.
+                                            Don't miss out on this extraordinary experience in Noosa!
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <!--- Comment 2 -->
+                            <div class="card-body p-4">
+                                <div class="d-flex flex-start">
+                                    <img class="rounded-circle shadow-1-strong me-3" src="./static/img/alexa-avatar.png"
+                                        alt="avatar" width="60" height="60" />
+                                    <div>
+                                        <h6 class="fw-bold mb-1">Alexa Bennett</h6>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <p class="mb-0">
+                                                20th March, 2023
+                                            </p>
+                                        </div>
+                                        <p class="mb-0">
+                                            What an incredible experience! The Noosa Islands Kayak Adventure was a
+                                            true highlight of our trip. Paul,
+                                            our local guide, was not only knowledgeable but also passionate about
+                                            the area's natural beauty. Paddling through the crystal-clear waters and
+                                            encountering turtles and dolphins was beyond magical. I can't recommend
+                                            this
+                                            adventure enough – it's a must-do if you're in Noosa!
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <!-- Add comment box -->
+                            <div class="card-body p-4">
+                                <h6 class="fw-bold mb-1">Leave a comment</h6>
+                                <textarea id="commentText" class="form-control mb-2" rows="3"
+                                    placeholder="Write your comment here..."></textarea>
+                                <div id="loginMessageComments" class="alert alert-warning">
+                                    Please login to leave a comment
+                                </div>
+                                <button onclick="postComment()" class="btn btn-primary custom-btn"
+                                    id="bookNowBtn">Post</button>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <!-- Comments -->
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Comments</h1>
+            </div>
+        </div>
+        
+        <div class="row border-bottom">
+            <!-- {{ render_form(form,"/experience/{0}/comment".format(experience.id)) }} -->
+        
+            {% for comment in experience.comments %}
+            <div class="col-md-12">
+                <b>{{ comment.user.name }} <span class="ml-2 text-muted">January 2024</span></b>
+                <p>{{ comment.text }}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+
+
+        </div>
+
+
+
+
     </div>
 
-    <div class="row border-bottom">
-        <!-- {{ render_form(form,"/experience/{0}/comment".format(experience.id)) }} -->
 
-        {% for comment in experience.comments %}
-        <div class="col-md-12">
-            <b>{{ comment.user.name }} <span class="ml-2 text-muted">January 2024</span></b>
-            <p>{{ comment.text }}</p>
-        </div>
-        {% endfor %}
-    </div>
-</div>
+    <!-- JS scripting import -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
 
+    <!-- JS to handle button click events and toggle "pressed" state -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const buttons = document.querySelectorAll(".toggle-button");
+
+            buttons.forEach(function (button) {
+                button.addEventListener("click", function () {
+                    buttons.forEach(function (otherButton) {
+                        otherButton.classList.remove("active");
+                    });
+                    this.classList.add("active");
+                });
+            });
+        });
+    </script>
+
+    <!-- JS to handle login modal script -->
+    <script>
+        const loginButton = document.getElementById("loginButton");
+        const loginModal = new bootstrap.Modal(document.getElementById("loginModal"));
+        const loginModalBody = document.querySelector("#loginModal .modal-body");
+        const experiencesLink = document.getElementById("experiencesLink");
+        const bookingHistoryLink = document.getElementById("bookingHistoryLink");
+        const loginMessage = document.getElementById("loginMessage");
+        const ticketSelector = document.getElementById("ticketSelector");
+
+        let isLoggedIn;
+
+        function checkAndDisplayMessage() {
+            if (loginButton.textContent.trim() === "Login") {
+                isLoggedIn = false;
+            } else {
+                isLoggedIn = false;
+            }
+        }
+
+        loginButton.addEventListener("click", function () {
+
+            // User is logged out
+            if (isLoggedIn) {
+                loginModalBody.textContent = "It was great having you. See you next time.";
+                loginButton.textContent = "Login";
+
+                // Hide the Experiences link
+                experiencesLink.style.display = "none";
+
+                // Hide the Book History link
+                bookingHistoryLink.style.display = "none";
+
+                // Disable Book now button
+                bookNowBtn.disabled = true;
+
+                // Disable ticket selector
+                ticketSelector.disabled = true;
+
+            } else {
+                // User is logged in
+                loginModalBody.textContent = "You're in! You can now create and book events.";
+                loginButton.textContent = "Logout";
+
+                // Show the Experiences link
+                experiencesLink.style.display = "block";
+
+                // Show the Book History link
+                bookingHistoryLink.style.display = "block";
+
+                // Enable the "Book Now" button
+                bookNowBtn.disabled = false;
+
+                // Enable ticket selector
+                ticketSelector.disabled = false;
+            }
+
+            // Toggle the login state
+            isLoggedIn = !isLoggedIn;
+
+            // Show the login modal
+            loginModal.show();
+        });
+    </script>
+
+    <!-- JS to handle Book Now modal message-->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const availableTicketsSpan = document.getElementById("availableTickets");
+            const ticketSelector = document.getElementById("ticketSelector");
+            const bookNowBtn = document.getElementById("bookNowBtn");
+            const ticketStatus = document.getElementById("change-status"); // Define the ticketStatus element
+            const loginButton = document.getElementById("loginButton");
+
+            // Check if selectedTickets is 0, greater than availableTickets,
+            // or if the nav bar button says "Login"
+            function updateAvailableTickets() {
+                const selectedTickets = parseInt(ticketSelector.value);
+                const availableTickets = parseInt(availableTicketsSpan.textContent);
+
+                if (selectedTickets === 0 || selectedTickets > availableTickets || loginButton.textContent.trim() === "Login") {
+                    bookNowBtn.disabled = true;
+                } else {
+                    bookNowBtn.disabled = false;
+                }
+            }
+
+            // Update available tickets when the page loads
+            updateAvailableTickets();
+
+            // Event listener for ticket selector change
+            ticketSelector.addEventListener("change", updateAvailableTickets);
+
+            // Event listener for "Book Now" button click
+            bookNowBtn.addEventListener("click", function () {
+                const selectedTickets = parseInt(ticketSelector.value);
+                const availableTickets = parseInt(availableTicketsSpan.textContent);
+
+                if (selectedTickets > availableTickets || selectedTickets === 0) {
+
+                    // Disable book now button
+                    bookNowBtn.disabled = true;
+
+                } else {
+                    // Update available tickets after booking
+                    availableTicketsSpan.textContent = (availableTickets - selectedTickets).toString();
+
+                    if (availableTicketsSpan.textContent <= 0) {
+                        console.log("Inside here");
+                        bookNowBtn.disabled = true;
+                    }
+
+
+                    // Show the booking confirmation modal
+                    const bookingConfirmationModal = new bootstrap.Modal(document.getElementById("bookingConfirmationModal"));
+                    const bookingConfirmationMessage = document.getElementById("bookingConfirmationMessage");
+                    const bookingConfirmationTickets = document.getElementById("bookingConfirmationTickets");
+
+                    bookingConfirmationTickets.textContent = selectedTickets;
+                    bookingConfirmationModal.show();
+
+                    // Check and change to the sold out icon if no tickets remaining
+                    if (parseInt(availableTicketsSpan.textContent) === 0) {
+                        ticketStatus.textContent = "Sold Out";
+                        ticketStatus.classList.remove("status-green"); // Remove the "status-green" class
+                        ticketStatus.classList.add("status-red"); // Add the "status-red" class
+                    }
+                }
+            });
+        });
+    </script>
+
+    <!-- JS to display "Please login ..." message to comments + book now section -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const loginButton = document.getElementById("loginButton");
+            const loginMessage = document.getElementById("loginMessage");
+            const loginMessageComments = document.getElementById("loginMessageComments");
+            const postButton = document.querySelector("button[onclick='postComment()']"); // Get the "Post" button
+
+
+            // Function to check and display the message
+            function checkAndDisplayMessage() {
+                if (loginButton.textContent.trim() === "Login") {
+                    loginMessage.style.display = "block";
+                    loginMessageComments.style.display = "block"; // Hide comment message
+                    postButton.disabled = true; // Disable the "Post" button
+                } else {
+                    loginMessage.style.display = "none";
+                    loginMessageComments.style.display = "none";
+                    postButton.disabled = false; // Enable the "Post" button
+                }
+            }
+
+            // Check and display the message when the page loads
+            checkAndDisplayMessage();
+
+            // Event listener for login button click
+            loginButton.addEventListener("click", function () {
+
+                // Toggle the login state
+                if (loginButton.textContent.trim() === "Logout") {
+                    loginMessage.style.display = "none";
+                    loginMessageComments.style.display = "none";
+                    postButton.disabled = false; // Enable the "Post" button
+                } else {
+                    loginMessage.style.display = "block";
+                    loginMessageComments.style.display = "block";
+                    postButton.disabled = true; // Disable the "Post" button
+                }
+
+                // Check and display the message
+                checkAndDisplayMessage();
+            });
+        });
+    </script>
+
+    <!-- JS for posting in the comment section -->
+    <script>
+
+        // Change data format
+        function formatDateWithSuffix(date) {
+            const day = date.getDate();
+            const monthNames = [
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+            const month = monthNames[date.getMonth()];
+            const year = date.getFullYear();
+            const suffix = getDaySuffix(day);
+
+            return `${day}${suffix} ${month}, ${year}`;
+        }
+
+        // Get date suffix
+        function getDaySuffix(day) {
+            if (day >= 11 && day <= 13) {
+                return 'th';
+            }
+            switch (day % 10) {
+                case 1:
+                    return 'st';
+                case 2:
+                    return 'nd';
+                case 3:
+                    return 'rd';
+                default:
+                    return 'th';
+            }
+        }
+
+        function postComment() {
+
+            // Get the comment text from the text area
+            const commentText = document.getElementById("commentText").value;
+
+            // Create a new comment element
+            const newComment = document.createElement("div");
+            newComment.className = "card-body p-4";
+            newComment.innerHTML = `
+                    <div class="d-flex flex-start">
+                        <img class="rounded-circle shadow-1-strong me-3"
+                            src="./static/img/josh-avatar.jpg" alt="avatar"
+                            width="60" height="60" />
+                        <div>
+                            <h6 class="fw-bold mb-1">Josh Swims</h6>
+                            <div class="d-flex align-items-center mb-3">
+                                <p class="mb-0">
+                                    ${formatDateWithSuffix(new Date())}
+                                </p>
+                            </div>
+                            <p class="mb-0">
+                                ${commentText}
+                            </p>
+                        </div>
+                    </div>
+                    <hr>
+                `;
+
+            // Insert the new comment at the top of the comments section
+            const commentsSection = document.querySelector(".card.text-dark");
+            commentsSection.insertBefore(newComment, commentsSection.firstChild);
+
+            // Clear the textarea
+            document.getElementById("commentText").value = "";
+        }
+    </script>
+</main>
 {% endblock %}

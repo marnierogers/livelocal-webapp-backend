@@ -13,6 +13,8 @@ eventbp = Blueprint('experiences', __name__, url_prefix='/experiences')
 def show(id):
     experience = db.session.scalar(db.select(Experience).where(Experience.id==id))
 
+    print(experience)
+    
     # create the comment form
     form = CommentForm()    
     return render_template('experiences/show.html', experience=experience, form=form)
@@ -50,7 +52,7 @@ def create():
 
     # commit to the database
     db.session.commit()
-    flash('Successfully created experience', 'success')
+    flash('Experience successfully created.', 'success')
 
     #Always end with redirect when form is valid
     return redirect(url_for('experiences.create'))
