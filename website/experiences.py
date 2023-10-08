@@ -23,12 +23,27 @@ def show(id):
 def create():
   print('Method type: ', request.method)
   form = ExperienceForm()
+
   if form.validate_on_submit():
+
+    type = form.type.data
+    name = form.name.data
+    description = form.description.data
+    address_line1 = form.address_line1.data
+    suburb = form.suburb.data
+    postcode = form.postcode.data
+    start_date = form.start_date.data
+    start_time = form.start_time.data
+    end_time = form.end_time.data
+    ticket_qty = form.ticket_qty.data
+    price = form.price.data
+    image = form.image.data
+
 
     #call the function that checks and returns image
     db_file_path = check_upload_file(form)
-    experience = Experience(name=form.name.data, description=form.description.data,
-    image=db_file_path,currency=form.currency.data)
+    experience = Experience(type=type, name=name, description=description, address_line1=address_line1, suburb=suburb, postcode=postcode, start_date=start_date, start_time=start_time, end_time=end_time, ticket_qty=ticket_qty, price=price,
+                            image=db_file_path)
 
     # add the object to the db session
     db.session.add(experience)
@@ -52,10 +67,10 @@ def check_upload_file(form):
   BASE_PATH = os.path.dirname(__file__)
 
   #upload file location – directory of this file/static/image
-  upload_path = os.path.join(BASE_PATH, 'static/image', secure_filename(filename))
+  upload_path = os.path.join(BASE_PATH, 'static/img/uploads', secure_filename(filename))
 
   #store relative path in DB as image location in HTML is relative
-  db_upload_path = '/static/image/' + secure_filename(filename)
+  db_upload_path = 'static/img/uploads' + secure_filename(filename)
 
   #save the file and return the db upload path
   fp.save(upload_path)

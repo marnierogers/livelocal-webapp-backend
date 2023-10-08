@@ -25,16 +25,16 @@ class Experience(db.Model):
     id = db.Column(db.Integer, index=True, unique=True, primary_key=True)
     type = db.Column(db.String(20), nullable=False)
     name = db.Column(db.String(80), nullable=False)
-    description = db.Column(db.String(200), nullable=False)
+    description = db.Column(db.String(1500), nullable=False)
 
     address_line1 = db.Column(db.String(255), nullable=False)
     suburb = db.Column(db.String(255), nullable=False)
     postcode = db.Column(db.Integer, nullable=False)
 
-    start_datetime = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
-    end_datetime = db.Column(db.DateTime, nullable=False)
+    start_date = db.Column(db.String, nullable=False)
+    start_time = db.Column(db.String, nullable=False)
+    end_time = db.Column(db.String, nullable=False)
     ticket_qty = db.Column(db.Integer, nullable=False)
-    currency = db.Column(db.String(3), nullable=False)
     price = db.Column(db.Numeric(precision=10, scale=2), nullable=False)
 
     image = db.Column(db.String(400), nullable=False)
