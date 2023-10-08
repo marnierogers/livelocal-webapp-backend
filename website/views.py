@@ -14,9 +14,9 @@ def event():
     return render_template('event.html')
 
 
-@bp.route('/create-experience')
+@bp.route('/experiences/')
 def experience():
-    return render_template('create-experience.html')
+    return render_template('create.html')
 
 
 @bp.route('/booking-history')

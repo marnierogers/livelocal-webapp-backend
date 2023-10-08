@@ -4,6 +4,7 @@
 
 {% from 'bootstrap5/form.html' import render_form %}
 
+
 <main>
     <!-- Create an experience -->
     <div class="major-container" id="create-experience-section">
@@ -12,12 +13,27 @@
                 <div class="event-header">
                     <div class="event-page-header">
                         <h3 class="event-page-header-small">Create an experience<br></h3>
-                    </div><br><br>
+                    </div>
                 </div>
                 <div class="col-md-12">
                     <p class="paragraph-spacing">Get ready to bring your vision to life.
                         This is your canvas to craft and host your one-of-a-kind experience, down to the finest details.
                         Let's start creating extraordinary experiences together!</p>
+
+                        <!-- Add this to display flashed messages -->
+                        <div class="col-md-6">
+                            {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                            <div class="alert alert-success">
+                                <ul>
+                                    {% for message in messages %}
+                                    <li>{{ message }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% endif %}
+                            {% endwith %}
+                        </div>  
                 </div>
                 <hr class="comment-spacer">
             </div>

@@ -6,7 +6,7 @@ import os
 from werkzeug.utils import secure_filename
 from flask_login import login_required, current_user
 
-eventbp = Blueprint('experience', __name__, url_prefix='/experiences')
+eventbp = Blueprint('experiences', __name__, url_prefix='/experiences')
 
 
 @eventbp.route('/<id>')
@@ -70,7 +70,7 @@ def check_upload_file(form):
   upload_path = os.path.join(BASE_PATH, 'static/img/uploads', secure_filename(filename))
 
   #store relative path in DB as image location in HTML is relative
-  db_upload_path = 'static/img/uploads' + secure_filename(filename)
+  db_upload_path = 'static/img/uploads/' + secure_filename(filename)
 
   #save the file and return the db upload path
   fp.save(upload_path)
