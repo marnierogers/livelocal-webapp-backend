@@ -36,9 +36,8 @@ class Experience(db.Model):
     end_time = db.Column(db.String, nullable=False)
     ticket_qty = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Numeric(precision=10, scale=2), nullable=False)
-
     image = db.Column(db.String(400), nullable=False)
-    status = db.Column(db.String(20), default='Open', nullable=False)
+    status = db.Column(db.String(20), default="Open", nullable=False)
 
     # ... Create the Comments db.relationship
     # relation to call destination.comments and comment.destination
@@ -46,12 +45,6 @@ class Experience(db.Model):
 
     def __repr__(self):  # string print method
         return f"Name: {self.name}"
-    
-    @property
-    def status(self):
-        # You can define your logic here to determine the status based on certain conditions
-        # For this example, we'll assume the status is always 'Open'
-        return 'Open'
 
 class Comment(db.Model):
     __tablename__ = 'comments'

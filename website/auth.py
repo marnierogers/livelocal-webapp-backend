@@ -63,7 +63,7 @@ def login():
 
         #if there is no user with that name
         if user is None:
-            error = 'Incorrect email address '#could be a security risk to give this much info away
+            error = 'Please enter a valid email and password'
 
         #check the password - notice password hash function
         elif not check_password_hash(user.password_hash, password): # takes the hash and password
