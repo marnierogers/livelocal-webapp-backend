@@ -109,3 +109,8 @@ class ExperienceForm(FlaskForm):
         FileAllowed(ALLOWED_FILE, message='Only supports PNG, JPG, png, jpg')])
 
     submit = SubmitField('Create Now')
+
+
+class TicketSelectorForm(FlaskForm):
+    ticket_selector = SelectField('Tickets:', coerce=int, validators=[InputRequired()])
+    submit = SubmitField('Book Now')

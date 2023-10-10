@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
 from .models import Experience, Comment
 from .forms import ExperienceForm, CommentForm
 from . import db
@@ -85,7 +85,6 @@ def update():
 
 
 
-
 def check_upload_file(form):
   
   #get file data from form  
@@ -125,7 +124,6 @@ def check_upload_file_2(form):
   #save the file and return the db upload path
   fp.save(upload_path)
   return db_upload_path
-
 
 def check_upload_file_3(form):
 
