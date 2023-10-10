@@ -1,11 +1,12 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
-from .models import Experience, Comment
-from .forms import ExperienceForm, CommentForm
+from .models import Experience, Comment, Booking
+from .forms import ExperienceForm, CommentForm, TicketSelectorForm
 from . import db
 import os
 from werkzeug.utils import secure_filename
 from flask_login import login_required, current_user
 from sqlalchemy.orm import joinedload
+from datetime import datetime
 
 
 eventbp = Blueprint('experiences', __name__, url_prefix='/experiences')
@@ -64,16 +65,14 @@ def create():
     #Always end with redirect when form is valid
     return redirect(url_for('experiences.create'))
   
-  return render_template('experiences/create.html', form=form)
-
-
-
+  return render_template('experiences/create.html', form=form, experience=experience)
 
 
 @eventbp.route('/update', methods=['GET', 'POST'])
 @login_required
 def update():
   print('Method type: ', request.method)
+
   # Query the database to get experiences associated with the current user
   user_experiences = Experience.query \
       .filter(Experience.user == current_user) \
@@ -81,9 +80,6 @@ def update():
       .all()
 
   return render_template('experiences/update.html', experiences=user_experiences)
-
-
-
 
 def check_upload_file(form):
   
@@ -165,3 +161,56 @@ def check_upload_file_3(form):
 #       # print('Your comment has been added', 'success') 
 #     # using redirect sends a GET request to destination.show
 #     return redirect(url_for('destination.show', id=destination.id))
+
+
+@eventbp.route('/process_ticket_selection', methods=['POST'])
+@login_required
+def process_ticket_selection():
+
+  form = TicketSelectorForm(request.form)
+
+  # Retrieve the experience ID from the form
+  experience_id = form.experience_id.data
+
+  print("Experience.id" + experience_id)
+
+  if form.validate_on_submit():
+
+    print("Inside form validated field")
+
+    # Get the number of tickets selected by the user
+    ticket_qty = int(request.form.get('ticket_selector'))
+    print("Ticket_qty is" + ticket_qty)
+
+    # Get the experience based on the experience ID (you need to extract the experience ID from the request)
+    # Extract the experience ID from the request (e.g., request.form.get('experience_id'))
+    experience_id = request.form.get('id')
+    experience = Experience.query.get(experience_id)
+
+    # Check if the selected number of tickets is valid
+    if ticket_qty > experience.ticket_qty:
+        flash('Invalid ticket quantity selected.')
+
+        # Replace with an appropriate redirect
+        return render_template('experiences/show.html', experience=experience)
+
+    # Update ticket quantity in the experience
+    experience.ticket_qty -= ticket_qty
+
+    # If tickets are sold out, update the status
+    if experience.ticket_qty == 0:
+        experience.status = 'Sold Out'
+
+    # Create a new booking
+    booking = Booking(
+        purchased_ticket_qty=ticket_qty,
+        user_id=current_user.id,
+        experience_id=experience_id,
+        purchase_date=datetime.utcnow()
+    )
+
+    # Add and commit the changes to the database
+    db.session.add(booking)
+    db.session.commit()
+
+    return render_template('experiences/show.html', experience=experience)

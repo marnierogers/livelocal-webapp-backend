@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, EmailField, DecimalField, SelectField, DateField, MultipleFileField
+from wtforms.fields import HiddenField, TextAreaField, SubmitField, StringField, PasswordField, EmailField, DecimalField, SelectField, DateField, MultipleFileField
 from wtforms.validators import InputRequired, Email, EqualTo, Regexp, NumberRange, Length
 from wtforms import DateField, validators
 
@@ -113,4 +113,5 @@ class ExperienceForm(FlaskForm):
 
 class TicketSelectorForm(FlaskForm):
     ticket_selector = SelectField('Tickets:', coerce=int, validators=[InputRequired()])
+    experience_id = HiddenField()
     submit = SubmitField('Book Now')

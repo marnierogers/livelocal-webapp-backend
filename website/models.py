@@ -19,6 +19,7 @@ class User(db.Model, UserMixin):
     # relation to call user.comments and comment.created_by
     comments = db.relationship('Comment', backref='user')
     experiences = db.relationship('Experience', backref='user', lazy=True)
+    bookings = db.relationship('Booking', backref='user', lazy=True)
 
 
 class Experience(db.Model):
@@ -66,4 +67,12 @@ class Comment(db.Model):
         return f"Comment: {self.text}"
 
 
+class Booking(db.Model):
+    __tablename__ = 'bookings'
+    booking_id = db.Column(db.Integer, index=True, unique=True, primary_key=True)
+    purchased_ticket_qty = db.Column(db.Integer, nullable=False)
+    purchase_date = db.Column(db.String, nullable=False)
 
+    #add the foreign keys
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    experience_id = db.Column(db.Integer, db.ForeignKey('experiences.id'))
