@@ -95,7 +95,16 @@ class ExperienceForm(FlaskForm):
     ticket_qty = SelectField('Number of Tickets', choices=[(str(i), str(i)) for i in range(1, 21)], validators=[InputRequired()])    
     price = DecimalField('Price', validators=[InputRequired(), NumberRange(
         min=0.01, max=300,  message="Price must be between 0.01 and 300.")])
-    image = FileField('Images (upload as many as you like)', validators=[
+    
+    image_1 = FileField('Image 1 (must upload a minimum 3 images)', validators=[
+        FileRequired(message='Image cannot be empty'),
+        FileAllowed(ALLOWED_FILE, message='Only supports PNG, JPG, png, jpg')])
+    
+    image_2 = FileField('Image 2', validators=[
+        FileRequired(message='Image cannot be empty'),
+        FileAllowed(ALLOWED_FILE, message='Only supports PNG, JPG, png, jpg')])
+    
+    image_3 = FileField('Image 3', validators=[
         FileRequired(message='Image cannot be empty'),
         FileAllowed(ALLOWED_FILE, message='Only supports PNG, JPG, png, jpg')])
 

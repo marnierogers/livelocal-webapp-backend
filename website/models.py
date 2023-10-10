@@ -37,7 +37,9 @@ class Experience(db.Model):
     end_time = db.Column(db.String, nullable=False)
     ticket_qty = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Numeric(precision=10, scale=2), nullable=False)
-    image = db.Column(db.String(400), nullable=False)
+    image_1 = db.Column(db.String(400), nullable=False)
+    image_2 = db.Column(db.String(400), nullable=False)
+    image_3 = db.Column(db.String(400), nullable=False)
     status = db.Column(db.String(20), default="Open", nullable=False)
 
     # ... Create the Comments db.relationship

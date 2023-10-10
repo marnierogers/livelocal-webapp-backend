@@ -41,31 +41,31 @@
             <!-- Display only on screens smaller than 577px -->
             <div class="col-6 d-block d-sm-none">
                 <div class="image">
-                    <img src="{{ experience.image }}" alt="Man in Kayak" class="img-fluid">
+                    <img src="{{ experience.image_1 }}" alt="Man in Kayak" class="img-fluid">
                 </div>
             </div>
             <div class="col-6 d-block d-sm-none">
                 <div class="image">
-                    <img src="{{ experience.image }}" alt="Two kayaks on water" class="img-fluid">
+                    <img src="{{ experience.image_1 }}" class="img-fluid">
                 </div>
             </div>
 
             <!-- Display on larger screens -->
             <div class="col-sm-4 col-md-4 col-lg-4 d-none d-sm-block">
                 <div class="image">
-                    <img src="{{ experience.image }}" alt="Man in Kayak" class="img-fluid">
+                    <img src="{{ experience.image_2 }}" class="img-fluid">
                 </div>
             </div>
             <div class="col-sm-4 col-md-4 col-lg-4 d-none d-sm-block">
                 <div class="image">
-                    <img src="{{ experience.image }}" alt="Two kayaks on water" class="img-fluid">
+                    <img src="{{ experience.image_1 }}" class="img-fluid">
                 </div>
             </div>
 
             <!-- Additional image for larger screens -->
             <div class="col-sm-4 col-md-4 col-lg-4 d-none d-sm-block">
                 <div class="image">
-                    <img src="{{ experience.image }}" alt="Group of kayakers" class="img-fluid">
+                    <img src="{{ experience.image_3 }}" class="img-fluid">
                 </div>
             </div>
         </div>
@@ -96,25 +96,19 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="status-green" id="change-status">
-                            Open
+                            {{ experience.status }}
                         </div>
-                        <h5 class="card-title">Price: $99pp</h5>
-                        <p class="card-text">Tickets available: <span id="availableTickets">9</span></p>
+                        <h5 class="card-title">Price: ${{ experience.price }} pp</h5>
+                        <p class="card-text">Tickets available: <span id="availableTickets">{{ experience.ticket_qty }}</span></p>
                         <div class="row align-items-center">
                             <div class="col-md-6 d-flex align-items-center">
                                 <div class="input-group mb-3">
                                     <label class="input-group-text" for="ticketSelector">Tickets:</label>
                                     <select class="form-select" id="ticketSelector">
-                                        <option value="0">0</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
+                                        <!-- Add options dynamically based on experience.ticket_qty -->
+                                        {% for i in range(experience.ticket_qty + 1) %}
+                                        <option value="{{ i }}">{{ i }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>
