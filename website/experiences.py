@@ -91,10 +91,11 @@ def check_upload_file(form):
   BASE_PATH = os.path.dirname(__file__)
 
   #upload file location – directory of this file/static/image
-  upload_path = os.path.join(BASE_PATH, 'static/img/uploads', secure_filename(filename))
+  upload_path = os.path.join(
+      BASE_PATH, 'static/img/uploads/', secure_filename(filename))
 
   #store relative path in DB as image location in HTML is relative
-  db_upload_path = 'static/img/uploads/' + secure_filename(filename)
+  db_upload_path = '/static/img/uploads/' + secure_filename(filename)
 
   #save the file and return the db upload path
   fp.save(upload_path)
