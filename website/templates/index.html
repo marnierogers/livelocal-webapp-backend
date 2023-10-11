@@ -99,46 +99,74 @@
     <!-- Radio category buttons -->
     <div class="container wrapper">
         <br>
-        <div class="toggle-button-group">
-            <h3 class="custom-heading">Book an experience</h3>
-            <div class="drop-down-container">
-                <button class="btn btn-outline-light me-2 custom-btn toggle-button" data-type="all">
-                    All
-                </button>
-                <button class="btn btn-outline-light me-2 custom-btn toggle-button" data-type="art-culture">
-                    Art & Culture
-                </button>
-                <button class="btn btn-outline-light me-2 custom-btn toggle-button" data-type="tours">
-                    Tours
-                </button>
-                <button class="btn btn-outline-light me-2 custom-btn toggle-button" data-type="food-drink">
-                    Food & Drink
-                </button>
-                <button class="btn btn-outline-light me-2 custom-btn toggle-button" data-type="unique">
-                    Unique
-                </button>
-
-                <!-- Filter dropdown with custom class -->
-                <div class="dropdown">
-                    <button class="btn btn-outline-light me-2 custom-btn filter-button" type="button" id="filterDropdown"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="bi bi-filter custom-filter-icon"></i>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="filterDropdown">
-                        <a class="dropdown-item" href="#" data-status="all">All</a>
-                        <a class="dropdown-item" href="#" data-status="open">Open</a>
-                        <a class="dropdown-item" href="#" data-status="inactive">Inactive</a>
-                        <a class="dropdown-item" href="#" data-status="sold-out">Sold Out</a>
-                        <a class="dropdown-item" href="#" data-status="cancelled">Cancelled</a>
+        <div class="container-fluid">
+            <div class="row">
+                <h3 class="custom-heading pb-2 pt-1">Book an experience</h3>
+            </div>
+            <div class="row">
+                <div class="col-md-8 mb-3 d-flex flex-column">
+                    <div class="input-group custom-input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Search..." id="searchInput">
+                        <button class="btn btn-primary" type="button" id="searchButton"><i class="bi bi-search"></i> Search</button>
+                    </div>
+                    <div class="d-flex">
+                        <div>
+                            <label class="pe-2">Events:</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="eventUpcoming" name="eventFilter" value="Upcoming" checked>
+                                <label class="form-check-label" for="eventUpcoming">Upcoming</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="eventCurrent" name="eventFilter" value="Current" checked>
+                                <label class="form-check-label" for="eventCurrent">Current</label>
+                            </div>
+                        </div>
+        
+                        <div class= "dropdown d-flex ms-5"> 
+                            <button class= "btn btn-sm custom-btn filter-button d-flex align-items-center justify-content-center" type= "button" id= "filterDropdown"
+                                data-bs-toggle= "dropdown" aria-haspopup= "true" aria-expanded= "false">
+                                <i class= "bi bi-filter custom-filter-icon "></i> Status Filter
+                            </button>
+                            <div class= "dropdown-menu" aria-labelledby= "filterDropdown">
+                                <a class= "dropdown-item" href="#" data-status= "all">All</a>
+                                <a class= "dropdown-item" href="#" data-status= "open">Open</a>
+                                <a class= "dropdown-item" href="#" data-status= "inactive">Inactive</a>
+                                <a class= "dropdown-item" href="#" data-status= "sold-out">Sold Out</a>
+                                <a class= "dropdown-item" href="#" data-status= "cancelled">Cancelled</a> 
+                            </div> 
+                        </div>
                     </div>
                 </div>
-            </div>
+                
+                <div class="col-md-4 d-flex align-items-start">
+                    <div class="btn-group d-flex flex-wrap">
+                        <button class="btn btn-outline-light custom-btn toggle-button me-2 mb-2" data-type="all">
+                            All
+                        </button>
+                        <button class="btn btn-outline-light custom-btn toggle-button me-2 mb-2" data-type="art-culture">
+                            Art & Culture
+                        </button>
+                        <button class="btn btn-outline-light custom-btn toggle-button me-2 mb-2" data-type="tours">
+                            Tours
+                        </button>
+                        <button class="btn btn-outline-light custom-btn toggle-button me-2 mb-2" data-type="food-drink">
+                            Food & Drink
+                        </button>
+                        <button class="btn btn-outline-light custom-btn toggle-button me-2 mb-2" data-type="unique">
+                            Unique
+                        </button>
+                    </div>
+                </div>
+            </div>        
         </div>
+    
+    
+
 
         <hr>
 
         <!-- Cards -->
-        <div class="row justify-content-left">
+        <div class="row">
             
             <!--- No results filter message-->
             <div id="noResultsMessage">
@@ -151,6 +179,7 @@
 
             <!-- Row 1 -->
             <!-- Card 1 -->
+            <h3 class="custom-heading mb-4 mt-3 ms-0 me-0">Current events:</h3>
             <div class="custom-card mx-auto mx-3 left-align-card" data-type="tours" data-status="open">
                     <div class="card box-shadow mx-auto homepage-card">
                         <a href="/event">
@@ -418,6 +447,112 @@
                 </div>
             </div>
         </div>
+
+        <!-- Cards -->
+        <div class="row">
+            
+            <!--- No results filter message-->
+            <div id="noResultsMessage">
+                <br>
+                <div class="centered-message">
+                    <br>
+                    <h5>No results found. Please try another filter.</h5>
+                </div>
+            </div>
+
+            <!-- Row 1 -->
+            <!-- Card 1 -->
+            <h3 class="custom-heading mb-4 mt-3 ms-0 me-0">Upcoming events:</h3>
+            <div class="custom-card mx-auto mx-3 left-align-card" data-type="tours" data-status="Sold-out">
+                    <div class="card box-shadow mx-auto homepage-card">
+                        <a href="/event">
+                        <img src="./static/img/kayak-tour.png" class="card-img-top" alt="Man kayaking on river">
+                        
+                        <!-- Status box in the top right corner -->
+                        <div class="status-red">
+                            Sold Out
+                        </div></a>
+
+                        <div class="card-body">
+                            <h6 class="card-title">
+                                <b>
+                                <span class="homepage-card-name">Noosa Kayak Adventure</span>
+                                <span class="homepage-card-duration">2hrs</span>
+                                <div class="homepage-card-spacer"></div>
+                                </b>
+                            </h6>
+                            <hr>
+                            <p class="card-text">Hosted by Paul - $99pp</p>
+                        </div>
+                    </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="custom-card mx-auto mx-3 left-align-card" data-type="tours" data-status="Open"> 
+                <div class="card box-shadow mx-auto homepage-card">
+                    <a href="/event">
+                    <img src="./static/img/acropolis-tour.png" class="card-img-top" alt="Acropolis">
+
+                    <!-- Status box in the top right corner -->
+                    <div class="status-green">
+                        Open
+                    </div></a>
+
+                    <div class="card-body">
+                        <h6 class="card-title"><b>
+                            <span class="homepage-card-name">Acropolis Guided Tour</span>
+                            <span class="homepage-card-duration">3hrs</span>
+                            <div class="homepage-card-spacer"></div></b>
+                        </h6>
+                        <hr>
+                        <p class="card-text">Hosted by Adonius - $149pp<br></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="custom-card mx-auto mx-3 left-align-card" data-type="food-drink" data-status="sold-out"> 
+                <div class="card box-shadow mx-auto homepage-card">
+                    <a href="/event">
+                    <img src="./static/img/pasta-class.png" class="card-img-top" alt="Nona rolling pasta with 2 women">
+                    
+                    <!-- Status box in the top right corner -->
+                    <div class="status-red">
+                        Sold Out
+                    </div></a>
+
+                    <div class="card-body">
+                        <h6 class="card-title"><b>
+                            <span class="homepage-card-name">Italian Cooking Class</span>
+                            <span class="homepage-card-duration">1.5hrs</span>
+                            <div class="homepage-card-spacer"></div></b>
+                        </h6><hr>
+                        <p class="card-text">Hosted by Nona - $99pp<br></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="custom-card mx-auto mx-3 left-align-card" data-type="unique" data-status="Open">
+                <div class="card box-shadow mx-auto homepage-card">
+                    <a href="/event">
+                    <img src="./static/img/atlas-camel-ride.png" class="card-img-top" alt="Group of people riding camels in desert">
+
+                    <!-- Status box in the top right corner -->
+                    <div class="status-green">
+                        Open
+                    </div></a>
+
+                    <div class="card-body">
+                        <h6 class="card-title"><b>
+                            <span class="homepage-card-name">Sahari Desert Camel Ride</span>
+                            <span class="homepage-card-duration">1hr</span>
+                            <div class="homepage-card-spacer"></div></b>
+                        </h6><hr>
+                        <p class="card-text">Hosted by Sahib - $49pp<br></p>
+                    </div>
+                </div>
+            </div>
 
 
         <!-- JS scripting import -->
