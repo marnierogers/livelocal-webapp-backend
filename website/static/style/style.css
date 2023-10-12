@@ -254,12 +254,59 @@
     }
 }
 
-/* ---------------------------------------  Search bar  --------------------------------------- */
+/* ---------------------------------------  Search-bar area elements  --------------------------------------- */
 
+/* Search-bar size */
 .custom-input-group {
     width: 600px;
-    height: 45px;
-  }
+    height: 40px;
+}
+
+/* Small screen (up to 576px) */
+@media (max-width: 1400px) {
+    .custom-input-group {
+        width: 80%; /* Adjust as needed */
+    }
+}
+
+/* Small screen (up to 576px) */
+@media (max-width: 1000px) {
+    .custom-input-group {
+        width: 100%; /* Adjust as needed */
+    }
+}
+
+
+/* Define style for checkbox */
+input.form-check-input {
+    position: relative;
+    appearance: none;
+    outline: none;
+    width: 17px;
+    height: 15px;
+    border: none;
+    background-color: #ccc;
+}
+
+/* Remove shadow from checkboxes */
+input:active {
+    outline: none;
+    box-shadow: none;
+}
+
+/* Color of checkbox */
+input.form-check-input:checked {
+    background-color: #849BFF;
+}
+
+/* Change shadow when forms are in focus */
+input.form-control:focus {
+    box-shadow: 0 0 0 1.5px #849BFF;
+    outline: none; /* Optionally remove the default outline */
+}
+  
+  
+
 
 /* ---------------------------------------  Homepage radio buttons  --------------------------------------- */
 
