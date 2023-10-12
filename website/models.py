@@ -15,6 +15,7 @@ class User(db.Model, UserMixin):
     address_line1 = db.Column(db.String(255), nullable=False)
     suburb = db.Column(db.String(255), nullable=False)
     postcode = db.Column(db.Integer, nullable=False)
+    avatar = db.Column(db.String(400), nullable=False)
 
     # relation to call user.comments and comment.created_by
     comments = db.relationship('Comment', backref='user')
@@ -58,6 +59,7 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(400))
     created_at = db.Column(db.DateTime, default=datetime.now())
+    avatar = db.Column(db.String(400), nullable=False)
 
     #add the foreign keys
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))

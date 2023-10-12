@@ -6,11 +6,15 @@ from flask_bcrypt import generate_password_hash, check_password_hash
 from .models import User
 from . import db
 
+global count
+count = 1
+
 #create a blueprint
 authbp = Blueprint('auth', __name__ )
 
 @authbp.route('/register', methods=['GET', 'POST'])
 def register():
+    global count
     register = RegisterForm()
     
     #the validation of form is fine, HTTP request is POST
@@ -24,6 +28,9 @@ def register():
             address_line1 = register.address_line1.data
             suburb = register.suburb.data
             postcode = register.postcode.data
+            avatar = f"/static/img/avatars/avatar{count}.png"
+
+            count = count+1
 
             #check if a user exists
             emailid = db.session.scalar(db.select(User).where(User.email_id==email_id))
@@ -36,7 +43,7 @@ def register():
 
             #create a new User model object
             new_user = User(name=name, password_hash=pwd_hash, email_id=email_id,
-                            contact_number=contact_number, address_line1=address_line1, suburb=suburb, postcode=postcode)
+                            contact_number=contact_number, address_line1=address_line1, suburb=suburb, postcode=postcode, avatar=avatar)
             db.session.add(new_user)
             db.session.commit()
 
