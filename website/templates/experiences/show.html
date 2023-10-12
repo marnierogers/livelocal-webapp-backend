@@ -148,198 +148,57 @@
                 <hr class="comment-spacer">
             </div>
 
-            <!-- Comment section existing and new comments -->
+            <!-- Comment section -->
             <div class="container">
                 <div class="row d-flex justify-content-left">
                     <div class="col-md-12 col-lg-12">
                         <div class="card text-dark">
-
+            
                             <!-- Existing comments -->
-                            <!--- Comment 1 -->
+                            {% for comment in experience.comments %}
+
+                            <!---{{ comment.user.avatar }}-->
                             <div class="card-body p-4">
                                 <div class="d-flex flex-start">
-                                    <img class="rounded-circle shadow-1-strong me-3"
-                                        src="../static/img/maggie-avatar.png" alt="avatar" width="60" height="60" />
+                                    <img class="rounded-circle shadow-1-strong me-3" src="{{ comment.user.avatar }}"
+                                        alt="user image" width="60" height="60">
                                     <div>
-                                        <h6 class="fw-bold mb-1">Maggie Marsh</h6>
+                                        <h6 class="fw-bold mb-1">{{ comment.user.name }}</h6>
                                         <div class="d-flex align-items-center mb-3">
                                             <p class="mb-0">
-                                                7th May, 2023
+                                                {{ comment.created_at }}
                                             </p>
                                         </div>
                                         <p class="mb-0">
-                                            I'm so glad we booked the Noosa Islands Kayak Adventure! It felt like we
-                                            had the entire
-                                            paradise to ourselves, thanks to
-                                            Paul's guidance. The clear waters, the chance to swim at hidden reefs,
-                                            and the
-                                            encounters with sea turtles and dolphins
-                                            left us in awe. It's an exclusive journey into the heart of nature's
-                                            wonders, and we'll
-                                            cherish these memories forever.
-                                            Don't miss out on this extraordinary experience in Noosa!
+                                        {{ comment.text }}
                                         </p>
                                     </div>
                                 </div>
                             </div>
 
                             <hr>
-
-                            <!--- Comment 2 -->
-                            <div class="card-body p-4">
-                                <div class="d-flex flex-start">
-                                    <img class="rounded-circle shadow-1-strong me-3" src="../static/img/alexa-avatar.png"
-                                        alt="avatar" width="60" height="60" />
-                                    <div>
-                                        <h6 class="fw-bold mb-1">Alexa Bennett</h6>
-                                        <div class="d-flex align-items-center mb-3">
-                                            <p class="mb-0">
-                                                20th March, 2023
-                                            </p>
-                                        </div>
-                                        <p class="mb-0">
-                                            What an incredible experience! The Noosa Islands Kayak Adventure was a
-                                            true highlight of our trip. Paul,
-                                            our local guide, was not only knowledgeable but also passionate about
-                                            the area's natural beauty. Paddling through the crystal-clear waters and
-                                            encountering turtles and dolphins was beyond magical. I can't recommend
-                                            this
-                                            adventure enough – it's a must-do if you're in Noosa!
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <hr>
-
+                            {% endfor %}
+            
                             <!-- Add comment box -->
-                            <div class="card-body p-4">
-                                <h6 class="fw-bold mb-1">Leave a comment</h6>
-                                <textarea id="commentText" class="form-control mb-2" rows="3"
-                                    placeholder="Write your comment here..."></textarea>
-                                <div id="loginMessageComments" class="alert alert-warning">
-                                    Please login to leave a comment
+                            <div class="row border-bottom">
+                                <div class="card-body p-4">
+                                    <h6 class="fw-bold mb-1">Leave a comment</h6>
+                                    <form action="/experiences/{{ experience.id }}/comment" method="post">
+                                        {{ form.hidden_tag() }}
+                                        <textarea id="commentText" class="form-control mb-2" rows="3" name="text"
+                                            placeholder="Write your comment here..."></textarea>
+                                        <div id="loginMessageComments" class="alert alert-warning">
+                                            Please login to leave a comment
+                                        </div>
+                                        <button type="submit" class="btn btn-primary custom-btn" id="bookNowBtn">Post</button>
+                                    </form>
                                 </div>
-                                <button onclick="postComment()" class="btn btn-primary custom-btn"
-                                    id="bookNowBtn">Post</button>
-
                             </div>
 
                         </div>
                     </div>
                 </div>
             </div>
-
-        <!-- Comments -->
-        <!-- <div class="row">
-            <div class="col-md-12">
-                <h2>Comments</h1>
-            </div>
-        </div>
-        
-        <div class="row border-bottom">
-            {{ render_form(form,"/experiences/{0}/comment".format(experience.id)) }}
-        
-            {% for comment in experience.comments %}
-            <div class="col-md-12">
-                <b>{{ comment.user.name }} <span class="ml-2 text-muted">{{ comment.created_at}}</span></b>
-                <p>{{ comment.text }}</p>
-            </div>
-            {% endfor %}
-        </div> -->
-
-
-        <!-- Comment section existing and new comments -->
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2>Comments</h2>
-                </div>
-            </div>
-
-            <!-- Existing comments -->
-            {% for comment in experience.comments %}
-            <div class="row border-bottom">
-                <div class="col-md-12">
-                    <b>{{ comment.user.name }} <span class="ml-2 text-muted">{{ comment.created_at }}</span></b>
-                    <p>{{ comment.text }}</p>
-                </div>
-            </div>
-            <hr>
-            {% endfor %}
-
-            <!-- Add comment box -->
-            <div class="row border-bottom">
-                <div class="col-md-12">
-                    <h6 class="fw-bold mb-1">Leave a comment</h6>
-                    <form action="/experiences/{{ experience.id }}/comment" method="post">
-                        {{ form.hidden_tag() }}
-                        <textarea id="commentText" class="form-control mb-2" rows="3" name="text"
-                            placeholder="Write your comment here..."></textarea>
-                        <div id="loginMessageComments" class="alert alert-warning">
-                            Please login to leave a comment
-                        </div>
-                        <button type="submit" class="btn btn-primary custom-btn" id="bookNowBtn">Post</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-
-
-
-
-
-
-                        <div class="container">
-                            <div class="row d-flex justify-content-left">
-                                <div class="col-md-12 col-lg-12">
-                                    <div class="card text-dark">
-                        
-                                        <!-- Existing comments -->
-                                        {% for comment in experience.comments %}
-
-                                        <div class="card-body p-4">
-                                            <div class="d-flex flex-start">
-                                                <img class="rounded-circle shadow-1-strong me-3" src="../static/img/maggie-avatar.png"
-                                                    alt="avatar" width="60" height="60" />
-                                                <div>
-                                                    <h6 class="fw-bold mb-1">{{ comment.user.name }}</h6>
-                                                    <div class="d-flex align-items-center mb-3">
-                                                        <p class="mb-0">
-                                                            {{ comment.created_at }}
-                                                        </p>
-                                                    </div>
-                                                    <p class="mb-0">
-                                                    {{ comment.text }}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        {% endfor %}
-                        
-                                        <!-- Add comment box -->
-                                        <div class="card-body p-4">
-                                            <h6 class="fw-bold mb-1">Leave a comment</h6>
-                                            <textarea id="commentText" class="form-control mb-2" rows="3"
-                                                placeholder="Write your comment here..."></textarea>
-                                            <div id="loginMessageComments" class="alert alert-warning">
-                                                Please login to leave a comment
-                                            </div>
-                                            <button onclick="postComment()" class="btn btn-primary custom-btn" id="bookNowBtn">Post</button>
-                        
-                                        </div>
-                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
-
 
 
 

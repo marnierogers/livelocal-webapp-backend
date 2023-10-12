@@ -28,7 +28,8 @@ def show(id):
 def create():
   print('Method type: ', request.method)
   form = ExperienceForm()
-
+  experience = None  # Set experience to None by default
+  
   if form.validate_on_submit():
 
     type = form.type.data

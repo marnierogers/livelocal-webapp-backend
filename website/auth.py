@@ -19,9 +19,6 @@ def register():
     
     #the validation of form is fine, HTTP request is POST
     if (register.validate_on_submit()==True):
-            
-            if count < 9:
-                count = 1
 
             #get username, password and email from the form
             name = register.name.data
@@ -31,7 +28,7 @@ def register():
             address_line1 = register.address_line1.data
             suburb = register.suburb.data
             postcode = register.postcode.data
-            avatar = f"/static/img/avatars/avatar{count}.png"
+            avatar = f"../static/img/avatars/avatar{count}.png"
 
             count = count + 1
 
