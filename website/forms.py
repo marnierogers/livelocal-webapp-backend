@@ -65,10 +65,16 @@ class RegisterForm(FlaskForm):
                          'class': 'ourClasses', 'style': 'width:100%; background-color: #849BFF; border-color: #849BFF;'})
 
 #User comment
+# class CommentForm(FlaskForm):
+#   text = TextAreaField('Comment', [InputRequired()])
+#   date = StringField('Date', default=datetime.today().strftime('%Y-%m-%d'))
+#   submit = SubmitField('Create')
+
+#User comment
+
 class CommentForm(FlaskForm):
   text = TextAreaField('Comment', [InputRequired()])
   submit = SubmitField('Create')
-
 
 class ExperienceForm(FlaskForm):
     type = SelectField('Type of Event', choices=[

@@ -141,29 +141,36 @@ def check_upload_file_3(form):
   fp.save(upload_path)
   return db_upload_path
 
-# @eventbp.route('/<destination>/comment', methods=['GET', 'POST'])
-# @login_required
-# def comment(destination):  
-#     form = CommentForm()  
-#     #get the destination object associated to the page and the comment
-#     destination = db.session.scalar(db.select(Destination).where(Destination.id==destination))
-#     if form.validate_on_submit():  
-#       #read the comment from the form
-#       comment = Comment(text=form.text.data, destination=destination,
-#                         user=current_user) 
-#       #here the back-referencing works - comment.destination is set
-#       # and the link is created
-#       db.session.add(comment) 
-#       db.session.commit() 
 
-#       #flashing a message which needs to be handled by the html
-#       flash('Your comment has been added', 'success')  
-#       # print('Your comment has been added', 'success') 
-#     # using redirect sends a GET request to destination.show
-#     return redirect(url_for('destination.show', id=destination.id))
+@eventbp.route('/<experience>/comment', methods=['GET', 'POST'])
+@login_required
+def comment(experience):
+    form = CommentForm()  
+    
+    #get the destination object associated to the page and the comment
+    experience = db.session.scalar(db.select(Experience).where(Experience.id==experience))
+
+    if form.validate_on_submit():  
+      #read the comment from the form
+      comment = Comment(text=form.text.data, experience=experience,
+                        user=current_user) 
+      
+      # here the back-referencing works - comment.destination is set
+      # and the link is created
+      db.session.add(comment) 
+      db.session.commit() 
+
+      #flashing a message which needs to be handled by the html
+      flash('Your comment has been added', 'success')  
+      # print('Your comment has been added', 'success') 
+
+    # using redirect sends a GET request to destination.show
+    return redirect(url_for('experiences.show', id=experience.id))
 
 
-@eventbp.route('/process_ticket_selection', methods=['POST'])
+
+
+@eventbp.route('/process_ticket_selection',  methods=['GET', 'POST'])
 @login_required
 def process_ticket_selection():
 

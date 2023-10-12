@@ -108,7 +108,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-md-6">
                                         <div class="input-group mb-3">
-                                            <label for="ticket_selector" class="input-group-text">Tickets:</label>
+                                       s     <label for="ticket_selector" class="input-group-text">Tickets:</label>
                                             <select id="ticket_selector" name="ticket_selector" class="form-select">
                                                 {% if experience.ticket_qty is defined %}
                                                 {% for i in range(experience.ticket_qty + 1) %}
@@ -159,7 +159,7 @@
                             <div class="card-body p-4">
                                 <div class="d-flex flex-start">
                                     <img class="rounded-circle shadow-1-strong me-3"
-                                        src="./static/img/maggie-avatar.png" alt="avatar" width="60" height="60" />
+                                        src="../static/img/maggie-avatar.png" alt="avatar" width="60" height="60" />
                                     <div>
                                         <h6 class="fw-bold mb-1">Maggie Marsh</h6>
                                         <div class="d-flex align-items-center mb-3">
@@ -188,7 +188,7 @@
                             <!--- Comment 2 -->
                             <div class="card-body p-4">
                                 <div class="d-flex flex-start">
-                                    <img class="rounded-circle shadow-1-strong me-3" src="./static/img/alexa-avatar.png"
+                                    <img class="rounded-circle shadow-1-strong me-3" src="../static/img/alexa-avatar.png"
                                         alt="avatar" width="60" height="60" />
                                     <div>
                                         <h6 class="fw-bold mb-1">Alexa Bennett</h6>
@@ -231,30 +231,125 @@
             </div>
 
         <!-- Comments -->
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-12">
                 <h2>Comments</h1>
             </div>
         </div>
         
         <div class="row border-bottom">
-            <!-- {{ render_form(form,"/experience/{0}/comment".format(experience.id)) }} -->
+            {{ render_form(form,"/experiences/{0}/comment".format(experience.id)) }}
         
             {% for comment in experience.comments %}
             <div class="col-md-12">
-                <b>{{ comment.user.name }} <span class="ml-2 text-muted">January 2024</span></b>
+                <b>{{ comment.user.name }} <span class="ml-2 text-muted">{{ comment.created_at}}</span></b>
                 <p>{{ comment.text }}</p>
             </div>
             {% endfor %}
+        </div> -->
+
+
+        <!-- Comment section existing and new comments -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Comments</h2>
+                </div>
+            </div>
+
+            <!-- Existing comments -->
+            {% for comment in experience.comments %}
+            <div class="row border-bottom">
+                <div class="col-md-12">
+                    <b>{{ comment.user.name }} <span class="ml-2 text-muted">{{ comment.created_at }}</span></b>
+                    <p>{{ comment.text }}</p>
+                </div>
+            </div>
+            <hr>
+            {% endfor %}
+
+            <!-- Add comment box -->
+            <div class="row border-bottom">
+                <div class="col-md-12">
+                    <h6 class="fw-bold mb-1">Leave a comment</h6>
+                    <form action="/experiences/{{ experience.id }}/comment" method="post">
+                        {{ form.hidden_tag() }}
+                        <textarea id="commentText" class="form-control mb-2" rows="3" name="text"
+                            placeholder="Write your comment here..."></textarea>
+                        <div id="loginMessageComments" class="alert alert-warning">
+                            Please login to leave a comment
+                        </div>
+                        <button type="submit" class="btn btn-primary custom-btn" id="bookNowBtn">Post</button>
+                    </form>
+                </div>
+            </div>
         </div>
 
 
 
+
+
+
+
+                        <div class="container">
+                            <div class="row d-flex justify-content-left">
+                                <div class="col-md-12 col-lg-12">
+                                    <div class="card text-dark">
+                        
+                                        <!-- Existing comments -->
+                                        {% for comment in experience.comments %}
+
+                                        <div class="card-body p-4">
+                                            <div class="d-flex flex-start">
+                                                <img class="rounded-circle shadow-1-strong me-3" src="../static/img/maggie-avatar.png"
+                                                    alt="avatar" width="60" height="60" />
+                                                <div>
+                                                    <h6 class="fw-bold mb-1">{{ comment.user.name }}</h6>
+                                                    <div class="d-flex align-items-center mb-3">
+                                                        <p class="mb-0">
+                                                            {{ comment.created_at }}
+                                                        </p>
+                                                    </div>
+                                                    <p class="mb-0">
+                                                    {{ comment.text }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        {% endfor %}
+                        
+                                        <!-- Add comment box -->
+                                        <div class="card-body p-4">
+                                            <h6 class="fw-bold mb-1">Leave a comment</h6>
+                                            <textarea id="commentText" class="form-control mb-2" rows="3"
+                                                placeholder="Write your comment here..."></textarea>
+                                            <div id="loginMessageComments" class="alert alert-warning">
+                                                Please login to leave a comment
+                                            </div>
+                                            <button onclick="postComment()" class="btn btn-primary custom-btn" id="bookNowBtn">Post</button>
+                        
+                                        </div>
+                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
         </div>
-
-
-
-
+        </div>
     </div>
 
 
