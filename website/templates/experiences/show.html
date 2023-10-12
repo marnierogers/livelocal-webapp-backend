@@ -157,7 +157,6 @@
                             <!-- Existing comments -->
                             {% for comment in experience.comments %}
 
-                            <!---{{ comment.user.avatar }}-->
                             <div class="card-body p-4">
                                 <div class="d-flex flex-start">
                                     <img class="rounded-circle shadow-1-strong me-3" src="{{ comment.user.avatar }}"
@@ -166,7 +165,7 @@
                                         <h6 class="fw-bold mb-1">{{ comment.user.name }}</h6>
                                         <div class="d-flex align-items-center mb-3">
                                             <p class="mb-0">
-                                                {{ comment.created_at }}
+                                                Posted at {{ comment.created_at }}
                                             </p>
                                         </div>
                                         <p class="mb-0">
@@ -411,8 +410,8 @@
         });
     </script>
 
-    <!-- JS for posting in the comment section -->
-    <script>
+    <!-- Old front-end JS for posting in the comment section -->
+    <!-- <script>
 
         // Change data format
         function formatDateWithSuffix(date) {
@@ -480,6 +479,8 @@
             // Clear the textarea
             document.getElementById("commentText").value = "";
         }
-    </script>
+    </script> -->
+
+
 </main>
 {% endblock %}
