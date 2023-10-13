@@ -88,7 +88,7 @@ class ExperienceForm(FlaskForm):
         min=5, max=80, message="Name must be 5 or more characters and cannot exceed 80 characters.")])
     description = TextAreaField('Description', validators=[
         InputRequired(message="Please enter the experience description."),
-        Length(min=1000, max=1500, message="Description must be 5 or more characters and cannot exceed 1500 characters.")
+        Length(min=5, max=1500, message="Description must be 5 or more characters and cannot exceed 1500 characters.")
     ])    
     address_line1 = StringField('Address', validators=[InputRequired()])
     suburb = StringField('Suburb', validators=[InputRequired()])
