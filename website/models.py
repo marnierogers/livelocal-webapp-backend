@@ -71,6 +71,7 @@ class Comment(db.Model):
 class Booking(db.Model):
     __tablename__ = 'bookings'
     booking_id = db.Column(db.Integer, index=True, unique=True, primary_key=True)
+    price = db.Column(db.Numeric(precision=10, scale=2), nullable=False)
     purchased_ticket_qty = db.Column(db.Integer, nullable=False)
     purchase_date = db.Column(db.String, nullable=False)
 

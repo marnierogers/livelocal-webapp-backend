@@ -3,7 +3,11 @@ from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
+import os
+from dotenv import load_dotenv  # Import dotenv
 import datetime
+
+load_dotenv()
 
 db = SQLAlchemy()
 app = Flask(__name__)
@@ -19,10 +23,10 @@ def create_app():
 
     #a secret key for the session object
     #(it would be better to use an environment variable here)
-    app.secret_key = 'livelocalpassword'
+    app.secret_key = os.getenv('SECRET_KEY')
 
     #Configue and initialise DB
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///livelocaldb.sqlite'
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
     db.init_app(app)
 
     #config upload folder
