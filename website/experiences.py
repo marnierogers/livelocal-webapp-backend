@@ -19,8 +19,9 @@ def show(id):
     print(experience)
     
     # create the comment form
-    form = CommentForm()    
-    return render_template('experiences/show.html', experience=experience, form=form)
+    form = CommentForm()  
+    ticket_selector_form = TicketSelectorForm()  
+    return render_template('experiences/show.html', experience=experience, form=form, ticket_selector_form=ticket_selector_form)
 
 
 @eventbp.route('/create', methods=['GET', 'POST'])
@@ -151,12 +152,10 @@ def comment(experience_id):
 
     form = CommentForm(request.form)
 
-
     print("Form data received:")
     print("Comment text:", form.text.data)
     print("Experience ID:", experience_id)
 
-    
     #get the destination object associated to the page and the comment
     experience = db.session.scalar(db.select(Experience).where(Experience.id==experience))
 
@@ -178,18 +177,19 @@ def comment(experience_id):
     return redirect(url_for('experiences.show', id=experience.id))
 
 
-@eventbp.route('/experiences/<int:experience_id>/process_ticket_selection', methods=['GET', 'POST'])
+@eventbp.route('/<int:experience_id>/process_ticket_selection', methods=['GET', 'POST'])
 @login_required
 def process_ticket_selection(experience_id):
 
-  form = TicketSelectorForm(request.form)
+  # Create an instance of TicketSelectorForm
+  ticket_selector_form = TicketSelectorForm()
 
   # Retrieve the experience ID from the form
-  experience_id = form.experience_id.data
+  experience_id = ticket_selector_form.experience_id.data
 
   print("Experience.id" + experience_id)
 
-  if form.validate_on_submit():
+  if ticket_selector_form.validate_on_submit():
 
     print("Inside form validated field")
 
@@ -207,7 +207,7 @@ def process_ticket_selection(experience_id):
         flash('Invalid ticket quantity selected.')
 
         # Replace with an appropriate redirect
-        return render_template('experiences/show.html', experience=experience)
+        return render_template('experiences/show.html', experience=experience, form=ticket_selector_form)
 
     # Update ticket quantity in the experience
     experience.ticket_qty -= ticket_qty
@@ -228,4 +228,4 @@ def process_ticket_selection(experience_id):
     db.session.add(booking)
     db.session.commit()
 
-    return render_template('experiences/show.html', experience=experience)
+    return render_template('experiences/show.html', experience=experience, form=ticket_selector_form)

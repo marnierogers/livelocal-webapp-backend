@@ -64,14 +64,8 @@ class RegisterForm(FlaskForm):
     submit = SubmitField("Register", render_kw={
                          'class': 'ourClasses', 'style': 'width:100%; background-color: #849BFF; border-color: #849BFF;'})
 
-#User comment
-# class CommentForm(FlaskForm):
-#   text = TextAreaField('Comment', [InputRequired()])
-#   date = StringField('Date', default=datetime.today().strftime('%Y-%m-%d'))
-#   submit = SubmitField('Create')
 
 #User comment
-
 class CommentForm(FlaskForm):
   text = TextAreaField('Comment', [InputRequired()])
   submit = SubmitField('Create')
@@ -121,3 +115,7 @@ class TicketSelectorForm(FlaskForm):
     ticket_selector = SelectField('Tickets:', coerce=int, validators=[InputRequired()])
     experience_id = HiddenField()
     submit = SubmitField('Book Now')
+
+    def set_ticket_choices(self, max_ticket_qty):
+        self.ticket_selector.choices = [(i, str(i))
+                                        for i in range(max_ticket_qty + 1)]
