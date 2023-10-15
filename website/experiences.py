@@ -183,6 +183,8 @@ def process_ticket_selection(experience_id):
 
   # Create an instance of TicketSelectorForm
   ticket_selector_form = TicketSelectorForm()
+  # ticket_selector_form.set_ticket_choices(max_ticket_qty)
+
 
   # Retrieve the experience ID from the form
   experience_id = ticket_selector_form.experience_id.data

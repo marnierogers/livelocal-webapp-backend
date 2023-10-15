@@ -116,6 +116,6 @@ class TicketSelectorForm(FlaskForm):
     experience_id = HiddenField()
     submit = SubmitField('Book Now')
 
-    def set_ticket_choices(self, max_ticket_qty):
-        self.ticket_selector.choices = [(i, str(i))
-                                        for i in range(max_ticket_qty + 1)]
+    # def set_ticket_choices(self, max_ticket_qty):
+    #     self.ticket_selector.choices = [(i, str(i))
+    #                                     for i in range(max_ticket_qty + 1)]
