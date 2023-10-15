@@ -143,10 +143,19 @@ def check_upload_file_3(form):
   return db_upload_path
 
 
-@eventbp.route('/<experience>/comment', methods=['GET', 'POST'])
+@eventbp.route('/<int:experience_id>/comment', methods=['GET', 'POST'])
 @login_required
-def comment(experience):
-    form = CommentForm()  
+def comment(experience_id):
+    
+    print("Experience: " + experience)
+
+    form = CommentForm(request.form)
+
+
+    print("Form data received:")
+    print("Comment text:", form.text.data)
+    print("Experience ID:", experience_id)
+
     
     #get the destination object associated to the page and the comment
     experience = db.session.scalar(db.select(Experience).where(Experience.id==experience))
@@ -169,11 +178,9 @@ def comment(experience):
     return redirect(url_for('experiences.show', id=experience.id))
 
 
-
-
-@eventbp.route('/process_ticket_selection',  methods=['GET', 'POST'])
+@eventbp.route('/experiences/<int:experience_id>/process_ticket_selection', methods=['GET', 'POST'])
 @login_required
-def process_ticket_selection():
+def process_ticket_selection(experience_id):
 
   form = TicketSelectorForm(request.form)
 

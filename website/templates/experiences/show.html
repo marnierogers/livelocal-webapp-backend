@@ -103,7 +103,7 @@
                         <div class="row align-items-center">
 
                     
-                            <form method="POST" action="/process_ticket_selection">
+                            <form action="/experiences/{{ experience.id }}/process_ticket_selection" method="post">
                                 <input type="hidden" name="experience_id" value="{{ experience.id }}">
                                 <div class="row align-items-center">
                                     <div class="col-md-6">
@@ -216,155 +216,6 @@
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
 
-    <!-- JS to handle button click events and toggle "pressed" state -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const buttons = document.querySelectorAll(".toggle-button");
-
-            buttons.forEach(function (button) {
-                button.addEventListener("click", function () {
-                    buttons.forEach(function (otherButton) {
-                        otherButton.classList.remove("active");
-                    });
-                    this.classList.add("active");
-                });
-            });
-        });
-    </script>
-
-    <!-- JS to handle login modal script -->
-    <script>
-        const loginButton = document.getElementById("loginButton");
-        const loginModal = new bootstrap.Modal(document.getElementById("loginModal"));
-        const loginModalBody = document.querySelector("#loginModal .modal-body");
-        const experiencesLink = document.getElementById("experiencesLink");
-        const bookingHistoryLink = document.getElementById("bookingHistoryLink");
-        const loginMessage = document.getElementById("loginMessage");
-        const ticketSelector = document.getElementById("ticketSelector");
-
-        let isLoggedIn;
-
-        function checkAndDisplayMessage() {
-            if (loginButton.textContent.trim() === "Login") {
-                isLoggedIn = false;
-            } else {
-                isLoggedIn = false;
-            }
-        }
-
-        loginButton.addEventListener("click", function () {
-
-            // User is logged out
-            if (isLoggedIn) {
-                loginModalBody.textContent = "It was great having you. See you next time.";
-                loginButton.textContent = "Login";
-
-                // Hide the Experiences link
-                experiencesLink.style.display = "none";
-
-                // Hide the Book History link
-                bookingHistoryLink.style.display = "none";
-
-                // Disable Book now button
-                bookNowBtn.disabled = true;
-
-                // Disable ticket selector
-                ticketSelector.disabled = true;
-
-            } else {
-                // User is logged in
-                loginModalBody.textContent = "You're in! You can now create and book events.";
-                loginButton.textContent = "Logout";
-
-                // Show the Experiences link
-                experiencesLink.style.display = "block";
-
-                // Show the Book History link
-                bookingHistoryLink.style.display = "block";
-
-                // Enable the "Book Now" button
-                bookNowBtn.disabled = false;
-
-                // Enable ticket selector
-                ticketSelector.disabled = false;
-            }
-
-            // Toggle the login state
-            isLoggedIn = !isLoggedIn;
-
-            // Show the login modal
-            loginModal.show();
-        });
-    </script>
-
-    <!-- JS to handle Book Now modal message-->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const availableTicketsSpan = document.getElementById("availableTickets");
-            const ticketSelector = document.getElementById("ticketSelector");
-            const bookNowBtn = document.getElementById("bookNowBtn");
-            const ticketStatus = document.getElementById("change-status"); // Define the ticketStatus element
-            const loginButton = document.getElementById("loginButton");
-
-            // Check if selectedTickets is 0, greater than availableTickets,
-            // or if the nav bar button says "Login"
-            function updateAvailableTickets() {
-                const selectedTickets = parseInt(ticketSelector.value);
-                const availableTickets = parseInt(availableTicketsSpan.textContent);
-
-                if (selectedTickets === 0 || selectedTickets > availableTickets || loginButton.textContent.trim() === "Login") {
-                    bookNowBtn.disabled = true;
-                    
-                } else {
-                    bookNowBtn.disabled = false;
-                }
-            }
-
-            // Update available tickets when the page loads
-            updateAvailableTickets();
-
-            // Event listener for ticket selector change
-            ticketSelector.addEventListener("change", updateAvailableTickets);
-
-            // Event listener for "Book Now" button click
-            bookNowBtn.addEventListener("click", function () {
-                const selectedTickets = parseInt(ticketSelector.value);
-                const availableTickets = parseInt(availableTicketsSpan.textContent);
-
-                if (selectedTickets > availableTickets || selectedTickets === 0) {
-
-                    // Disable book now button
-                    bookNowBtn.disabled = true;
-
-                } else {
-                    // Update available tickets after booking
-                    availableTicketsSpan.textContent = (availableTickets - selectedTickets).toString();
-
-                    if (availableTicketsSpan.textContent <= 0) {
-                        console.log("Inside here");
-                        bookNowBtn.disabled = true;
-                    }
-
-
-                    // Show the booking confirmation modal
-                    const bookingConfirmationModal = new bootstrap.Modal(document.getElementById("bookingConfirmationModal"));
-                    const bookingConfirmationMessage = document.getElementById("bookingConfirmationMessage");
-                    const bookingConfirmationTickets = document.getElementById("bookingConfirmationTickets");
-
-                    bookingConfirmationTickets.textContent = selectedTickets;
-                    bookingConfirmationModal.show();
-
-                    // Check and change to the sold out icon if no tickets remaining
-                    if (parseInt(availableTicketsSpan.textContent) === 0) {
-                        ticketStatus.textContent = "Sold Out";
-                        ticketStatus.classList.remove("status-green"); // Remove the "status-green" class
-                        ticketStatus.classList.add("status-red"); // Add the "status-red" class
-                    }
-                }
-            });
-        });
-    </script>
-
     <!-- JS to display "Please login ..." message to comments + book now section -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -410,76 +261,14 @@
         });
     </script>
 
-    <!-- Old front-end JS for posting in the comment section -->
-    <!-- <script>
-
-        // Change data format
-        function formatDateWithSuffix(date) {
-            const day = date.getDate();
-            const monthNames = [
-                "January", "February", "March", "April", "May", "June",
-                "July", "August", "September", "October", "November", "December"
-            ];
-            const month = monthNames[date.getMonth()];
-            const year = date.getFullYear();
-            const suffix = getDaySuffix(day);
-
-            return `${day}${suffix} ${month}, ${year}`;
-        }
-
-        // Get date suffix
-        function getDaySuffix(day) {
-            if (day >= 11 && day <= 13) {
-                return 'th';
-            }
-            switch (day % 10) {
-                case 1:
-                    return 'st';
-                case 2:
-                    return 'nd';
-                case 3:
-                    return 'rd';
-                default:
-                    return 'th';
-            }
-        }
-
-        function postComment() {
-
-            // Get the comment text from the text area
-            const commentText = document.getElementById("commentText").value;
-
-            // Create a new comment element
-            const newComment = document.createElement("div");
-            newComment.className = "card-body p-4";
-            newComment.innerHTML = `
-                    <div class="d-flex flex-start">
-                        <img class="rounded-circle shadow-1-strong me-3"
-                            src="./static/img/josh-avatar.jpg" alt="avatar"
-                            width="60" height="60" />
-                        <div>
-                            <h6 class="fw-bold mb-1">Josh Swims</h6>
-                            <div class="d-flex align-items-center mb-3">
-                                <p class="mb-0">
-                                    ${formatDateWithSuffix(new Date())}
-                                </p>
-                            </div>
-                            <p class="mb-0">
-                                ${commentText}
-                            </p>
-                        </div>
-                    </div>
-                    <hr>
-                `;
-
-            // Insert the new comment at the top of the comments section
-            const commentsSection = document.querySelector(".card.text-dark");
-            commentsSection.insertBefore(newComment, commentsSection.firstChild);
-
-            // Clear the textarea
-            document.getElementById("commentText").value = "";
-        }
-    </script> -->
+    <!--- Test script to see if Form is being submitted -->
+    <script>
+        document.querySelector('form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            console.log('Form submitted with data:', new FormData(this));
+            this.submit();
+        });
+    </script>
 
 
 </main>
