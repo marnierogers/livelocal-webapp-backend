@@ -180,36 +180,31 @@ def comment(experience_id):
 @eventbp.route('/<int:experience_id>/process_ticket_selection', methods=['GET', 'POST'])
 @login_required
 def process_ticket_selection(experience_id):
+    # Create an instance of TicketSelectorForm
+    ticket_selector_form = TicketSelectorForm()
 
-  # Create an instance of TicketSelectorForm
-  ticket_selector_form = TicketSelectorForm()
-  # ticket_selector_form.set_ticket_choices(max_ticket_qty)
+    # Retrieve the selected ticket quantity from the form
+    ticket_qty = int(request.form['ticket_selector'])
+    print("Selected ticket quantity:", ticket_qty)
 
+    # Retrieve the experience ID from the form
+    experience_id = ticket_selector_form.experience_id.data
+    print("Experience.id:", experience_id)
 
-  # Retrieve the experience ID from the form
-  experience_id = ticket_selector_form.experience_id.data
-
-  print("Experience.id" + experience_id)
-
-  if ticket_selector_form.validate_on_submit():
+    # Set the choices for the ticket_selector field
+    ticket_selector_form.ticket_selector.choices = [
+        (i, str(i)) for i in range(ticket_qty + 1)]
 
     print("Inside form validated field")
 
-    # Get the number of tickets selected by the user
-    ticket_qty = int(request.form.get('ticket_selector'))
-    print("Ticket_qty is" + ticket_qty)
-
-    # Get the experience based on the experience ID (you need to extract the experience ID from the request)
-    # Extract the experience ID from the request (e.g., request.form.get('experience_id'))
-    experience_id = request.form.get('id')
+    # Get the experience based on the experience ID
     experience = Experience.query.get(experience_id)
 
     # Check if the selected number of tickets is valid
     if ticket_qty > experience.ticket_qty:
         flash('Invalid ticket quantity selected.')
-
-        # Replace with an appropriate redirect
-        return render_template('experiences/show.html', experience=experience, form=ticket_selector_form)
+        # Redirect to an appropriate route
+        return redirect(url_for('your_experiences_route'))
 
     # Update ticket quantity in the experience
     experience.ticket_qty -= ticket_qty
@@ -231,3 +226,8 @@ def process_ticket_selection(experience_id):
     db.session.commit()
 
     return render_template('experiences/show.html', experience=experience, form=ticket_selector_form)
+    # else:
+      #     # Form did not validate, handle this case
+      #     flash('Form did not validate.')
+      #     # Redirect to an appropriate route
+      #     return redirect(url_for('experiences.show', id=experience_id))
