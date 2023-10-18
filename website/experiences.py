@@ -147,8 +147,6 @@ def check_upload_file_3(form):
 @eventbp.route('/<int:experience_id>/comment', methods=['GET', 'POST'])
 @login_required
 def comment(experience_id):
-    
-    print("Experience: " + experience)
 
     form = CommentForm(request.form)
 
@@ -157,7 +155,7 @@ def comment(experience_id):
     print("Experience ID:", experience_id)
 
     #get the destination object associated to the page and the comment
-    experience = db.session.scalar(db.select(Experience).where(Experience.id==experience))
+    experience = db.session.scalar(db.select(Experience).where(Experience.id==experience_id))
 
     if form.validate_on_submit():  
       #read the comment from the form
@@ -189,7 +187,6 @@ def process_ticket_selection(experience_id):
 
     # Retrieve the experience ID from the form
     experience_id = ticket_selector_form.experience_id.data
-    print("Experience.id:", experience_id)
 
     # Set the choices for the ticket_selector field
     ticket_selector_form.ticket_selector.choices = [
