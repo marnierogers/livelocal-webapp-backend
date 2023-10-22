@@ -35,8 +35,8 @@ class Experience(db.Model):
     postcode = db.Column(db.Integer, nullable=False)
 
     start_date = db.Column(db.String, nullable=False)
-    start_time = db.Column(db.String, nullable=False)
-    end_time = db.Column(db.String, nullable=False)
+    start_time = db.Column(db.String(4), nullable=False)
+    end_time = db.Column(db.String(4), nullable=False)
     ticket_qty = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Numeric(precision=10, scale=2), nullable=False)
     image_1 = db.Column(db.String(400), nullable=False)
@@ -45,7 +45,7 @@ class Experience(db.Model):
     status = db.Column(db.String(20), default="Open", nullable=False)
 
     # ... Create the Comments db.relationship
-    # relation to call destination.comments and comment.destination
+    # relation to call experience.comments and comment.experience
     comments = db.relationship('Comment', backref='experience')
 
     # Create user db.relationship
