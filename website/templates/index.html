@@ -200,7 +200,7 @@
             <h3 id='currentText' class="custom-heading mb-4 mt-3 ms-0 me-0">Current events:</h3>
             <div class="custom-card mx-auto mx-3 left-align-card" data-type="tours" data-status="open" data-name="Noosa Kayak Adventure">
                 <div class="card box-shadow mx-auto homepage-card">
-                    <a href="/experiences/show">
+                    <a href="/event">
                     <img src="./static/img/kayak-tour.png" class="card-img-top" alt="Man kayaking on river">
                     
                     <!-- Status box in the top right corner -->
@@ -615,7 +615,7 @@
                             $(this).hide();
                             $(this).addClass("hidingCurrent");
                             
-                        currentText.innerHTML = '';
+                        currentText.style.display = 'none';
                         });
                     } else {
                         $('#current .custom-card').each(function() {
@@ -625,7 +625,7 @@
                                 $(this).removeClass("hidingCurrent");
                             }
                             
-                        currentText.innerHTML = 'Current events:';
+                            currentText.style.display = 'block';
                         });
                     }
 
@@ -640,8 +640,7 @@
                            
                             $(this).hide();
                             $(this).addClass("hidingUpcoming");
-                            upcomingText.innerHTML = '';
-
+                            upcomingText.style.display = 'none';
                         });
                     } else {
                         $('#upcoming .custom-card').each(function() {
@@ -650,7 +649,7 @@
                                 $(this).removeClass("hidingUpcoming");
                             }
 
-                            upcomingText.innerHTML = 'Upcoming events:';
+                            upcomingText.style.display = 'block';
 
                         });
                     }

@@ -24,6 +24,4 @@ def history():
     return render_template('booking-history.html')
 
 
-@bp.route('/experiences/')
-def update():
-    return render_template('update.html')
+

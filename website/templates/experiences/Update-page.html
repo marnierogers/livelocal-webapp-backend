@@ -12,13 +12,12 @@
             <div class="row">
                 <div class="event-header">
                     <div class="event-page-header">
-                        <h3 class="event-page-header-small">Create an experience<br></h3>
+                        <h3 class="event-page-header-small">Update your experience<br></h3>
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <p class="paragraph-spacing">Get ready to bring your vision to life.
-                        This is your canvas to craft and host your one-of-a-kind experience, down to the finest details.
-                        Let's start creating extraordinary experiences together!</p>
+                    <p class="paragraph-spacing">This is where your vision gets a fresh coat of inspiration, allowing you to fine-tune every aspect of your unique experience.
+                        Let's work together to bring new life to your event and make it even more extraordinary!</p>
 
                         <!-- Add this to display flashed messages -->
                         <div class="col-md-6">
@@ -225,97 +224,6 @@
 
         // Handle "Confirm" button click
         confirmButton.addEventListener("click", confirmEvent);
-
-    </script>
-
-    <!-- JS to handle login modal -->
-    <script>
-        const loginButton = document.getElementById("loginButton");
-        const loginModal = new bootstrap.Modal(document.getElementById("loginModal"));
-        const loginModalBody = document.querySelector("#loginModal .modal-body");
-        const experiencesLink = document.getElementById("experiencesLink");
-        const bookingHistoryLink = document.getElementById("bookingHistoryLink");
-        const loginMessage = document.getElementById("loginMessage");
-        const ticketSelector = document.getElementById("ticketSelector");
-
-        // Get all form elements within the form with id "dynamic-form" to disable if not logged in
-        const form = document.getElementById("dynamic-form");
-        const formElements = form.elements;
-
-        let isLoggedIn = false;
-
-        loginButton.addEventListener("click", function () {
-
-            // User is logged out
-            if (isLoggedIn) {
-
-                // User is logged in
-                loginModalBody.textContent = "You're in! You can now create and book events.";
-                loginButton.textContent = "Logout";
-
-                // Show the Experiences link
-                experiencesLink.style.display = "block";
-
-                // Show the Booking History link
-                bookingHistoryLink.style.display = "block";
-
-                // Show login message
-                loginMessage.style.display = "none";
-
-                // Loop through all form elements and disable them if the user is not logged in
-                for (let i = 0; i < formElements.length; i++) {
-
-                    const element = formElements[i];
-
-                    // Disable the form element
-                    element.disabled = false;
-                }
-
-            } else {
-                loginModalBody.textContent = "It was great having you. See you next time.";
-                loginButton.textContent = "Login";
-
-                // Hide the Experiences link
-                experiencesLink.style.display = "none";
-
-                // Hide the Booking History link
-                bookingHistoryLink.style.display = "none";
-
-                // Hide login message
-                loginMessage.style.display = "block";
-
-                // Loop through all form elements and disable them if the user is not logged in
-                for (let i = 0; i < formElements.length; i++) {
-
-                    const element = formElements[i];
-                    // Disable the form element
-                    element.disabled = true;
-                }
-            }
-
-            // Toggle the login state
-            isLoggedIn = !isLoggedIn;
-
-            // Show the login modal
-            loginModal.show();
-        });
-    </script>
-
-    <!--- JS to refresh the page when Create Another Experience button is pressed -->
-    <script>
-
-        // Attach a click event listener to a parent element that exists when the page loads
-        document.body.addEventListener("click", function (event) {
-            const target = event.target;
-
-            // Check if the clicked element has the id "createAnotherExperienceButton"
-            if (target && target.id === "createAnotherExperienceButton") {
-                console.log("Button clicked");
-
-                // Reload the page
-                location.reload();
-            }
-        });
 
     </script>
 

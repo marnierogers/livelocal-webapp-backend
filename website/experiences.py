@@ -68,20 +68,64 @@ def create():
     return redirect(url_for('experiences.create'))
   
   return render_template('experiences/create.html', form=form, experience=experience)
+  
+@eventbp.route('/update-page', methods=['GET', 'POST'])
+@login_required
+def update_page():
+  print('Method type: ', request.method)
+  form = ExperienceForm()
+  experience = None  # Set experience to None by default
+  
+  if form.validate_on_submit():
 
+    type = form.type.data
+    name = form.name.data
+    description = form.description.data
+    address_line1 = form.address_line1.data
+    suburb = form.suburb.data
+    postcode = form.postcode.data
+    start_date = form.start_date.data
+    start_time = form.start_time.data
+    end_time = form.end_time.data
+    ticket_qty = form.ticket_qty.data
+    price = form.price.data
+    image_1 = form.image_1.data
+    image_2 = form.image_2.data
+    image_3 = form.image_3.data
+
+
+    #call the function that checks and returns image
+    db_file_path = check_upload_file(form)
+    db_file_path_2 = check_upload_file_2(form)
+    db_file_path_3 = check_upload_file_3(form)
+    
+    experience = Experience(type=type, name=name, description=description, address_line1=address_line1, suburb=suburb, postcode=postcode, start_date=start_date, start_time=start_time, end_time=end_time, ticket_qty=ticket_qty, price=price,
+                            image_1=db_file_path, image_2=db_file_path_2, image_3=db_file_path_3, user=current_user)
+
+    # add the object to the db session
+    db.session.add(experience)
+
+    # commit to the database
+    db.session.commit()
+    flash('Experience successfully updated.', 'success')
+
+    #Always end with redirect when form is valid
+    return redirect(url_for('experiences.update-page'))
+  
+  return render_template('experiences/update-page.html', form=form, experience=experience)
 
 @eventbp.route('/update', methods=['GET', 'POST'])
 @login_required
 def update():
-  print('Method type: ', request.method)
+    print('Method type: ', request.method)
 
-  # Query the database to get experiences associated with the current user
-  user_experiences = Experience.query \
-      .filter(Experience.user == current_user) \
-      .options(joinedload(Experience.user)) \
-      .all()
+    # Query the database to get experiences associated with the current user
+    user_experiences = Experience.query \
+        .filter(Experience.user == current_user) \
+        .options(joinedload(Experience.user)) \
+        .all()
 
-  return render_template('experiences/update.html', experiences=user_experiences)
+    return render_template('experiences/update.html', experiences=user_experiences)
 
 def check_upload_file(form):
   
