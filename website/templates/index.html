@@ -111,7 +111,6 @@
                     <!-- Search bar  -->
                     <div class="input-group custom-input-group mb-3">
                         <input id="search-input" type="text" class="form-control custom-btn custom-search-bar m-0 me-2" placeholder="Search..." id="custom-search-bar">
-                        <button class="btn btn-outline-light custom-btn " type="button" id="searchButton"><i class="bi bi-search "></i> Search</button>
                     </div>
 
                     <!-- Event availabilty checkbox buttons  -->
@@ -144,11 +143,13 @@
                         </div>
                     </div>
                 </div>
+
+                
                 
                 <!-- Event category radio buttons -->
                 <div class="col-md-4 d-flex mb-3">
                     <div class="btn-group d-flex flex-wrap">
-                        <button class="btn custom-btn toggle-button me-2 mb-2 rounded" data-type="all">
+                        <button class="btn custom-btn toggle-button me-2 mb-2 rounded active" data-type="all">
                             All
                         </button>
                         <button class="btn custom-btn toggle-button me-2 mb-2 rounded" data-type="art-culture">
@@ -182,6 +183,15 @@
                 <div class="centered-message">
                     <br>
                     <h5>No results found. Please try another filter.</h5>
+                </div>
+            </div>
+
+            <!--- No results filter message-->
+            <div id="adjustSearchMessage">
+                <br>
+                <div class="centered-message">
+                    <br>
+                    <h5>Please select at least one event type to see results.</h5>
                 </div>
             </div>
 
@@ -567,6 +577,7 @@
 
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 
              <!-- JS to handle button click events and toggle "pressed" state -->
                 <script>
@@ -584,11 +595,11 @@
                 });
             </script>
 
-
             <script>
                 var upcomingEnabled = true;
                 var currentEnabled = true;
 
+                let global_status = "all";
 
                 var upcomingbtn = document.getElementById('eventUpcoming');
                 var currentBtn = document.getElementById('eventCurrent');
@@ -597,27 +608,21 @@
                 var searchBar = document.getElementById('search-input');
 
                 currentBtn.addEventListener('click', function () {
+
                     if (currentEnabled) {
                         $('#current .custom-card').each(function() {
-
                             
+                            $(this).hide();
+                            $(this).addClass("hidingCurrent");
                             
-                            if ($(this).css('display') == 'block') {
-                                
-                                $(this).hide();
-                                $(this).addClass("hidingCurrent");
-                            }
                         currentText.innerHTML = '';
                         });
                     } else {
                         $('#current .custom-card').each(function() {
-                            if ($(this).hasClass('hiding')) {
-
-                            } else {
-                                if ($(this).hasClass('hidingCurrent')) {
-                                    $(this).show();
-                                    $(this).removeClass("hidingCurrent");
-                                }
+                            
+                            if ($(this).hasClass('hidingCurrent')) {
+                                $(this).show();
+                                $(this).removeClass("hidingCurrent");
                             }
                             
                         currentText.innerHTML = 'Current events:';
@@ -626,19 +631,17 @@
 
                     currentEnabled = !currentEnabled;
 
-                    
-                    
+                    filter();
                 });
 
                 upcomingbtn.addEventListener('click', function () {
                     if (upcomingEnabled) {
                         $('#upcoming .custom-card').each(function() {
-                            if ($(this).css('display') == 'block') {
-                                $(this).hide();
-                                $(this).addClass("hidingUpcoming");
-                            }
-                    
-                        upcomingText.innerHTML = '';
+                           
+                            $(this).hide();
+                            $(this).addClass("hidingUpcoming");
+                            upcomingText.innerHTML = '';
+
                         });
                     } else {
                         $('#upcoming .custom-card').each(function() {
@@ -647,186 +650,149 @@
                                 $(this).removeClass("hidingUpcoming");
                             }
 
-                        
-                        upcomingText.innerHTML = 'Upcoming events:';
+                            upcomingText.innerHTML = 'Upcoming events:';
+
                         });
                     }
 
                     upcomingEnabled = !upcomingEnabled;
 
-                    tester();
+                    filter();
                     
                 });
 
+                const adjustSearchMessage = document.getElementById("adjustSearchMessage");
+                adjustSearchMessage.style.display = "none";
 
+                function filter() {
 
-                function tester() {
-                    
-                    const butts = document.querySelectorAll(".toggle-button");
-                    const cardss = document.querySelectorAll(".custom-card.mx-auto.mx-3.left-align-card");
+                    const toggleButtons = document.querySelectorAll(".toggle-button");
+                    const currentCards = document.querySelectorAll(".custom-card.mx-auto.mx-3.left-align-card");
+                    const upcomingCards = document.querySelectorAll(".custom-card.mx-auto.mx-3.left-align-card.upcoming");                
 
-                    let bigtypee;
+                    let activeButtonType;
 
-                    
-
-                    butts.forEach(function (button) {
+                    toggleButtons.forEach(function (button) {
                         
                         if (button.classList.contains('active')) {
-                            
-                            
-                            bigtypee = button.getAttribute("data-type");
-       
 
+                            anyCardsMatch = false;
 
-                            cardss.forEach(function (card) {
+                            activeButtonType = button.getAttribute("data-type");
 
-                            const cardType = card.getAttribute("data-type");
-                            const cardStatus = card.getAttribute("data-status");
-                            
-
-                            if (bigtypee === "all") {
-                                
-                                card.style.display = "block";
-                                if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
-                                anyCardsMatch = true;
-                                
-                            } else if (bigtypee === "all") {
-                                
-                                card.style.display = "block";
-                                if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
-                                anyCardsMatch = true;
-                                
-                            } else if (cardType === bigtypee) {
-                                
-                                card.style.display = "block";
-                                if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
-                                anyCardsMatch = true;
-                                
-                            } else if (cardType === bigtypee) {
-                                
-                                card.style.display = "block";
-                                if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
-                                anyCardsMatch = true;
-                                
+                            if (!currentEnabled && !upcomingEnabled) {
+                                // Show/hide the message based on the flag
+                                adjustSearchMessage.style.display = "block";
                             } else {
-                                card.style.display = "none";
-                                card.classList.add('hiding')
+                                adjustSearchMessage.style.display = "none";
+                            }
+       
+                            if (currentEnabled) {
+                                currentCards.forEach(function (card) {
+                                
+                                    const cardType = card.getAttribute("data-type");
+                                    const cardStatus = card.getAttribute("data-status");
+
+                                    if (activeButtonType === "all" && global_status === "all") {
+                                        card.style.display = "block";
+                                        if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
+                                        anyCardsMatch = true;
+                                    } else if (activeButtonType === "all" && cardStatus === global_status) {
+                                        card.style.display = "block";
+                                        if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
+                                        anyCardsMatch = true;  
+                                    } else if (cardType === activeButtonType && global_status === "all") {
+                                        card.style.display = "block";
+                                        if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
+                                        anyCardsMatch = true;
+                                    } else if (cardType === activeButtonType && cardStatus === global_status) {
+                                        card.style.display = "block";
+                                        if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
+                                        anyCardsMatch = true;
+                                    } else {
+                                        card.style.display = "none";
+                                        card.classList.add('hiding')
+                                    }
+                                });
+                            } else {
+                                currentCards.forEach(function (card) {
+                                    card.style.display = "none";
+                                });
                             }
 
+                            if (upcomingEnabled) {
+                                upcomingCards.forEach(function (card) {
+                                
+                                    const cardType = card.getAttribute("data-type");
+                                    const cardStatus = card.getAttribute("data-status");
 
-                    });
 
-
-
+                                    if (activeButtonType === "all" && global_status === "all") {
+                                        card.style.display = "block";
+                                        if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
+                                        anyCardsMatch = true;
+                                    } else if (activeButtonType === "all" && cardStatus === global_status) {
+                                        card.style.display = "block";
+                                        if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
+                                        anyCardsMatch = true;
+                                    } else if (cardType === activeButtonType && global_status === "all") {
+                                        card.style.display = "block";
+                                        if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
+                                        anyCardsMatch = true;
+                                    } else if (cardType === activeButtonType && cardStatus === global_status) {
+                                        card.style.display = "block";
+                                        if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
+                                        anyCardsMatch = true;
+                                    } else {
+                                        card.style.display = "none";
+                                        card.classList.add('hiding')
+                                    }
+                                });
+                            } else {
+                                upcomingCards.forEach(function (card) {
+                                    card.style.display = "none";
+                                });
+                            }
                         }
+
+                        const noResultsMessage = document.getElementById("noResultsMessage");
+                        if (anyCardsMatch) {
+                            noResultsMessage.style.display = "none";
+                        } else {
+                            noResultsMessage.style.display = "block";
+                        }
+                        
+                        search();
                     }); 
-
-
-                    search();
-
                 }
-                
 
                 document.addEventListener("DOMContentLoaded", function () {
-                const typeButtons = document.querySelectorAll(".toggle-button");
-                const statusDropdown = new bootstrap.Dropdown(document.getElementById("filterDropdown"));
-                const cards = document.querySelectorAll(".custom-card.mx-auto.mx-3.left-align-card");
+                    const typeButtons = document.querySelectorAll(".toggle-button");
+                    const statusDropdown = new bootstrap.Dropdown(document.getElementById("filterDropdown"));
+                  
 
-                let global_type = "all";
-                let global_status = "all";
-                let anyCardsMatch = false;
-
-                
-            
-
-                // Function to filter cards based on type
-                function filterCards(type, status) {
-
+                    
+                    let anyCardsMatch = false;
 
                     typeButtons.forEach(function (button) {
-                    if (button.classList.contains('active')) {
-                        alert(button.innerHTML)
-                    }
-                    });
-                    
-                    // Show/hide the message based on the flag
-                    anyCardsMatch = false;
-                    
-                    
-                    cards.forEach(function (card) {
- 
-
-                        const cardType = card.getAttribute("data-type");
-                        const cardStatus = card.getAttribute("data-status");
-                        
-
-                        if (type === "all" && status === "all") {
-                            
-                            card.style.display = "block";
-                            if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
-                            anyCardsMatch = true;
-                            
-                        } else if (type === "all" && cardStatus === global_status) {
-                            
-                            card.style.display = "block";
-                            if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
-                            anyCardsMatch = true;
-                            
-                        } else if (cardType === type && global_status === "all") {
-                            
-                            card.style.display = "block";
-                            if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
-                            anyCardsMatch = true;
-                            
-                        } else if (cardType === type && cardStatus === global_status) {
-                            
-                            card.style.display = "block";
-                            if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
-                            anyCardsMatch = true;
-                            
-                        } else {
-                            card.style.display = "none";
-                            card.classList.add('hiding')
-                        }
-
-                    
+                        button.addEventListener("click", filter);
                     });
 
-                    // Show/hide the message based on the flag
-                    const noResultsMessage = document.getElementById("noResultsMessage");
-                    if (anyCardsMatch) {
-                        noResultsMessage.style.display = "none";
-                    } else {
-                        noResultsMessage.style.display = "block";
-                    }
-
-                    search();
-
-                }
-
-                typeButtons.forEach(function (button) {
-                    button.addEventListener("click", function () {
-                        global_type = this.getAttribute("data-type");
-                        tester(global_type);
+                    // Add click event listener to the status dropdown items
+                    const statusItems = document.querySelectorAll(".dropdown-item[data-status]");
+                    statusItems.forEach(function (item) {
+                        item.addEventListener("click", function (event) {
+                            event.preventDefault();
+                            status = item.getAttribute("data-status");
+                            global_status = status
+                            filter();
+                        });
                     });
+
+
+                    // Initial filter when the page loads
+                    filter();
                 });
-
-                // Add click event listener to the status dropdown items
-                const statusItems = document.querySelectorAll(".dropdown-item[data-status]");
-                statusItems.forEach(function (item) {
-                    item.addEventListener("click", function (event) {
-                        event.preventDefault();
-                        status = item.getAttribute("data-status");
-                        global_status = status
-                        tester(global_type);
-                    });
-                });
-
-                // Initial filter when the page loads
-                tester(global_type);
-                });
-
-                
 
                
                 // Function to filter cards based on the search input
@@ -851,13 +817,9 @@
                 
             </script>
 
-
-        <!-- JS scripting import -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-        
        
         <!-- JS to handle login modal script -->
-        <script>
+        <script>/*
             const loginButton = document.getElementById("loginButton");
             const loginModal = new bootstrap.Modal(document.getElementById("loginModal"));
             const loginModalBody = document.querySelector("#loginModal .modal-body");
@@ -910,7 +872,7 @@
 
                 // Show the login modal
                 loginModal.show();
-            });
+            });*/
         </script>
 
         <!-- JS to handle card filtering -->
