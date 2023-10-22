@@ -1,23 +1,14 @@
 from flask import Blueprint, render_template, request, redirect, url_for
+from .models import Experience
 from . import db
+from datetime import datetime
 
 bp = Blueprint('main', __name__)
 
-
 @bp.route('/')
 def index():
-    return render_template('index.html')
-
-
-@bp.route('/event')
-def event():
-    return render_template('event.html')
-
-
-@bp.route('/experiences/')
-def experience():
-    return render_template('create.html')
-
+    experiences = db.session.scalars(db.select(Experience)).all()    
+    return render_template('index.html', experiences=experiences, datetime=datetime)
 
 @bp.route('/booking-history')
 def history():
