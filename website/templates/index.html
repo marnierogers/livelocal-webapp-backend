@@ -207,8 +207,8 @@
                     
                     <!-- Status box in the top right corner -->
                     <div
-                        class="{% if experience.status == 'Active' %}status-green{% elif experience.status == 'Cancelled' %}status-black{% elif experience.status == 'Inactive' %}status-grey{% elif experience.status == 'Sold Out' %}status-red{% endif %}">
-                        {{experience.status}}
+                        class="{% if experience.status == 'Inactive' %}status-grey{% elif experience.status == 'Open' %}status-green{% elif experience.status == 'Sold Out' %}status-red{% elif experience.status == 'Cancelled' %}status-black{% endif %}">
+                        {{ experience.status }}
                     </div>
 
                     </a>
