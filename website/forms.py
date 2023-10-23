@@ -88,8 +88,10 @@ class ExperienceForm(FlaskForm):
     suburb = StringField('Suburb', validators=[InputRequired()])
     postcode = StringField("Postcode", validators=[InputRequired(),Regexp('^\d{4}$', message="Postcode must be a 4-digit number")])
     start_date = DateField('Event Date', format='%Y-%m-%d',validators=[InputRequired()])
-    start_time = TimeField("Start Time (hh:mm)", validators=[InputRequired()])
-    end_time = TimeField("End Time (hh:mm)", validators=[InputRequired()])
+    start_time = StringField("Start Time (hh:mm)", validators=[InputRequired(), Regexp(
+        '^([01]\d|2[0-3]):([0-5]\d)$', message="Start time must be in hh:mm 24-hr format")])
+    end_time = StringField("End Time (hh:mm)", validators=[InputRequired(), Regexp(
+        '^([01]\d|2[0-3]):([0-5]\d)$', message="End time must be in hh:mm 24-hr format")])
     ticket_qty = SelectField('Number of Tickets', choices=[(str(i), str(i)) for i in range(1, 21)], validators=[InputRequired()])    
     price = DecimalField('Price', validators=[InputRequired(), NumberRange(
         min=0.01, max=500,  message="Price must be between 0.01 and 500.")])
