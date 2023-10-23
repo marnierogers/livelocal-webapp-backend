@@ -189,7 +189,6 @@ def comment(experience_id):
     print("Form data received:")
     print("Comment text:", form.text.data)
     print("Experience ID:", experience_id)
-    print("Change")
 
     #get the experience object associated to the page and the comment
     experience = db.session.scalar(db.select(Experience).where(Experience.id==experience_id))
