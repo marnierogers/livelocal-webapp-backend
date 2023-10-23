@@ -50,13 +50,17 @@ def create():
     image_2 = form.image_2.data
     image_3 = form.image_3.data
 
+    # Adjust start and end time
+    new_start_time = datetime.combine(start_date, start_time)
+    new_end_time = datetime.combine(start_date, end_time)
+
 
     #call the function that checks and returns image
     db_file_path = check_upload_file(form)
     db_file_path_2 = check_upload_file_2(form)
     db_file_path_3 = check_upload_file_3(form)
     
-    experience = Experience(type=type, name=name, description=description, address_line1=address_line1, suburb=suburb, postcode=postcode, start_date=start_date, start_time=start_time, end_time=end_time, ticket_qty=ticket_qty, price=price,
+    experience = Experience(type=type, name=name, description=description, address_line1=address_line1, suburb=suburb, postcode=postcode, start_date=start_date, start_time=new_start_time, end_time=new_end_time, ticket_qty=ticket_qty, price=price,
                             image_1=db_file_path, image_2=db_file_path_2, image_3=db_file_path_3, user=current_user)
 
     # add the object to the db session

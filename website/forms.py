@@ -88,6 +88,7 @@ class ExperienceForm(FlaskForm):
     suburb = StringField('Suburb', validators=[InputRequired()])
     postcode = StringField("Postcode", validators=[InputRequired(),Regexp('^\d{4}$', message="Postcode must be a 4-digit number")])
     start_date = DateField('Event Date', format='%Y-%m-%d',validators=[InputRequired()])
+    
     start_time = TimeField('Start Date and Time', validators=[validators.InputRequired()])
     end_time = TimeField('End Date and Time', validators=[validators.InputRequired()])
     
