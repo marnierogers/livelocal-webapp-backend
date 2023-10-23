@@ -24,7 +24,7 @@
 
         <div class="event-header" style="margin-bottom: 30px;">
             <div class="event-page-left-header">
-                <h6 class="hosted-by-text">Hosted by Paul</h6>
+                <h6 class="hosted-by-text">Hosted by {{ experience.user.name }}</h6>
             </div>
 
             <div class="event-page-right-header">
@@ -41,31 +41,31 @@
             <!-- Display only on screens smaller than 577px -->
             <div class="col-6 d-block d-sm-none">
                 <div class="image">
-                    <img src="{{ experience.image_1 }}" alt="Man in Kayak" class="img-fluid">
+                    <img src="{{ experience.image_1 }}" alt="" class="img-fluid">
                 </div>
             </div>
             <div class="col-6 d-block d-sm-none">
                 <div class="image">
-                    <img src="{{ experience.image_1 }}" class="img-fluid">
+                    <img src="{{ experience.image_1 }}" alt="" class="img-fluid">
                 </div>
             </div>
 
             <!-- Display on larger screens -->
             <div class="col-sm-4 col-md-4 col-lg-4 d-none d-sm-block">
                 <div class="image">
-                    <img src="{{ experience.image_2 }}" class="img-fluid">
+                    <img src="{{ experience.image_2 }}" alt="" class="img-fluid">
                 </div>
             </div>
             <div class="col-sm-4 col-md-4 col-lg-4 d-none d-sm-block">
                 <div class="image">
-                    <img src="{{ experience.image_1 }}" class="img-fluid">
+                    <img src="{{ experience.image_1 }}" alt="" class="img-fluid">
                 </div>
             </div>
 
             <!-- Additional image for larger screens -->
             <div class="col-sm-4 col-md-4 col-lg-4 d-none d-sm-block">
                 <div class="image">
-                    <img src="{{ experience.image_3 }}" class="img-fluid">
+                    <img src="{{ experience.image_3 }}" alt="" class="img-fluid">
                 </div>
             </div>
         </div>

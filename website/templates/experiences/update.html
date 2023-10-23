@@ -30,92 +30,54 @@
         <div class="row">
 
             <!-- Booking History Entry 1 -->
+            {% for experience in experiences %}
             <div class="col-12 col-md-12 col-lg-6">
-                <div class="card mb-4">
+
+                <div class="card mb-4" data-type="Tours" data-status="sold-out" data-name="Acropolis Guided Tour">
                     <div class="row no-gutters">
 
                         <!-- Image container (visible on screens 767px and smaller) -->
                         <div class="col-md-4 d-none d-md-block">
-                            <img src="./static/img/acropolis-tour.png" class="card-img-history img-fluid" alt="Event 1">
+                            <img src={{experience.image_1}} class="card-img-history img-fluid" alt="Event 1">
                         </div>
+
                         <div class="col-md-8">
+
                             <div class="card-body">
-                                <h5 class="card-title">Acropolis Guided Tour</h5>
-                                <p class="card-text">Hosted by Adonius<br>
-                                    Order ID: 77589<br>
-                                    Booked on: 11am 23rd Aug, 2023</p>
+                                <h6 class="card-title">
+                                    <b>
+                                    <span class="homepage-card-name">{{experience.name}}</span>
+                                    <div class="homepage-card-spacer"></div>
+                                    </b>
+                                </h6>
+                                <hr>
+                                <p class="homepage-card-duration">{{ experience.end_time }}</p>
+                                <p class="card-text">Hosted by {{ experience.user.name }} - ${{experience.price}}pp</p>
                             </div>
+                            
+                            <div class="d-flex justify-content-start">
+                                <div>
+                                    <a href="/" class="btn custom-btn toggle-button rounded me-5 ms-3">
+                                        Cancel
+                                    </a>
+                                </div>
+                                <div>
+                                    <a href="{{ url_for('experience.update_page', experience_id=experience.id) }}" class="btn custom-btn toggle-button rounded me-5 ms-3">
+                                        update
+                                    </a>
+                                </div>
+                            </div>
+                            
+
+                            <div class="status-red">
+                                {{experience.status}}
+                            </div></a>
+
                         </div>
                     </div>
                 </div>
             </div>
-    
-            <!-- Booking History Entry 2 -->
-            <div class="col-12 col-md-12 col-lg-6">
-                <div class="card mb-4">
-                    <div class="row no-gutters">
-
-                        <!-- Image container (visible on screens 767px and smaller) -->
-                        <div class="col-md-4 d-none d-md-block card-img-history">
-                            <img src="./static/img/cigar-tasting.png" class="card-img-history img-fluid" alt="Event 2">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Havana Cigar Tasting</h5>
-                                <p class="card-text">Hosted by Yoel<br>
-                                    Order ID: 77963<br>
-                                    Booked on: 4pm 1st May, 2023<br>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-
-            <!-- Booking History Entry 3 -->
-            <div class="col-12 col-md-12 col-lg-6">
-                <div class="card mb-4">
-                    <div class="row no-gutters">
-
-                        <!-- Image container (visible on screens 767px and smaller) -->
-                        <div class="col-md-4 d-none d-md-block">
-                            <img src="./static/img/tubing.png" class="card-img-history img-fluid" alt="Event 1">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Boozy Lazy Tipsy Tubing</h5>
-                                <p class="card-text">Hosted by Jack<br>
-                                    Order ID: 77589<br>
-                                    Booked on: 9am 23rd Mar, 2023</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
-            <!-- Booking History Entry 4 -->
-            <div class="col-12 col-md-12 col-lg-6">
-                <div class="card mb-4">
-                    <div class="row no-gutters">
-
-                        <!-- Image container (visible on screens 767px and smaller) -->
-                        <div class="col-md-4 d-none d-md-block card-img-history">
-                            <img src="./static/img/jack-ripper-tour.png" class="card-img-history img-fluid" alt="Event 2">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Jack Ripper Evening Tour</h5>
-                                <p class="card-text">Hosted by Jen<br>
-                                    Order ID: 77963<br>
-                                    Booked on: 2pm 1st Jan, 2023</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 

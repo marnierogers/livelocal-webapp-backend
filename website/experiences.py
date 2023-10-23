@@ -7,9 +7,11 @@ from werkzeug.utils import secure_filename
 from flask_login import login_required, current_user
 from sqlalchemy.orm import joinedload
 from datetime import datetime
+from .models import User
 
 
-eventbp = Blueprint('experiences', __name__, url_prefix='/experiences')
+
+eventbp = Blueprint('experience', __name__, url_prefix='/experiences')
 
 
 @eventbp.route('/<id>')
@@ -65,7 +67,7 @@ def create():
     flash('Experience successfully created.', 'success')
 
     #Always end with redirect when form is valid
-    return redirect(url_for('experiences.create'))
+    return redirect(url_for('experience.create'))
   
   return render_template('experiences/create.html', form=form, experience=experience)
 
@@ -73,15 +75,52 @@ def create():
 @eventbp.route('/update', methods=['GET', 'POST'])
 @login_required
 def update():
+    print('Method type: ', request.method)
+
+    # Get the currently logged-in user
+    global current_user
+
+    # Query the database to get experiences associated with the current user
+    experiences = Experience.query.filter_by(user_id=current_user.id).all()
+
+    return render_template('experiences/update.html', experiences=experiences)
+
+
+@eventbp.route('/update_page/<int:experience_id>', methods=['GET', 'POST'])
+@login_required
+def update_page(experience_id):
   print('Method type: ', request.method)
+  # Get the experience object by id and check if it belongs to the current user
+  experience = Experience.query.get_or_404(experience_id)
+  if experience.user != current_user:
+    abort(403) # Forbidden
+  # Pass the experience object to the form constructor
+  form = ExperienceForm(obj=experience)
+  
+  if form.validate_on_submit():
+    # Update the experience object with the new form data
+    form.populate_obj(experience)
+    # No need to call db.session.add(experience) since it is already in the session
+    db.session.commit()
+    flash('Experience successfully updated.', 'success')
+    return redirect(url_for('experiences.update_page'))
+  
+  return render_template('experiences/update_page.html', form=form, experience=experience)
 
-  # Query the database to get experiences associated with the current user
-  user_experiences = Experience.query \
-      .filter(Experience.user == current_user) \
-      .options(joinedload(Experience.user)) \
-      .all()
 
-  return render_template('experiences/update.html', experiences=user_experiences)
+# @eventbp.route('/delete_experience/<experience_id>', methods=['POST'])
+# def delete_experience(experience_id):
+    # get the experience by its id
+    # experience = Experience.query.filter_by(id=experience_id).first_or_404()
+    # delete the experience from the database
+    # db.session.delete(experience)
+    # db.session.commit()
+    # flash a message to inform the user
+    # flash('Event deleted successfully.')
+    # redirect to another page
+    # return redirect(url_for('index'))
+
+
 
 def check_upload_file(form):
   
@@ -154,7 +193,7 @@ def comment(experience_id):
     print("Comment text:", form.text.data)
     print("Experience ID:", experience_id)
 
-    #get the destination object associated to the page and the comment
+    #get the experience object associated to the page and the comment
     experience = db.session.scalar(db.select(Experience).where(Experience.id==experience_id))
 
     if form.validate_on_submit():  
@@ -162,7 +201,7 @@ def comment(experience_id):
       comment = Comment(text=form.text.data, experience=experience,
                         user=current_user) 
       
-      # here the back-referencing works - comment.destination is set
+      # here the back-referencing works - comment.experience is set
       # and the link is created
       db.session.add(comment) 
       db.session.commit() 
@@ -171,8 +210,8 @@ def comment(experience_id):
       flash('Your comment has been added', 'success')  
       # print('Your comment has been added', 'success') 
 
-    # using redirect sends a GET request to destination.show
-    return redirect(url_for('experiences.show', id=experience.id))
+    # using redirect sends a GET request to experience.show
+    return redirect(url_for('experience.show', id=experience.id))
 
 
 @eventbp.route('/<int:experience_id>/process_ticket_selection', methods=['GET', 'POST'])
