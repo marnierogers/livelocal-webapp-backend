@@ -57,17 +57,19 @@
                             <div class="d-flex justify-content-start">
                                 {% if experience.status in ['Sold Out', 'Open'] %}
                                 <form method="POST" action="{{ url_for('experience.cancel_event', experience_id=experience.id) }}">
-                                    <button type="submit" class="btn custom-btn toggle-button rounded me-5 ms-3">
+                                    <button type="submit" class="btn custom-btn toggle-button rounded me-2 ms-2">
                                         Cancel Event
                                     </button>
                                 </form>
                                 {% endif %}
                                 <div>
-                                    <a href="{{ url_for('experience.update_page', experience_id=experience.id) }}" class="btn custom-btn toggle-button rounded me-5 ms-3">
+                                    <a href="{{ url_for('experience.update_page', experience_id=experience.id) }}"
+                                        class="btn custom-btn toggle-button rounded me-2 ms-2">
                                         Update
                                     </a>
                                 </div>
                             </div>
+
                             
 
                             <div class="{% if experience.status == 'Inactive' %}status-grey{% elif experience.status == 'Open' %}status-green{% elif experience.status == 'Sold Out' %}status-red{% elif experience.status == 'Cancelled' %}status-black{% endif %}">
