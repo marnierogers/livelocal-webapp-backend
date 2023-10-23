@@ -90,6 +90,7 @@ def update():
 @login_required
 def update_page(experience_id):
   print('Method type: ', request.method)
+  
   # Get the experience object by id and check if it belongs to the current user
   experience = Experience.query.get(experience_id)
   # Pass the experience object to the form constructor
