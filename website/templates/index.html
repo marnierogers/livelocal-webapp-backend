@@ -206,9 +206,9 @@
                     </a>
                     
                     <!-- Status box in the top right corner -->
-                    <div class="status-green">
-                        {{experience.status}}
-                    </div></a>
+                    <div class="{% if experience.status == 'Inactive' %}status-grey{% elif experience.status == 'Open' %}status-green{% elif experience.status == 'Sold Out' %}status-red{% elif experience.status == 'Cancelled' %}status-black{% endif %}">
+                        {{ experience.status }}
+                    </div>
                     <div class="card-body">
                         <h6 class="card-title">
                             <b>
