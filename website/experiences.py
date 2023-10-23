@@ -91,9 +91,7 @@ def update():
 def update_page(experience_id):
   print('Method type: ', request.method)
   # Get the experience object by id and check if it belongs to the current user
-  experience = Experience.query.get_or_404(experience_id)
-  if experience.user != current_user:
-    abort(403) # Forbidden
+  experience = Experience.query.get(experience_id)
   # Pass the experience object to the form constructor
   form = ExperienceForm(obj=experience)
   
@@ -108,18 +106,17 @@ def update_page(experience_id):
   return render_template('experiences/update_page.html', form=form, experience=experience)
 
 
-# @eventbp.route('/delete_experience/<experience_id>', methods=['POST'])
-# def delete_experience(experience_id):
-    # get the experience by its id
-    # experience = Experience.query.filter_by(id=experience_id).first_or_404()
-    # delete the experience from the database
-    # db.session.delete(experience)
-    # db.session.commit()
-    # flash a message to inform the user
-    # flash('Event deleted successfully.')
-    # redirect to another page
-    # return redirect(url_for('index'))
+@eventbp.route('/cancel_event/<int:experience_id>', methods=['POST'])
+def cancel_event(experience_id):
+    # Find the experience by ID
+    experience = Experience.query.get(experience_id)
 
+    if experience:
+        # Update the status to "Cancelled"
+        experience.status = "Cancelled"
+        db.session.commit()
+
+    return redirect(url_for('experience.update'))
 
 
 def check_upload_file(form):
@@ -267,3 +264,4 @@ def process_ticket_selection(experience_id):
       #     flash('Form did not validate.')
       #     # Redirect to an appropriate route
       #     return redirect(url_for('experiences.show', id=experience_id))
+
