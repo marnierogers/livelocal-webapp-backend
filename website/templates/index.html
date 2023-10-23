@@ -206,9 +206,12 @@
                     </a>
                     
                     <!-- Status box in the top right corner -->
-                    <div class="status-green">
+                    <div
+                        class="{% if experience.status == 'Active' %}status-green{% elif experience.status == 'Cancelled' %}status-black{% elif experience.status == 'Inactive' %}status-grey{% elif experience.status == 'Sold Out' %}status-red{% endif %}">
                         {{experience.status}}
-                    </div></a>
+                    </div>
+
+                    </a>
                     <div class="card-body">
                         <h6 class="card-title">
                             <b>
@@ -218,7 +221,7 @@
                             </b>
                         </h6>
                         <hr>
-                        <p class="card-text">Hosted by {{ experience.user.name }} - ${{experience.price}}pp<br></p>
+                        <p class="card-text">Hosted by {{ experience.user.name }}<br>${{experience.price}}pp</p>
                     </div>
                 </div>
             </div>
@@ -486,65 +489,24 @@
                 
             </script>
 
-       
-        <!-- JS to handle login modal script -->
-        <script>/*
-            const loginButton = document.getElementById("loginButton");
-            const loginModal = new bootstrap.Modal(document.getElementById("loginModal"));
-            const loginModalBody = document.querySelector("#loginModal .modal-body");
-            const experiencesLink = document.getElementById("experiencesLink");
-            const bookingHistoryLink = document.getElementById("bookingHistoryLink");
-            const loginMessage = document.getElementById("loginMessage");
-            const ticketSelector = document.getElementById("ticketSelector");
+    <!-- JS script to handle the status icon showing the right colour in cards -->
+    <script>
+        function getStatusClass(status) {
+            switch (status) {
+                case "Active":
+                    return "status-green";
+                case "Cancelled":
+                    return "status-black";
+                case "Inactive":
+                    return "status-grey";
+                case "Sold Out":
+                    return "status-red";
+                default:
+                    return ""; // You can specify a default class if needed
+            }
+        }
+    </script>
 
-            let isLoggedIn = false;
-
-            loginButton.addEventListener("click", function () {
-
-                // User is logged out
-                if (isLoggedIn) {
-                    loginModalBody.textContent = "It was great having you. See you next time.";
-                    loginButton.textContent = "Login";
-
-                    // Hide the Experiences link
-                    experiencesLink.style.display = "none";
-
-                    // Hide the Book History link
-                    bookingHistoryLink.style.display = "none";
-
-                    // Disable Book now button
-                    bookNowBtn.disabled = true;
-
-                    // Disable ticket selector
-                    ticketSelector.disabled = true;
-
-                } else {
-                    // User is logged in
-                    loginModalBody.textContent = "You're in! You can now create and book events.";
-                    loginButton.textContent = "Logout";
-
-                    // Show the Experiences link
-                    experiencesLink.style.display = "block";
-
-                    // Show the Book History link
-                    bookingHistoryLink.style.display = "block";
-
-                    // Enable the "Book Now" button
-                    bookNowBtn.disabled = false;
-
-                    // Enable ticket selector
-                    ticketSelector.disabled = false;
-                }
-
-                // Toggle the login state
-                isLoggedIn = !isLoggedIn;
-
-                // Show the login modal
-                loginModal.show();
-            });*/
-        </script>
-
-        <!-- JS to handle card filtering -->
 
 
 
