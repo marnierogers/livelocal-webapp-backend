@@ -32,7 +32,7 @@
             {% for experience in experiences %}
             <div class="col-12 col-md-12 col-lg-6">
 
-                <div class="card mb-4" data-type="Tours" data-status="sold-out" data-name="Acropolis Guided Tour">
+                <div class="card mb-4">
                     <div class="row no-gutters">
 
                         <!-- Image container (visible on screens 767px and smaller) -->
@@ -72,6 +72,11 @@
                                     </a>
                                 </div>
 
+                                <div
+                                    class="{% if experience.status == 'Inactive' %}status-grey{% elif experience.status == 'Open' %}status-green{% elif experience.status == 'Sold Out' %}status-red{% elif experience.status == 'Cancelled' %}status-black{% endif %}">
+                                    {{ experience.status }}
+                                </div>
+
                                 {% if experience.status in ['Sold Out', 'Open'] %}
                                 <form method="POST" action="{{ url_for('experience.cancel_event', experience_id=experience.id) }}">
                                     <button type="submit" class="btn custom-btn toggle-button rounded me-2 ms-2">
@@ -79,14 +84,38 @@
                                     </button>
                                 </form>
                                 {% endif %}
+
+                                <!-- Cancel button + modal -->
+                                <!-- {% if experience.status in ['Sold Out', 'Open'] %}
+                                <button type="button" class="btn custom-btn toggle-button rounded me-2 ms-2" data-bs-toggle="modal"
+                                    data-bs-target="#cancelConfirmationModal" data-experience-id="{{ experience.id }}">
+                                    Cancel Event
+                                </button>
+                                {% endif %}
+
+                                <div class="modal fade" id="cancelConfirmationModal" tabindex="-1" aria-labelledby="cancelConfirmationModalLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="cancelConfirmationModalLabel">Confirm Event Cancellation</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to cancel this event?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <form method="POST" action="{{ url_for('experience.cancel_event', experience_id=experience.id) }}">
+                                                    <input type="hidden" name="experience_id" value="{{ experience.id }}">
+                                                    <button type="submit" class="btn btn-danger">Confirm Cancellation</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+
                             </div>
-
-                            
-
-                            <div class="{% if experience.status == 'Inactive' %}status-grey{% elif experience.status == 'Open' %}status-green{% elif experience.status == 'Sold Out' %}status-red{% elif experience.status == 'Cancelled' %}status-black{% endif %}">
-                                {{ experience.status }}
-                            </div>
-
                         </div>
                     </div>
                 </div>
@@ -99,6 +128,27 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 
     <!-- JS login modal script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var buttons = document.querySelectorAll('.btn.custom-btn.toggle-button');
+            buttons.forEach(function (button) {
+                button.addEventListener("click", function () {
+                    var experienceId = button.getAttribute("data-experience-id");
+                    var confirmationModal = document.getElementById("cancelConfirmationModal");
+                    confirmationModal.dataset.experienceId = experienceId;
+                });
+            });
+
+            var confirmCancelBtn = document.getElementById("confirmCancelBtn");
+            confirmCancelBtn.addEventListener("click", function () {
+                var confirmationModal = document.getElementById("cancelConfirmationModal");
+                var experienceId = confirmationModal.dataset.experienceId;
+                document.querySelector("#cancelConfirmationModal input[name='experience_id']").value = experienceId;
+                document.querySelector("#cancelConfirmationModal form").submit();
+            });
+        });
+    </script>
+
 
 
 </main>

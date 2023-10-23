@@ -113,8 +113,11 @@ def update_page(experience_id):
 
 @eventbp.route('/cancel_event/<int:experience_id>', methods=['POST'])
 def cancel_event(experience_id):
+    
     # Find the experience by ID
     experience = Experience.query.get(experience_id)
+
+    print(experience)
 
     if experience:
         # Update the status to "Cancelled"
