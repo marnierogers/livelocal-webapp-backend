@@ -34,9 +34,9 @@ class Experience(db.Model):
     suburb = db.Column(db.String(255), nullable=False)
     postcode = db.Column(db.Integer, nullable=False)
 
-    start_date = db.Column(db.Date, nullable=False)
-    start_time = db.Column(db.Time, nullable=False)
-    end_time = db.Column(db.Time, nullable=False)
+    start_date = db.Column(db.String, nullable=False)
+    start_time = db.Column(db.String(4), nullable=False)
+    end_time = db.Column(db.String(4), nullable=False)
     ticket_qty = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Numeric(precision=10, scale=2), nullable=False)
     image_1 = db.Column(db.String(400), nullable=False)
