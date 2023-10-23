@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import HiddenField, TextAreaField, SubmitField, StringField, PasswordField, EmailField, DecimalField, SelectField, DateField, MultipleFileField
+from wtforms.fields import HiddenField, TextAreaField, SubmitField, StringField, PasswordField, EmailField, DecimalField, SelectField, DateField, MultipleFileField, TimeField
 from wtforms.validators import InputRequired, Email, EqualTo, Regexp, NumberRange, Length
 from wtforms import DateField, validators
 
@@ -88,13 +88,11 @@ class ExperienceForm(FlaskForm):
     suburb = StringField('Suburb', validators=[InputRequired()])
     postcode = StringField("Postcode", validators=[InputRequired(),Regexp('^\d{4}$', message="Postcode must be a 4-digit number")])
     start_date = DateField('Event Date', format='%Y-%m-%d',validators=[InputRequired()])
-    start_time = StringField("Start Time (hh:mm)", validators=[InputRequired(), Regexp(
-        '^([01]\d|2[0-3]):([0-5]\d)$', message="Start time must be in hh:mm 24-hr format")])
-    end_time = StringField("End Time (hh:mm)", validators=[InputRequired(), Regexp(
-        '^([01]\d|2[0-3]):([0-5]\d)$', message="End time must be in hh:mm 24-hr format")])
+    start_time = TimeField("Start Time (hh:mm)", validators=[InputRequired()])
+    end_time = TimeField("End Time (hh:mm)", validators=[InputRequired()])
     ticket_qty = SelectField('Number of Tickets', choices=[(str(i), str(i)) for i in range(1, 21)], validators=[InputRequired()])    
     price = DecimalField('Price', validators=[InputRequired(), NumberRange(
-        min=0.01, max=300,  message="Price must be between 0.01 and 300.")])
+        min=0.01, max=500,  message="Price must be between 0.01 and 500.")])
     
     image_1 = FileField('Image 1 (must upload a minimum 3 images)', validators=[
         FileRequired(message='Image cannot be empty'),
@@ -109,6 +107,12 @@ class ExperienceForm(FlaskForm):
         FileAllowed(ALLOWED_FILE, message='Only supports PNG, JPG, png, jpg')])
 
     submit = SubmitField('Create Now')
+
+    def validate_end_time(self, field):
+        start_time = self.start_time.data
+        end_time = field.data
+        if start_time and end_time and end_time <= start_time:
+            raise ValidationError("End time cannot be earlier than or equal to the start time")
 
 
 class TicketSelectorForm(FlaskForm):
