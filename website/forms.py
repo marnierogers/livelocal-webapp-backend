@@ -92,10 +92,6 @@ class ExperienceForm(FlaskForm):
     start_time = TimeField('Start Date and Time', validators=[validators.InputRequired()])
     end_time = TimeField('End Date and Time', validators=[validators.InputRequired()])
     
-    # start_time = StringField("Start Time (hh:mm)", validators=[InputRequired(), Regexp(
-    #     '^([01]\d|2[0-3]):([0-5]\d)$', message="Start time must be in hh:mm 24-hr format")])
-    # end_time = StringField("End Time (hh:mm)", validators=[InputRequired(), Regexp(
-    #     '^([01]\d|2[0-3]):([0-5]\d)$', message="End time must be in hh:mm 24-hr format")])
     ticket_qty = SelectField('Number of Tickets', choices=[(str(i), str(i)) for i in range(1, 21)], validators=[InputRequired()])    
     price = DecimalField('Price', validators=[InputRequired(), NumberRange(
         min=0.01, max=500,  message="Price must be between 0.01 and 500.")])
@@ -112,7 +108,8 @@ class ExperienceForm(FlaskForm):
         FileRequired(message='Image cannot be empty'),
         FileAllowed(ALLOWED_FILE, message='Only supports PNG, JPG, png, jpg')])
 
-    submit = SubmitField('Create Now')
+    submit = SubmitField('Create Now', render_kw={
+                         'class': 'ourClasses', 'style': 'width:100%; background-color: #849BFF; border-color: #849BFF;'})
 
     def validate_end_time(self, field):
         start_time = self.start_time.data
@@ -126,11 +123,8 @@ class TicketSelectorForm(FlaskForm):
     experience_id = HiddenField()
     submit = SubmitField('Book Now')
 
-    # def set_ticket_choices(self, max_ticket_qty):
-    #     self.ticket_selector.choices = [(i, str(i))
-    #                                     for i in range(max_ticket_qty + 1)]
-
 
 class UpdateExperienceForm(ExperienceForm):
     experience_id = HiddenField(validators=[InputRequired()])
-    submit = SubmitField('Update Now')
+    submit = SubmitField('Update Now', render_kw={
+                         'class': 'ourClasses', 'style': 'width:100%; background-color: #849BFF; border-color: #849BFF;'})
