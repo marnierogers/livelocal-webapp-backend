@@ -216,12 +216,12 @@
                         <h6 class="card-title">
                             <b>
                             <span class="homepage-card-name">{{experience.name}}</span>
-                            <span class="homepage-card-duration float">{{ experience.start_time}}</span>
                             <div class="homepage-card-spacer"></div>
                             </b>
                         </h6>
                         <hr>
-                        <p class="card-text">Hosted by {{ experience.user.name }}<br>${{experience.price}}pp</p>
+                        <span class="homepage-card-name">Hosted by {{ experience.user.name }}</span>
+                        <span class="homepage-card-duration float">${{experience.price}}pp</span>
                     </div>
                 </div>
             </div>
