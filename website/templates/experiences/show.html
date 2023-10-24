@@ -108,8 +108,8 @@
                                     <div class="col-md-6">
                                         <div class="input-group mb-3">
                                             <label for="ticket_selector" class="input-group-text">Tickets:</label>
-                                            <select id="ticket_selector" name="ticket_selector" class="form-select" {% if
-                                                experience.status !='Open' %} disabled {% endif %}>
+                                            <select id="ticket_selector" name="ticket_selector" class="form-select" {% if not
+                                                current_user.is_authenticated or experience.status !='Open' %} disabled {% endif %}>
                                                 {% if experience.ticket_qty is defined %}
                                                 {% for i in range(experience.ticket_qty + 1) %}
                                                 <option value="{{ i }}">{{ i }}</option>
@@ -121,8 +121,10 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 d-flex align-items-center justify-content-end">
-                                        <button class="btn btn-primary custom-btn" id="bookNowBtn" type="submit" {% if
-                                            experience.status !='Open' %} disabled {% endif %}>Book Now</button>
+                                        <button class="btn btn-primary custom-btn" id="bookNowBtn" type="submit" {% if not
+                                            current_user.is_authenticated or experience.status !='Open' %} disabled {% endif %}>
+                                            Book Now
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -133,6 +135,7 @@
                     </div>
                 </div>
             </div>
+
 
 
 
