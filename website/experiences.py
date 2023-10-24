@@ -268,9 +268,3 @@ def process_ticket_selection(experience_id):
     db.session.commit()
 
     return render_template('experiences/show.html', experience=experience, form=ticket_selector_form)
-    # else:
-      #     # Form did not validate, handle this case
-      #     flash('Form did not validate.')
-      #     # Redirect to an appropriate route
-      #     return redirect(url_for('experiences.show', id=experience_id))
-

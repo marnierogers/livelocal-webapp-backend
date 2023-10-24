@@ -95,22 +95,21 @@
             <div class="col-12 col-md-7 col-lg-5">
                 <div class="card">
                     <div class="card-body">
-                        <div class="{% if experience.status == 'Inactive' %}status-grey{% elif experience.status == 'Open' %}status-green{% elif experience.status == 'Sold Out' %}status-red{% elif experience.status == 'Cancelled' %}status-black{% endif %}">
+                        <div
+                            class="{% if experience.status == 'Inactive' %}status-grey{% elif experience.status == 'Open' %}status-green{% elif experience.status == 'Sold Out' %}status-red{% elif experience.status == 'Cancelled' %}status-black{% endif %}">
                             {{ experience.status }}
                         </div>
                         <h5 class="card-title">Price: ${{ experience.price }} pp</h5>
                         <p class="card-text">Tickets available: <span id="availableTickets">{{ experience.ticket_qty }}</span></p>
                         <div class="row align-items-center">
-
-
                             <form action="/experiences/{{ experience.id }}/process_ticket_selection" method="post">
                                 <input type="hidden" name="experience_id" value="{{ experience.id }}">
-
                                 <div class="row align-items-center">
                                     <div class="col-md-6">
                                         <div class="input-group mb-3">
                                             <label for="ticket_selector" class="input-group-text">Tickets:</label>
-                                            <select id="ticket_selector" name="ticket_selector" class="form-select">
+                                            <select id="ticket_selector" name="ticket_selector" class="form-select" {% if
+                                                experience.status !='Open' %} disabled {% endif %}>
                                                 {% if experience.ticket_qty is defined %}
                                                 {% for i in range(experience.ticket_qty + 1) %}
                                                 <option value="{{ i }}">{{ i }}</option>
@@ -122,11 +121,11 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 d-flex align-items-center justify-content-end">
-                                        <button class="btn btn-primary custom-btn" id="bookNowBtn" type="submit">Book Now</button>
+                                        <button class="btn btn-primary custom-btn" id="bookNowBtn" type="submit" {% if
+                                            experience.status !='Open' %} disabled {% endif %}>Book Now</button>
                                     </div>
                                 </div>
                             </form>
-
                             <div id="loginMessage" class="alert alert-warning">
                                 Please login to book tickets
                             </div>
@@ -135,6 +134,9 @@
                 </div>
             </div>
 
+
+
+            
             <!-- Comment section header -->
             <div class="container wrapper">
                 <div class="row">
