@@ -53,8 +53,8 @@
                                 <hr>
                                 <p class="card-text">Experience ID: {{experience.id}}</p>
                                 <p class="card-text">
-                                    Date: {{ experience.start_time.strftime("%I:%M %p") }} - {{ experience.start_time.strftime("%d/%m/%Y") }}<br>
-                                    Location: {{experience.address_line1}}, {{experience.suburb}}</p>
+                                    <i class="bi bi-calendar3 calendar3-icon"></i> {{ experience.start_time.strftime("%I:%M %p") }} - {{ experience.start_time.strftime("%d/%m/%Y") }}<br>
+                                    <i class="bi bi-geo-alt geo-alt-icon"></i> {{experience.address_line1}}, {{experience.suburb}}</p>
 
                             </div>
                             
