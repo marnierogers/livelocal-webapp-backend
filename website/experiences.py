@@ -8,9 +8,6 @@ from flask_login import login_required, current_user
 from sqlalchemy.orm import joinedload
 from datetime import datetime
 from .models import User
-from flask import session
-
-
 
 eventbp = Blueprint('experience', __name__, url_prefix='/experiences')
 

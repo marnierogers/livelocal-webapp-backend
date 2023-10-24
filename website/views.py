@@ -7,8 +7,10 @@ bp = Blueprint('main', __name__)
 
 @bp.route('/')
 def index():
-    experiences = db.session.scalars(db.select(Experience)).all()    
-    return render_template('index.html', experiences=experiences, datetime=datetime)
+    experiences = db.session.scalars(db.select(Experience)).all()   
+    current_time = datetime.now()
+     
+    return render_template('index.html', experiences=experiences, datetime=datetime, current_time=current_time)
 
 @bp.route('/booking-history')
 def history():
