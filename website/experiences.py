@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
 from .models import Experience, Comment, Booking
-from .forms import ExperienceForm, CommentForm, TicketSelectorForm
+from .forms import ExperienceForm, CommentForm, TicketSelectorForm, UpdateExperienceForm
 from . import db
 import os
 from werkzeug.utils import secure_filename
@@ -55,7 +55,6 @@ def create():
     new_start_time = datetime.combine(start_date, start_time)
     new_end_time = datetime.combine(start_date, end_time)
 
-
     #call the function that checks and returns image
     db_file_path = check_upload_file(form)
     db_file_path_2 = check_upload_file_2(form)
@@ -100,21 +99,69 @@ def update_page(experience_id):
 
     # Get the experience object by id and check if it belongs to the current user
     experience = Experience.query.get(experience_id)
-    # Pass the experience object to the form constructor
-    form = ExperienceForm(obj=experience)
 
-    update_experience_statuses()
+    # Create an instance of the UpdateExperienceForm without obj
+    form = UpdateExperienceForm()
 
-    if form.validate_on_submit():
-        # Update the experience object with the new form data
-        form.populate_obj(experience)
-        # No need to call db.session.add(experience) since it is already in the session
-        db.session.commit()
-        flash('Experience successfully updated.',
-              'success')  # Update flash message
-        return redirect(url_for('experiences.update_page'))
+    # Add a print statement to check the experience
+    print('Experience:', experience)
+
+    if request.method == 'POST':
+        print("Inside POST request")
+        if form.validate():
+            print("Form is valid")
+
+            # Update the experience object with the new form data
+            form.populate_obj(experience)
+
+            # Adjust start and end time
+            start_date = form.start_date.data
+            start_time = form.start_time.data
+            end_time = form.end_time.data
+            experience.start_time = datetime.combine(start_date, start_time)
+            experience.end_time = datetime.combine(start_date, end_time)
+
+            # Call the function that checks and returns image
+            db_file_path = check_upload_file(form)
+            db_file_path_2 = check_upload_file_2(form)
+            db_file_path_3 = check_upload_file_3(form)
+
+            # Update the image paths
+            experience.image_1 = db_file_path
+            experience.image_2 = db_file_path_2
+            experience.image_3 = db_file_path_3
+
+            db.session.commit()
+            flash('Experience successfully updated.', 'success')
+            return redirect(url_for('experience.update', experience_id=experience.id))
+
+        else:
+            print("Form is invalid")
+            print("Form errors:", form.errors)
+
+
+    # Manually set the form fields using data from the experience object
+    # These work
+    form.type.data = experience.type
+    form.name.data = experience.name
+    form.description.data = experience.description
+
+    # These don't
+    form.address_line1.data = experience.address_line1
+    form.suburb.data = experience.suburb
+    form.postcode.data = experience.postcode
+    form.start_date.data = experience.start_date
+    form.start_time.data = experience.start_time
+    form.end_time.data = experience.end_time
+    form.ticket_qty.data = experience.ticket_qty
+    form.price.data = experience.price
+    form.image_1.data = experience.image_1
+    form.image_2.data = experience.image_2
+    form.image_3.data = experience.image_3
 
     return render_template('experiences/update_event.html', form=form, experience=experience)
+
+
 
 
 @eventbp.route('/cancel_event/<int:experience_id>', methods=['POST'])

@@ -125,6 +125,6 @@ class TicketSelectorForm(FlaskForm):
 
 
 class UpdateExperienceForm(ExperienceForm):
-    experience_id = HiddenField(validators=[InputRequired()])
+    # experience_id = HiddenField(validators=[InputRequired()])
     submit = SubmitField('Update Now', render_kw={
                          'class': 'ourClasses', 'style': 'width:100%; background-color: #849BFF; border-color: #849BFF;'})
