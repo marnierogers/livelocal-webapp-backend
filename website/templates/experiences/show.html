@@ -125,20 +125,33 @@
                                             current_user.is_authenticated or experience.status !='Open' %} disabled {% endif %}>
                                             Book Now
                                         </button>
+
                                     </div>
                                 </div>
                             </form>
                             <div id="loginMessage" class="alert alert-warning">
                                 Please login to book tickets
                             </div>
+
+                            <!-- Success ticket purchased flashed message -->
+
+                            <div>{% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                            <div class="container">
+                                {% for category, message in messages %}
+                                <div class="alert alert-{{ category }}">
+                                    {{ message }}
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            {% endwith %}
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
-
             
             <!-- Comment section header -->
             <div class="container wrapper">
@@ -203,14 +216,7 @@
                 </div>
             </div>
 
-
-
-
-
-
-
-
-        </div>
+            </div>
         </div>
     </div>
 
@@ -262,15 +268,6 @@
                 // Check and display the message
                 checkAndDisplayMessage();
             });
-        });
-    </script>
-
-    <!--- Test script to see if Form is being submitted -->
-    <script>
-        document.querySelector('form').addEventListener('submit', function (e) {
-            e.preventDefault();
-            console.log('Form submitted with data:', new FormData(this));
-            this.submit();
         });
     </script>
 

@@ -8,6 +8,7 @@ from flask_login import login_required, current_user
 from sqlalchemy.orm import joinedload
 from datetime import datetime
 from .models import User
+from flask import session
 
 
 
@@ -242,11 +243,11 @@ def process_ticket_selection(experience_id):
     # Get the experience based on the experience ID
     experience = Experience.query.get(experience_id)
 
-    # Check if the selected number of tickets is valid
-    if ticket_qty > experience.ticket_qty:
-        flash('Invalid ticket quantity selected.')
-        # Redirect to an appropriate route
-        return redirect(url_for('your_experiences_route'))
+    # # Check if the selected number of tickets is valid
+    # if ticket_qty > experience.ticket_qty:
+    #     flash('Invalid ticket quantity selected.')
+    #     # Redirect to an appropriate route
+    #     return redirect(url_for('your_experiences_route'))
 
     # Update ticket quantity in the experience
     experience.ticket_qty -= ticket_qty
@@ -266,5 +267,12 @@ def process_ticket_selection(experience_id):
     # Add and commit the changes to the database
     db.session.add(booking)
     db.session.commit()
+
+   # Determine the message for singular or plural tickets
+    message = "tickets" if ticket_qty > 1 else "ticket"
+
+    # Set a flash message with the experience ID
+    flash(
+        f"Success! You've purchased {ticket_qty} {message}. Your booking ID is {booking.booking_id}.", 'success')
 
     return render_template('experiences/show.html', experience=experience, form=ticket_selector_form)
