@@ -93,7 +93,7 @@ def update():
     return render_template('experiences/update.html', experiences=experiences)
 
 
-@eventbp.route('/update_page/<int:experience_id>', methods=['GET', 'POST'])
+@eventbp.route('/update_event/<int:experience_id>', methods=['GET', 'POST'])
 @login_required
 def update_page(experience_id):
     print('Method type: ', request.method)
@@ -114,7 +114,7 @@ def update_page(experience_id):
               'success')  # Update flash message
         return redirect(url_for('experiences.update_page'))
 
-    return render_template('experiences/update_page.html', form=form, experience=experience)
+    return render_template('experiences/update_event.html', form=form, experience=experience)
 
 
 @eventbp.route('/cancel_event/<int:experience_id>', methods=['POST'])
