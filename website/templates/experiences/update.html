@@ -19,6 +19,28 @@
                 <div class="col-md-12">
                     <p class="paragraph-spacing">Need to make a change to your experience? No sweat. Easily manage all your experience information below.</p>
                 </div>
+
+                <!-- Flash message to confirm event updated-->
+                <div class="container">
+                    <div>
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                        <div class="row">
+                            <div class="col-md-3"> <!-- This div spans 3 columns on medium-sized screens -->
+                                {% for message, category in messages %}
+                                <div class="alert alert-success">
+                                    Experience successfully updated.
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endwith %}
+                    </div>
+                </div>
+
+                
+                <!--- Spacer -->
                 <hr class="comment-spacer">
             </div>
         </div>

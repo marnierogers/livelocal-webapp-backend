@@ -132,7 +132,7 @@ def update_page(experience_id):
             experience.image_3 = db_file_path_3
 
             db.session.commit()
-            flash('Experience successfully updated.', 'success')
+            flash('Experience successfully updated.','Experience successfully updated.')
             return redirect(url_for('experience.update', experience_id=experience.id))
 
         else:
