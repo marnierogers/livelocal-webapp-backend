@@ -8,6 +8,7 @@ from flask_login import login_required, current_user
 from sqlalchemy.orm import joinedload
 from datetime import datetime
 from .models import User
+from .utils import update_experience_statuses
 
 eventbp = Blueprint('experience', __name__, url_prefix='/experiences')
 
@@ -17,6 +18,7 @@ def show(id):
     experience = db.session.scalar(db.select(Experience).where(Experience.id==id))
 
     print(experience)
+    update_experience_statuses()
     
     # create the comment form
     form = CommentForm()  
@@ -30,6 +32,7 @@ def create():
   print('Method type: ', request.method)
   form = ExperienceForm()
   experience = None  # Set experience to None by default
+  update_experience_statuses()
   
   if form.validate_on_submit():
 
@@ -85,6 +88,8 @@ def update():
     # Query the database to get experiences associated with the current user
     experiences = Experience.query.filter_by(user_id=current_user.id).all()
 
+    update_experience_statuses()
+
     return render_template('experiences/update.html', experiences=experiences)
 
 
@@ -97,6 +102,8 @@ def update_page(experience_id):
     experience = Experience.query.get(experience_id)
     # Pass the experience object to the form constructor
     form = ExperienceForm(obj=experience)
+
+    update_experience_statuses()
 
     if form.validate_on_submit():
         # Update the experience object with the new form data
@@ -116,7 +123,7 @@ def cancel_event(experience_id):
     # Find the experience by ID
     experience = Experience.query.get(experience_id)
 
-    print(experience)
+    update_experience_statuses()
 
     if experience:
         # Update the status to "Cancelled"
@@ -196,6 +203,7 @@ def comment(experience_id):
     print("Form data received:")
     print("Comment text:", form.text.data)
     print("Experience ID:", experience_id)
+    update_experience_statuses()
 
     #get the experience object associated to the page and the comment
     experience = db.session.scalar(db.select(Experience).where(Experience.id==experience_id))
@@ -235,16 +243,10 @@ def process_ticket_selection(experience_id):
     ticket_selector_form.ticket_selector.choices = [
         (i, str(i)) for i in range(ticket_qty + 1)]
 
-    print("Inside form validated field")
+    update_experience_statuses()
 
     # Get the experience based on the experience ID
     experience = Experience.query.get(experience_id)
-
-    # # Check if the selected number of tickets is valid
-    # if ticket_qty > experience.ticket_qty:
-    #     flash('Invalid ticket quantity selected.')
-    #     # Redirect to an appropriate route
-    #     return redirect(url_for('your_experiences_route'))
 
     # Update ticket quantity in the experience
     experience.ticket_qty -= ticket_qty
