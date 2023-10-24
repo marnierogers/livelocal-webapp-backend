@@ -77,28 +77,29 @@
                                     {{ experience.status }}
                                 </div>
 
-                                {% if experience.status in ['Sold Out', 'Open'] %}
+                                <!-- {% if experience.status in ['Sold Out', 'Open'] %}
                                 <form method="POST" action="{{ url_for('experience.cancel_event', experience_id=experience.id) }}">
                                     <button type="submit" class="btn custom-btn toggle-button rounded me-2 ms-2">
                                         Cancel Event
                                     </button>
                                 </form>
-                                {% endif %}
+                                {% endif %} -->
 
                                 <!-- Cancel button + modal -->
-                                <!-- {% if experience.status in ['Sold Out', 'Open'] %}
+                                {% if experience.status in ['Sold Out', 'Open'] %}
                                 <button type="button" class="btn custom-btn toggle-button rounded me-2 ms-2" data-bs-toggle="modal"
-                                    data-bs-target="#cancelConfirmationModal" data-experience-id="{{ experience.id }}">
+                                    data-bs-target="#cancelConfirmationModal-{{ experience.id }}">
                                     Cancel Event
                                 </button>
                                 {% endif %}
 
-                                <div class="modal fade" id="cancelConfirmationModal" tabindex="-1" aria-labelledby="cancelConfirmationModalLabel"
-                                    aria-hidden="true">
+                                <div class="modal fade" id="cancelConfirmationModal-{{ experience.id }}" tabindex="-1"
+                                    aria-labelledby="cancelConfirmationModalLabel-{{ experience.id }}" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="cancelConfirmationModalLabel">Confirm Event Cancellation</h5>
+                                                <h5 class="modal-title" id="cancelConfirmationModalLabel-{{ experience.id }}">Confirm Event Cancellation
+                                                </h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
@@ -108,12 +109,12 @@
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                 <form method="POST" action="{{ url_for('experience.cancel_event', experience_id=experience.id) }}">
                                                     <input type="hidden" name="experience_id" value="{{ experience.id }}">
-                                                    <button type="submit" class="btn btn-danger">Confirm Cancellation</button>
+                                                    <button type="submit" id="loginButton" class="btn btn-primary btn-md custom-btn ms-0">Confirm Cancellation</button>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
-                                </div> -->
+                                </div>
 
                             </div>
                         </div>
