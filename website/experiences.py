@@ -93,27 +93,28 @@ def update():
 @eventbp.route('/update_page/<int:experience_id>', methods=['GET', 'POST'])
 @login_required
 def update_page(experience_id):
-  print('Method type: ', request.method)
-  
-  # Get the experience object by id and check if it belongs to the current user
-  experience = Experience.query.get(experience_id)
-  # Pass the experience object to the form constructor
-  form = ExperienceForm(obj=experience)
-  
-  if form.validate_on_submit():
-    # Update the experience object with the new form data
-    form.populate_obj(experience)
-    # No need to call db.session.add(experience) since it is already in the session
-    db.session.commit()
-    flash('Experience successfully updated.', 'success')
-    return redirect(url_for('experiences.update_page'))
-  
-  return render_template('experiences/update_page.html', form=form, experience=experience)
+    print('Method type: ', request.method)
+
+    # Get the experience object by id and check if it belongs to the current user
+    experience = Experience.query.get(experience_id)
+    # Pass the experience object to the form constructor
+    form = ExperienceForm(obj=experience)
+
+    if form.validate_on_submit():
+        # Update the experience object with the new form data
+        form.populate_obj(experience)
+        # No need to call db.session.add(experience) since it is already in the session
+        db.session.commit()
+        flash('Experience successfully updated.',
+              'success')  # Update flash message
+        return redirect(url_for('experiences.update_page'))
+
+    return render_template('experiences/update_page.html', form=form, experience=experience)
 
 
 @eventbp.route('/cancel_event/<int:experience_id>', methods=['POST'])
 def cancel_event(experience_id):
-    
+
     # Find the experience by ID
     experience = Experience.query.get(experience_id)
 
