@@ -51,8 +51,10 @@
     <div class="container">
         <div class="row">
 
+            {% if experiences %}
             <!-- Booking History Entry 1 -->
             {% for experience in experiences %}
+
             <div class="col-12 col-md-12 col-lg-6">
 
                 <div class="card mb-4">
@@ -152,6 +154,15 @@
                 </div>
             </div>
             {% endfor %}
+
+            <!--- Flash message when no experiences created yet -->
+            {% else %}
+            <div class="col-4">
+                <div class="alert alert-warning" role="alert">
+                    You haven't created any experiences yet.
+                </div>
+            </div>
+            {% endif %}
         </div>
     </div>
 
