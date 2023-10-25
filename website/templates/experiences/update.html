@@ -99,14 +99,6 @@
                                     {{ experience.status }}
                                 </div>
 
-                                <!-- {% if experience.status in ['Sold Out', 'Open'] %}
-                                <form method="POST" action="{{ url_for('experience.cancel_event', experience_id=experience.id) }}">
-                                    <button type="submit" class="btn custom-btn toggle-button rounded me-2 ms-2">
-                                        Cancel Event
-                                    </button>
-                                </form>
-                                {% endif %} -->
-
                                 <!-- Cancel button + modal -->
                                 {% if experience.status in ['Sold Out', 'Open'] %}
                                 <button type="button" class="btn custom-btn toggle-button rounded me-2 ms-2" data-bs-toggle="modal"

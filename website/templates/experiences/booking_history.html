@@ -45,28 +45,52 @@
         <!--- Cards for bookings -->
         <div class="row">
             {% for item in booked_experiences %}
-            <div class="col-12 col-md-12 col-lg-6">
-                <div class="card mb-4">
-                    <div class="row no-gutters">
-                        <!-- Image container (visible on screens 767px and smaller) -->
-                        <div class="col-md-4 d-none d-md-block">
-                            <img src="{{ item.experience.image_1 }}" class="card-img-history img-fluid" alt="Event 1">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ item.experience.name }}</h5>
-                                <p class="card-text">Hosted by {{ item.experience.user.name }}<br>
-                                    Order ID: {{ item.booking_id }}<br>
-                                    Date: {{ item.experience.start_time.strftime("%I:%M %p") }} - {{
-                                    item.experience.start_time.strftime("%d/%m/%Y") }}</p>
+                <div class="col-12 col-md-12 col-lg-6">
+                    <div class="card mb-4">
+                        <div class="row no-gutters">
+                        
+                            <div class="col-md-4 d-none d-md-block">
+                                <img src="{{ item.experience.image_1 }}" class="card-img-history img-fluid">
+                            </div>
+                        
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h6 class="card-title"><b>{{ item.experience.name }}</b></h6>
+                                        <b>
+                                            <div class="homepage-card-spacer"></div>
+                                        </b>
+                                    </h6>
+                                    <hr>
+                                    <p class="card-text">Order ID: {{ item.booking_id }}</p>
+                                    <p class="card-text">
+                                        <i class="bi bi-calendar3 calendar3-icon"></i> {{ item.experience.start_time.strftime("%I:%M %p") }} - {{
+                                        item.experience.start_time.strftime("%d/%m/%Y") }}<br>
+                                        <i class="bi bi-geo-alt geo-alt-icon"></i> {{item.experience.address_line1}}, {{item.experience.suburb}}
+                                    </p>
+                        
+                                </div>
+                        
+                                <div class="d-flex justify-content-start">
+                                    <div>
+                                        <a href="{{ url_for('experience.show', id=item.experience.id) }}"
+                                            class="btn custom-btn toggle-button rounded me-2 ms-2">
+                                            View
+                                        </a>
+                                    </div>
+                        
+                                    <div
+                                        class="{% if item.experience.status == 'Inactive' %}status-grey{% elif item.experience.status == 'Open' %}status-green{% elif item.experience.status == 'Sold Out' %}status-red{% elif item.experience.status == 'Cancelled' %}status-black{% endif %}">
+                                        {{ item.experience.status }}
+                                    </div>
+                        
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
             {% endfor %}
         </div>
-
+        
     </div>
 
 
