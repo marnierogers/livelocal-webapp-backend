@@ -9,6 +9,8 @@ from sqlalchemy.orm import joinedload
 from datetime import datetime
 from .models import User
 from .utils import update_experience_statuses
+from PIL import Image
+
 
 eventbp = Blueprint('experience', __name__, url_prefix='/experiences')
 
@@ -55,10 +57,32 @@ def create():
     new_start_time = datetime.combine(start_date, start_time)
     new_end_time = datetime.combine(start_date, end_time)
 
-    #call the function that checks and returns image
-    db_file_path = check_upload_file(form)
-    db_file_path_2 = check_upload_file_2(form)
-    db_file_path_3 = check_upload_file_3(form)
+    # # Call the function that checks and returns image
+    # db_file_path = check_upload_file(form)
+    # db_file_path_2 = check_upload_file_2(form)
+    # db_file_path_3 = check_upload_file_3(form)
+
+    # Check image dimensions
+    if image_1:
+        if not is_valid_image_dimension(image_1, width=800, height=1000):
+            form.image_1.errors.append("Image 1 must be 800x1000 pixels")
+            return render_template('experiences/create.html', form=form)
+
+        db_file_path = check_upload_file(form)
+
+    if image_2:
+        if not is_valid_image_dimension(image_2, width=800, height=1000):
+            form.image_2.errors.append("Image 1 must be 800x1000 pixels")
+            return render_template('experiences/create.html', form=form)
+
+        db_file_path_2 = check_upload_file(form)
+
+    if image_3:
+        if not is_valid_image_dimension(image_3, width=800, height=1000):
+            form.image_3.errors.append("Image 1 must be 800x1000 pixels")
+            return render_template('experiences/create.html', form=form)
+
+        db_file_path_3 = check_upload_file(form)
     
     experience = Experience(type=type, name=name, description=description, address_line1=address_line1, suburb=suburb, postcode=postcode, start_date=start_date, start_time=new_start_time, end_time=new_end_time, ticket_qty=ticket_qty, price=price,
                             image_1=db_file_path, image_2=db_file_path_2, image_3=db_file_path_3, user=current_user)
@@ -141,12 +165,9 @@ def update_page(experience_id):
 
 
     # Manually set the form fields using data from the experience object
-    # These work
     form.type.data = experience.type
     form.name.data = experience.name
     form.description.data = experience.description
-
-    # These don't
     form.address_line1.data = experience.address_line1
     form.suburb.data = experience.suburb
     form.postcode.data = experience.postcode
@@ -178,6 +199,16 @@ def cancel_event(experience_id):
         db.session.commit()
 
     return redirect(url_for('experience.update'))
+
+
+
+def is_valid_image_dimension(file, width, height):
+    try:
+        image = Image.open(file)
+        return image.width == width and image.height == height
+    except Exception:
+        return False
+
 
 
 def check_upload_file(form):

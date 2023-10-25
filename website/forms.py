@@ -96,7 +96,7 @@ class ExperienceForm(FlaskForm):
     price = DecimalField('Price', validators=[InputRequired(), NumberRange(
         min=0.01, max=500,  message="Price must be between 0.01 and 500.")])
     
-    image_1 = FileField('Image 1 (must upload a minimum 3 images)', validators=[
+    image_1 = FileField('Image 1 - All images must be 800x1000 px', validators=[
         FileRequired(message='Image cannot be empty'),
         FileAllowed(ALLOWED_FILE, message='Only supports PNG, JPG, png, jpg')])
     
