@@ -12,7 +12,6 @@ from PIL import Image
 
 eventbp = Blueprint('experience', __name__, url_prefix='/experiences')
 
-
 @eventbp.route('/<id>')
 def show(id):
     experience = db.session.scalar(db.select(Experience).where(Experience.id==id))
