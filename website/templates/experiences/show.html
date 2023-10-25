@@ -3,6 +3,7 @@
 {% from 'bootstrap5/form.html' import render_form %}
 
 {% block content %}
+
 <!-- Main -->
 <main>
 
@@ -38,12 +39,14 @@
     <!-- Images -->
     <div class="container">
         <div class="row">
+            
             <!-- Display only on screens smaller than 577px -->
             <div class="col-6 d-block d-sm-none">
                 <div class="image">
                     <img src="{{ experience.image_1 }}" alt="" class="img-fluid">
                 </div>
             </div>
+
             <div class="col-6 d-block d-sm-none">
                 <div class="image">
                     <img src="{{ experience.image_1 }}" alt="" class="img-fluid">
@@ -56,6 +59,7 @@
                     <img src="{{ experience.image_2 }}" alt="" class="img-fluid">
                 </div>
             </div>
+
             <div class="col-sm-4 col-md-4 col-lg-4 d-none d-sm-block">
                 <div class="image">
                     <img src="{{ experience.image_1 }}" alt="" class="img-fluid">
@@ -82,6 +86,7 @@
                 </div>
             </div>
         </div>
+
         <hr class="homepage-card-spacer">
 
         <!--- What to expect content and Ticket selector -->
@@ -125,7 +130,6 @@
                                             current_user.is_authenticated or experience.status !='Open' %} disabled {% endif %}>
                                             Book Now
                                         </button>
-
                                     </div>
                                 </div>
                             </form>
@@ -134,7 +138,6 @@
                             </div>
 
                             <!-- Success ticket purchased flashed message -->
-
                             <div>{% with messages = get_flashed_messages(with_categories=true) %}
                             {% if messages %}
                             <div class="container">
@@ -162,7 +165,9 @@
                         </div>
                     </div>
                 </div>
+
                 <hr class="comment-spacer">
+
             </div>
 
             <!-- Comment section -->
@@ -195,6 +200,7 @@
                             </div>
 
                             <hr>
+
                             {% endfor %}
             
                             <!-- Add comment box -->
@@ -218,9 +224,9 @@
                 </div>
             </div>
 
-            </div>
         </div>
     </div>
+</div>
 
 
     <!-- JS scripting import -->
@@ -234,7 +240,7 @@
             const loginButton = document.getElementById("loginButton");
             const loginMessage = document.getElementById("loginMessage");
             const loginMessageComments = document.getElementById("loginMessageComments");
-            const postButton = document.querySelector("button[onclick='postComment()']"); // Get the "Post" button
+            const postButton = document.querySelector("button[onclick='postComment()']");
 
 
             // Function to check and display the message
