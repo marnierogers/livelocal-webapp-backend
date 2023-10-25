@@ -24,20 +24,49 @@
 
     <!--- Added -->
     <div class="container">
+
+        <!--- Flash message for no bookings -->
+        <div class="col-4">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="alert alert-warning">
+                <ul>
+                    {% for category, message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% endwith %}
+
+        </div>
+
+
+        <!--- Cards for bookings -->
         <div class="row">
-            {% for booking in user_bookings %}
-            <div class="col-md-6 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ booking.experience.name }}</h5>
-                        <p class="card-text">Hosted by {{ booking.experience.user.name }}</p>
-                        <p class="card-text">Order ID: {{ booking.booking_id }}</p>
-                        <p class="card-text">Booked on: {{ booking.purchase_date.strftime('%I:%M %p %d/%m/%Y') }}</p>
+            {% for item in booked_experiences %}
+            <div class="col-12 col-md-12 col-lg-6">
+                <div class="card mb-4">
+                    <div class="row no-gutters">
+                        <!-- Image container (visible on screens 767px and smaller) -->
+                        <div class="col-md-4 d-none d-md-block">
+                            <img src="{{ item.experience.image_1 }}" class="card-img-history img-fluid" alt="Event 1">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ item.experience.name }}</h5>
+                                <p class="card-text">Hosted by {{ item.experience.user.name }}<br>
+                                    Order ID: {{ item.booking_id }}<br>
+                                    Date: {{ item.experience.start_time.strftime("%I:%M %p") }} - {{
+                                    item.experience.start_time.strftime("%d/%m/%Y") }}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
+
     </div>
 
 

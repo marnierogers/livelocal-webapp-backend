@@ -380,17 +380,19 @@ def booking_history():
     # Query the database to get all bookings for the current user
     user_bookings = Booking.query.filter_by(user_id=current_user.id).all()
 
+    # If no bookings are found, show a flash message
+    if not user_bookings:
+        flash("You haven't booked any experiences yet.", 'info')
+
     # Print the user_bookings
     for booking in user_bookings:
         print(
             f"Booking ID: {booking.booking_id}, Experience ID: {booking.experience_id}")
 
     # Create a list to store the associated experiences
-    booked_experiences = [booking.experience for booking in user_bookings]
-
-    # Print the experience names
-    for experience in booked_experiences:
-        print(f"Experience Name: {experience.name}")
+    # booked_experiences = [booking.experience for booking in user_bookings]
+    booked_experiences = [{"booking_id": booking.booking_id,
+                           "experience": booking.experience} for booking in user_bookings]
 
     update_experience_statuses()
 
