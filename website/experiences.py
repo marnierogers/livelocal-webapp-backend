@@ -2,13 +2,11 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from .models import Experience, Comment, Booking
 from .forms import ExperienceForm, CommentForm, TicketSelectorForm, UpdateExperienceForm
 from . import db
-import os
-from werkzeug.utils import secure_filename
 from flask_login import login_required, current_user
 from sqlalchemy.orm import joinedload
 from datetime import datetime
 from .models import User
-from .utils import update_experience_statuses, is_valid_image_dimension
+from .utils import update_experience_statuses, is_valid_image_dimension, check_upload_file, check_upload_file_2, check_upload_file_3
 from PIL import Image
 
 
@@ -29,7 +27,6 @@ def show(id):
     form = CommentForm()  
     ticket_selector_form = TicketSelectorForm()  
     return render_template('experiences/show.html', experience=experience, form=form, ticket_selector_form=ticket_selector_form)
-
 
 
 @eventbp.route('/create', methods=['GET', 'POST'])
@@ -114,12 +111,6 @@ def update():
     update_experience_statuses()
 
     return render_template('experiences/update.html', experiences=experiences)
-
-
-
-
-
-
 
 
 @eventbp.route('/booking-history', methods=['GET'])
@@ -247,8 +238,6 @@ def update_page(experience_id):
     return render_template('experiences/update_event.html', form=form, experience=experience)
 
 
-
-
 @eventbp.route('/cancel_event/<int:experience_id>', methods=['POST'])
 def cancel_event(experience_id):
 
@@ -265,73 +254,65 @@ def cancel_event(experience_id):
     return redirect(url_for('experience.update'))
 
 
-
-# def is_valid_image_dimension(file, width, height):
-#     try:
-#         image = Image.open(file)
-#         return image.width == width and image.height == height
-#     except Exception:
-#         return False
-
-def check_upload_file(form):
+# def check_upload_file(form):
   
-  #get file data from form  
-  fp = form.image_1.data
-  filename = fp.filename
+#   #get file data from form  
+#   fp = form.image_1.data
+#   filename = fp.filename
 
-  #get the current path of the module file… store image file relative to this path  
-  BASE_PATH = os.path.dirname(__file__)
+#   #get the current path of the module file… store image file relative to this path  
+#   BASE_PATH = os.path.dirname(__file__)
 
-  #upload file location – directory of this file/static/image
-  upload_path = os.path.join(
-      BASE_PATH, 'static/img/uploads/', secure_filename(filename))
+#   #upload file location – directory of this file/static/image
+#   upload_path = os.path.join(
+#       BASE_PATH, 'static/img/uploads/', secure_filename(filename))
 
-  #store relative path in DB as image location in HTML is relative
-  db_upload_path = '/static/img/uploads/' + secure_filename(filename)
+#   #store relative path in DB as image location in HTML is relative
+#   db_upload_path = '/static/img/uploads/' + secure_filename(filename)
 
-  #save the file and return the db upload path
-  fp.save(upload_path)
-  return db_upload_path
+#   #save the file and return the db upload path
+#   fp.save(upload_path)
+#   return db_upload_path
 
-def check_upload_file_2(form):
+# def check_upload_file_2(form):
   
-  #get file data from form  
-  fp = form.image_2.data
-  filename = fp.filename
+#   #get file data from form  
+#   fp = form.image_2.data
+#   filename = fp.filename
 
-  #get the current path of the module file… store image file relative to this path  
-  BASE_PATH = os.path.dirname(__file__)
+#   #get the current path of the module file… store image file relative to this path  
+#   BASE_PATH = os.path.dirname(__file__)
 
-  #upload file location – directory of this file/static/image
-  upload_path = os.path.join(
-      BASE_PATH, 'static/img/uploads/', secure_filename(filename))
+#   #upload file location – directory of this file/static/image
+#   upload_path = os.path.join(
+#       BASE_PATH, 'static/img/uploads/', secure_filename(filename))
 
-  #store relative path in DB as image location in HTML is relative
-  db_upload_path = '/static/img/uploads/' + secure_filename(filename)
+#   #store relative path in DB as image location in HTML is relative
+#   db_upload_path = '/static/img/uploads/' + secure_filename(filename)
 
-  #save the file and return the db upload path
-  fp.save(upload_path)
-  return db_upload_path
+#   #save the file and return the db upload path
+#   fp.save(upload_path)
+#   return db_upload_path
 
-def check_upload_file_3(form):
+# def check_upload_file_3(form):
 
-  #get file data from form
-  fp = form.image_3.data
-  filename = fp.filename
+#   #get file data from form
+#   fp = form.image_3.data
+#   filename = fp.filename
 
-  #get the current path of the module file… store image file relative to this path
-  BASE_PATH = os.path.dirname(__file__)
+#   #get the current path of the module file… store image file relative to this path
+#   BASE_PATH = os.path.dirname(__file__)
 
-  #upload file location – directory of this file/static/image
-  upload_path = os.path.join(
-      BASE_PATH, 'static/img/uploads/', secure_filename(filename))
+#   #upload file location – directory of this file/static/image
+#   upload_path = os.path.join(
+#       BASE_PATH, 'static/img/uploads/', secure_filename(filename))
 
-  #store relative path in DB as image location in HTML is relative
-  db_upload_path = '/static/img/uploads/' + secure_filename(filename)
+#   #store relative path in DB as image location in HTML is relative
+#   db_upload_path = '/static/img/uploads/' + secure_filename(filename)
 
-  #save the file and return the db upload path
-  fp.save(upload_path)
-  return db_upload_path
+#   #save the file and return the db upload path
+#   fp.save(upload_path)
+#   return db_upload_path
 
 
 @eventbp.route('/<int:experience_id>/comment', methods=['GET', 'POST'])
