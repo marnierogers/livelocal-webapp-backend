@@ -106,7 +106,7 @@
                                 <input type="hidden" name="experience_id" value="{{ experience.id }}">
                                 <div class="row align-items-center">
                                     <div class="col-md-6">
-                                        <div class="input-group mb-3">
+                                        <div class="input-group mb-3" style="padding-top: 17px;">
                                             <label for="ticket_selector" class="input-group-text">Tickets:</label>
                                             <select id="ticket_selector" name="ticket_selector" class="form-select" {% if not
                                                 current_user.is_authenticated or experience.status !='Open' %} disabled {% endif %}>
