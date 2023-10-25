@@ -146,9 +146,31 @@ def update_page(experience_id):
             experience.end_time = datetime.combine(start_date, end_time)
 
             # Call the function that checks and returns image
-            db_file_path = check_upload_file(form)
-            db_file_path_2 = check_upload_file_2(form)
-            db_file_path_3 = check_upload_file_3(form)
+            # Check image dimensions
+            image_1 = form.image_1.data
+            image_2 = form.image_2.data
+            image_3 = form.image_3.data
+
+            if image_1:
+                if not is_valid_image_dimension(image_1, width=800, height=1000):
+                    form.image_1.errors.append("Image 1 must be 800x1000 pixels")
+                    return render_template('experiences/create.html', form=form)
+
+                db_file_path = check_upload_file(form)
+
+            if image_2:
+                if not is_valid_image_dimension(image_2, width=800, height=1000):
+                    form.image_2.errors.append("Image 1 must be 800x1000 pixels")
+                    return render_template('experiences/create.html', form=form)
+
+                db_file_path_2 = check_upload_file(form)
+
+            if image_3:
+                if not is_valid_image_dimension(image_3, width=800, height=1000):
+                    form.image_3.errors.append("Image 1 must be 800x1000 pixels")
+                    return render_template('experiences/create.html', form=form)
+
+                db_file_path_3 = check_upload_file(form)
 
             # Update the image paths
             experience.image_1 = db_file_path
