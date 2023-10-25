@@ -18,38 +18,18 @@
                 </div>
                 <div class="col-md-12">
                     <p class="paragraph-spacing">Need to make a change to your experience? No sweat. Easily manage all your experience information below.</p>
-                </div>
-
-                <!-- Flash message to confirm event updated-->
-                <div class="container">
-                    <div>
-                        {% with messages = get_flashed_messages(with_categories=true) %}
-                        {% if messages %}
-                        <div class="row">
-                            <div class="col-md-3"> <!-- This div spans 3 columns on medium-sized screens -->
-                                {% for message, category in messages %}
-                                <div class="alert alert-success">
-                                    Experience successfully updated.
-                                </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                        {% endif %}
-                        {% endwith %}
-                    </div>
-                </div>
-
-                
+                </div>                
                 <!--- Spacer -->
                 <hr class="comment-spacer">
             </div>
         </div>
     </div>  
 
-    <!-- Booking history cards -->
+    <!-- Update events cards -->
     <div class="container">
         <div class="row">
 
+            {% if experiences %}
             <!-- Booking History Entry 1 -->
             {% for experience in experiences %}
             <div class="col-12 col-md-12 col-lg-6">
@@ -130,14 +110,24 @@
                                     </div>
                                 </div>
 
+                                <!--- Flash message when no experiences created yet -->
+                                {% endfor %}
+                                {% else %}
+                                <div class="col-4">
+                                    <div class="alert alert-warning" role="alert">
+                                        You haven't created any experiences yet.
+                                    </div>
+                                </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            {% endfor %}
         </div>
     </div>
+
+
 
     <!-- JS scripting import -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
