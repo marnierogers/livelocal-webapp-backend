@@ -529,6 +529,12 @@ h5 {
     display: none;
 }
 
+/* Padding to hosted by text on Update experiences page*/
+.hosted-text {
+    padding-top: 5px;
+    padding-left: 3px;
+}
+
 /* ---------------------------------------  Custom cards HomePage  --------------------------------------- */
 .homepage-card {
     width: 18rem;
