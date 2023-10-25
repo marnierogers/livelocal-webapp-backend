@@ -19,6 +19,7 @@
                 <div class="col-md-12">
                     <p class="paragraph-spacing">Need to make a change to your experience? No sweat. Easily manage all your experience information below.</p>
                 </div>                
+                <!--- Spacer -->
                 <hr class="comment-spacer">
             </div>
         </div>
@@ -27,18 +28,22 @@
     <!-- Update events cards -->
     <div class="container">
         <div class="row">
-            {% if experiences %}
 
-            <!-- Cards -->
+            {% if experiences %}
+            <!-- Booking History Entry 1 -->
             {% for experience in experiences %}
             <div class="col-12 col-md-12 col-lg-6">
+
                 <div class="card mb-4">
                     <div class="row no-gutters">
+
+                        <!-- Image container (visible on screens 767px and smaller) -->
                         <div class="col-md-4 d-none d-md-block">
                             <img src={{experience.image_1}} class="card-img-history img-fluid">
                         </div>
 
                         <div class="col-md-8">
+
                             <div class="card-body">
                                 <h6 class="card-title">
                                     <b>
@@ -52,6 +57,7 @@
                                 <p class="card-text">
                                     <i class="bi bi-calendar3 calendar3-icon"></i> {{ experience.start_time.strftime("%I:%M %p") }} - {{ experience.start_time.strftime("%d/%m/%Y") }}<br>
                                     <i class="bi bi-geo-alt geo-alt-icon"></i> {{experience.address_line1}}, {{experience.suburb}}</p>
+
                             </div>
                             
                             <div class="d-flex justify-content-start">
@@ -120,5 +126,6 @@
             </div>
         </div>
     </div>
+
 </main>
 {% endblock %}
