@@ -49,13 +49,19 @@ def create():
     end_time = form.end_time.data
     ticket_qty = form.ticket_qty.data
     price = form.price.data
-    image_1 = form.image_1.data
-    image_2 = form.image_2.data
-    image_3 = form.image_3.data
 
     # Adjust start and end time
     new_start_time = datetime.combine(start_date, start_time)
     new_end_time = datetime.combine(start_date, end_time)
+
+    image_1 = form.image_1.data
+    image_2 = form.image_2.data
+    image_3 = form.image_3.data
+
+    # Call the function that checks and returns image
+    db_file_path = check_upload_file(form)
+    db_file_path_2 = check_upload_file_2(form)
+    db_file_path_3 = check_upload_file_3(form)
 
     # Check image dimensions
     if image_1:
@@ -63,21 +69,15 @@ def create():
             form.image_1.errors.append("Image 1 must be 800x1000 pixels")
             return render_template('experiences/create.html', form=form)
 
-        db_file_path = check_upload_file(form)
-
     if image_2:
         if not is_valid_image_dimension(image_2, width=800, height=1000):
             form.image_2.errors.append("Image 2 must be 800x1000 pixels")
             return render_template('experiences/create.html', form=form)
 
-        db_file_path_2 = check_upload_file(form)
-
     if image_3:
         if not is_valid_image_dimension(image_3, width=800, height=1000):
             form.image_3.errors.append("Image 3 must be 800x1000 pixels")
             return render_template('experiences/create.html', form=form)
-
-        db_file_path_3 = check_upload_file(form)
     
     experience = Experience(type=type, name=name, description=description, address_line1=address_line1, suburb=suburb, postcode=postcode, start_date=start_date, start_time=new_start_time, end_time=new_end_time, ticket_qty=ticket_qty, price=price,
                             image_1=db_file_path, image_2=db_file_path_2, image_3=db_file_path_3, user=current_user)
@@ -139,6 +139,7 @@ def update_page(experience_id):
             end_time = form.end_time.data
             experience.start_time = datetime.combine(start_date, start_time)
             experience.end_time = datetime.combine(start_date, end_time)
+            
             image_1 = form.image_1.data
             image_2 = form.image_2.data
             image_3 = form.image_3.data
@@ -376,9 +377,21 @@ def process_ticket_selection(experience_id):
 @eventbp.route('/booking_history', methods=['GET'])
 @login_required
 def booking_history():
-
+    # Query the database to get all bookings for the current user
     user_bookings = Booking.query.filter_by(user_id=current_user.id).all()
+
+    # Print the user_bookings
+    for booking in user_bookings:
+        print(
+            f"Booking ID: {booking.booking_id}, Experience ID: {booking.experience_id}")
+
+    # Create a list to store the associated experiences
+    booked_experiences = [booking.experience for booking in user_bookings]
+
+    # Print the experience names
+    for experience in booked_experiences:
+        print(f"Experience Name: {experience.name}")
 
     update_experience_statuses()
 
-    return render_template('experiences/booking_history.html', booked_experiences=user_bookings)
+    return render_template('experiences/booking_history.html', booked_experiences=booked_experiences)

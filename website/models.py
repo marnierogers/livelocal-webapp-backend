@@ -48,6 +48,7 @@ class Experience(db.Model):
     # ... Create the Comments db.relationship
     # relation to call experience.comments and comment.experience
     comments = db.relationship('Comment', backref='experience')
+    bookings = db.relationship('Booking', back_populates='experience')
 
     # Create user db.relationship
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
@@ -75,6 +76,10 @@ class Booking(db.Model):
     purchased_ticket_qty = db.Column(db.Integer, nullable=False)
     purchase_date = db.Column(db.String, nullable=False)
 
+    # Define a relationship to the Experience model
+    experience = db.relationship('Experience', back_populates='bookings')
+
     #add the foreign keys
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     experience_id = db.Column(db.Integer, db.ForeignKey('experiences.id'))
+
