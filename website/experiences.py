@@ -40,7 +40,8 @@ def create():
 
     type = form.type.data
     name = form.name.data
-    description = form.description.data
+    #description = form.description.data
+    description = form.description.data.replace('\n', '<br>')
     address_line1 = form.address_line1.data
     suburb = form.suburb.data
     postcode = form.postcode.data

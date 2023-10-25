@@ -88,7 +88,8 @@
         <div class="row">
             <!--- What to expect text -->
             <div class="col-12 col-md-5 col-lg-7">
-                <p class="paragraph-spacing">{{ experience.description }}</p>
+                <!-- <p class="paragraph-spacing">{{ experience.description }}</p> -->
+                <p class="card-text">{{ experience.description|safe }}</p>
             </div>
 
             <!--- Ticket selector -->
