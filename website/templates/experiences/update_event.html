@@ -6,36 +6,36 @@
 
 
 <main>
-    <!-- Create an experience -->
 
+    <!-- Update experience header -->
     <div class="major-container" id="create-experience-section">
-                <div class="container wrapper">
-                    <div class="event-header">
-                        <div class="event-page-header">
-                            <h3 class="event-page-header-small">Update {{ experience.name }}</h3>
-                        </div>
-                
-                        <div class="event-page-right-header">
-                            <i class="bi bi-water water-icon"></i> {{ experience.type }}
-                        </div>
-                
-                        <div class="event-page-right-header">
-                            <i class="bi bi-calendar3 calendar3-icon"></i> {{ experience.start_time.strftime("%I:%M %p") }} - {{experience.start_time.strftime("%d/%m/%Y") }}<br>
-                        </div>
-                    </div>
-                
-                    <div class="event-header" style="margin-bottom: 30px;">
-                        <div class="event-page-left-header hosted-text">
-                            <h6 class="hosted-by-text">Hosted by {{ experience.user.name }}</h6>
-                        </div>
-                
-                        <div class="event-page-right-header">
-                            <i class="bi bi-geo-alt geo-alt-icon"></i> {{ experience.address_line1 }}
-                        </div>
-                    </div>
-                    
-                    <hr class="homepage-card-spacer">
+        <div class="container wrapper">
+            <div class="event-header">
+                <div class="event-page-header">
+                    <h3 class="event-page-header-small">Update {{ experience.name }}</h3>
                 </div>
+        
+                <div class="event-page-right-header">
+                    <i class="bi bi-water water-icon"></i> {{ experience.type }}
+                </div>
+        
+                <div class="event-page-right-header">
+                    <i class="bi bi-calendar3 calendar3-icon"></i> {{ experience.start_time.strftime("%I:%M %p") }} - {{experience.start_time.strftime("%d/%m/%Y") }}<br>
+                </div>
+            </div>
+        
+            <div class="event-header" style="margin-bottom: 30px;">
+                <div class="event-page-left-header hosted-text">
+                    <h6 class="hosted-by-text">Hosted by {{ experience.user.name }}</h6>
+                </div>
+        
+                <div class="event-page-right-header">
+                    <i class="bi bi-geo-alt geo-alt-icon"></i> {{ experience.address_line1 }}
+                </div>
+            </div>
+            
+            <hr class="homepage-card-spacer">
+        </div>
 
         <!--- Dynamic question container -->
         <div class="container wrapper">
@@ -60,34 +60,7 @@
             </div>
         </div>
     </div>
-
-    <!-- Event Created Modal -->
-    <div class="modal" tabindex="-1" role="dialog" id="confirmation-modal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Event Updated</h5>
-                </div>
-                <div class="modal-body">
-                    <p>Your event has been Updated with the following details:</p>
-                    <ul>
-                        <li><strong>Event ID:</strong> <span id="event-id-modal"></span></li>
-                        <li><strong>Status:</strong> Open</li>
-                    </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- JS scripting import -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-        crossorigin="anonymous"></script>
-
-
+    
 </main>
 
 {% endblock %}

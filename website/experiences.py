@@ -91,7 +91,8 @@ def create():
 
     # commit to the database
     db.session.commit()
-    flash('Experience successfully created.', 'success')
+    flash(f'Experience successfully created. Your experience ID is: {experience.id}.', 'success')
+
 
     #Always end with redirect when form is valid
     return redirect(url_for('experience.create'))
