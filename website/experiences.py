@@ -229,8 +229,6 @@ def is_valid_image_dimension(file, width, height):
     except Exception:
         return False
 
-
-
 def check_upload_file(form):
   
   #get file data from form  
@@ -373,3 +371,14 @@ def process_ticket_selection(experience_id):
         f"Success! You've purchased {ticket_qty} {message}. Your booking ID is {booking.booking_id}.", 'success')
 
     return render_template('experiences/show.html', experience=experience, form=ticket_selector_form)
+
+
+@eventbp.route('/booking_history', methods=['GET'])
+@login_required
+def booking_history():
+
+    user_bookings = Booking.query.filter_by(user_id=current_user.id).all()
+
+    update_experience_statuses()
+
+    return render_template('experiences/booking_history.html', booked_experiences=user_bookings)
