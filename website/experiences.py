@@ -40,7 +40,6 @@ def create():
 
     type = form.type.data
     name = form.name.data
-    #description = form.description.data
     description = form.description.data.replace('\n', '<br>')
     address_line1 = form.address_line1.data
     suburb = form.suburb.data
@@ -148,20 +147,6 @@ def booking_history():
     return render_template('experiences/booking_history.html', booked_experiences=booked_experiences)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @eventbp.route('/update_event/<int:experience_id>', methods=['GET', 'POST'])
 @login_required
 def update_page(experience_id):
@@ -188,8 +173,10 @@ def update_page(experience_id):
             start_date = form.start_date.data
             start_time = form.start_time.data
             end_time = form.end_time.data
+
             experience.start_time = datetime.combine(start_date, start_time)
             experience.end_time = datetime.combine(start_date, end_time)
+            experience.description = form.description.data.replace('\n', '<br>')
             
             image_1 = form.image_1.data
             image_2 = form.image_2.data
