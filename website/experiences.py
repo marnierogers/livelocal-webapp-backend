@@ -57,11 +57,6 @@ def create():
     new_start_time = datetime.combine(start_date, start_time)
     new_end_time = datetime.combine(start_date, end_time)
 
-    # # Call the function that checks and returns image
-    # db_file_path = check_upload_file(form)
-    # db_file_path_2 = check_upload_file_2(form)
-    # db_file_path_3 = check_upload_file_3(form)
-
     # Check image dimensions
     if image_1:
         if not is_valid_image_dimension(image_1, width=800, height=1000):
@@ -72,14 +67,14 @@ def create():
 
     if image_2:
         if not is_valid_image_dimension(image_2, width=800, height=1000):
-            form.image_2.errors.append("Image 1 must be 800x1000 pixels")
+            form.image_2.errors.append("Image 2 must be 800x1000 pixels")
             return render_template('experiences/create.html', form=form)
 
         db_file_path_2 = check_upload_file(form)
 
     if image_3:
         if not is_valid_image_dimension(image_3, width=800, height=1000):
-            form.image_3.errors.append("Image 1 must be 800x1000 pixels")
+            form.image_3.errors.append("Image 3 must be 800x1000 pixels")
             return render_template('experiences/create.html', form=form)
 
         db_file_path_3 = check_upload_file(form)
@@ -144,33 +139,35 @@ def update_page(experience_id):
             end_time = form.end_time.data
             experience.start_time = datetime.combine(start_date, start_time)
             experience.end_time = datetime.combine(start_date, end_time)
-
-            # Call the function that checks and returns image
-            # Check image dimensions
             image_1 = form.image_1.data
             image_2 = form.image_2.data
             image_3 = form.image_3.data
 
+            # Call the function that checks and returns image
+            db_file_path = check_upload_file(form)
+            db_file_path_2 = check_upload_file_2(form)
+            db_file_path_3 = check_upload_file_3(form)
+
+            # Image dimension validation for image_1
             if image_1:
                 if not is_valid_image_dimension(image_1, width=800, height=1000):
-                    form.image_1.errors.append("Image 1 must be 800x1000 pixels")
-                    return render_template('experiences/create.html', form=form)
+                    form.image_1.errors.append(
+                        "Image 1 must be 800x1000 pixels")
+                    return render_template('experiences/update_event.html', form=form, experience=experience)
 
-                db_file_path = check_upload_file(form)
-
+            # Image dimension validation for image_2
             if image_2:
                 if not is_valid_image_dimension(image_2, width=800, height=1000):
-                    form.image_2.errors.append("Image 1 must be 800x1000 pixels")
-                    return render_template('experiences/create.html', form=form)
+                    form.image_2.errors.append(
+                        "Image 2 must be 800x1000 pixels")
+                    return render_template('experiences/update_event.html', form=form, experience=experience)
 
-                db_file_path_2 = check_upload_file(form)
-
+            # Image dimension validation for image_3
             if image_3:
                 if not is_valid_image_dimension(image_3, width=800, height=1000):
-                    form.image_3.errors.append("Image 1 must be 800x1000 pixels")
-                    return render_template('experiences/create.html', form=form)
-
-                db_file_path_3 = check_upload_file(form)
+                    form.image_3.errors.append(
+                        "Image 3 must be 800x1000 pixels")
+                    return render_template('experiences/update_event.html', form=form, experience=experience)
 
             # Update the image paths
             experience.image_1 = db_file_path
@@ -178,8 +175,9 @@ def update_page(experience_id):
             experience.image_3 = db_file_path_3
 
             db.session.commit()
-            flash('Experience successfully updated.','Experience successfully updated.')
+            flash('Experience successfully updated.', 'success')
             return redirect(url_for('experience.update', experience_id=experience.id))
+
 
         else:
             print("Form is invalid")
