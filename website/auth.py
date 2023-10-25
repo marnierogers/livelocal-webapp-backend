@@ -6,8 +6,17 @@ from flask_bcrypt import generate_password_hash, check_password_hash
 from .models import User
 from . import db
 
+# Set global count and load the avatar count from a text file
 global count
-count = 1
+try:
+    with open('count.txt', 'r') as file:
+        count = int(file.read())
+
+        if count >= 9:
+            count = 0
+
+except FileNotFoundError:
+    count = 1
 
 #create a blueprint
 authbp = Blueprint('auth', __name__ )
@@ -19,6 +28,13 @@ def register():
     
     #the validation of form is fine, HTTP request is POST
     if (register.validate_on_submit()==True):
+            
+            # Increment count for the avatar
+            count = count + 1
+
+            # Save the updated count to the text file
+            with open('count.txt', 'w') as file:
+                file.write(str(count))
 
             #get username, password and email from the form
             name = register.name.data
@@ -29,8 +45,6 @@ def register():
             suburb = register.suburb.data
             postcode = register.postcode.data
             avatar = f"../static/img/avatars/avatar{count}.png"
-
-            count = count + 1
 
             #check if a user exists
             emailid = db.session.scalar(db.select(User).where(User.email_id==email_id))
