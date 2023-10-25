@@ -111,6 +111,56 @@ def update():
     return render_template('experiences/update.html', experiences=experiences)
 
 
+
+
+
+
+
+
+@eventbp.route('/booking-history', methods=['GET'])
+@login_required
+def booking_history():
+    print('Method type: ', request.method)
+
+    # Get the currently logged-in user
+    global current_user
+
+    # Query the database to get all bookings for the current user
+    user_bookings = Booking.query.filter_by(user_id=current_user.id).all()
+
+    # If no bookings are found, show a flash message
+    if not user_bookings:
+        flash("You haven't booked any experiences yet.", 'info')
+
+    # Print the user_bookings
+    for booking in user_bookings:
+        print(
+            f"Booking ID: {booking.booking_id}, Experience ID: {booking.experience_id}")
+
+    # Create a list to store the associated experiences
+    # booked_experiences = [booking.experience for booking in user_bookings]
+    booked_experiences = [{"booking_id": booking.booking_id,
+                           "experience": booking.experience} for booking in user_bookings]
+
+    update_experience_statuses()
+
+    return render_template('experiences/booking_history.html', booked_experiences=booked_experiences)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @eventbp.route('/update_event/<int:experience_id>', methods=['GET', 'POST'])
 @login_required
 def update_page(experience_id):
@@ -374,26 +424,3 @@ def process_ticket_selection(experience_id):
     return render_template('experiences/show.html', experience=experience, form=ticket_selector_form)
 
 
-@eventbp.route('/booking_history', methods=['GET'])
-@login_required
-def booking_history():
-    # Query the database to get all bookings for the current user
-    user_bookings = Booking.query.filter_by(user_id=current_user.id).all()
-
-    # If no bookings are found, show a flash message
-    if not user_bookings:
-        flash("You haven't booked any experiences yet.", 'info')
-
-    # Print the user_bookings
-    for booking in user_bookings:
-        print(
-            f"Booking ID: {booking.booking_id}, Experience ID: {booking.experience_id}")
-
-    # Create a list to store the associated experiences
-    # booked_experiences = [booking.experience for booking in user_bookings]
-    booked_experiences = [{"booking_id": booking.booking_id,
-                           "experience": booking.experience} for booking in user_bookings]
-
-    update_experience_statuses()
-
-    return render_template('experiences/booking_history.html', booked_experiences=booked_experiences)
