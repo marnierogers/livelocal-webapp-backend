@@ -353,10 +353,6 @@ def comment(experience_id):
       db.session.add(comment) 
       db.session.commit() 
 
-      #flashing a message which needs to be handled by the html
-      flash('Your comment has been added', 'success')  
-      # print('Your comment has been added', 'success') 
-
     # using redirect sends a GET request to experience.show
     return redirect(url_for('experience.show', id=experience.id))
 
