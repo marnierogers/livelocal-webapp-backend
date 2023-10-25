@@ -1,29 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
 <!--- Main -->
 <main>
-
-    <!-- Modal for Login button -->
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">User Message</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    You're in! You can now create and book events.
-                </div>
-                <div class="modal-footer">
-                    <button id="loginModalButton" type="button" class="btn btn-primary btn-md custom-btn"
-                        data-bs-dismiss="modal">
-                        Got it!
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Carousel -->
     <div class="carousel-container">
         <div class="row">
@@ -92,11 +72,7 @@
         </div>
     </div>
 
-
-    <!-- Cards -->
-    <div class="container wrapper">
-
-    <!-- Radio category buttons -->
+    <!--- Main body - buttons + cards -->
     <div class="container wrapper">
         <br>
         <div class="container-fluid">
@@ -105,6 +81,7 @@
                 <h3 class="custom-heading pb-2 pt-1">Book an experience</h3>
             </div>
             
+            <!--- Search and radio button row -->
             <div class="row">
                 <div class="col-md-8 mb-3 d-flex flex-column">
 
@@ -144,8 +121,6 @@
                     </div>
                 </div>
 
-                
-                
                 <!-- Event category radio buttons -->
                 <div class="col-md-4 d-flex mb-3">
                     <div class="btn-group d-flex flex-wrap">
@@ -166,327 +141,305 @@
                         </button>
                     </div>
                 </div>
-                
             </div>        
         </div>
     
         <hr>
 
+        <!-- Cards -->
         <div id="all_cards">
-
-        <!-- Cards -->
-        <div class="row" id="current">
-            
-            <!--- No results filter message-->
-            <div id="noResultsMessage">
-                <br>
-                <div class="centered-message">
-                    <br>
-                    <h5>No results found. Please try another filter.</h5>
-                </div>
-            </div>
-
-            <!--- No results filter message-->
-            <div id="adjustSearchMessage">
-                <br>
-                <div class="centered-message">
-                    <br>
-                    <h5>Please select at least one event type to see results.</h5>
-                </div>
-            </div>
-
-            <!-- Row 1 -->
-            <!-- Card 1 -->
-            {% for experience in experiences %}
-            <div class="custom-card mx-auto mx-3 left-align-card" data-type="{{ experience.type }}" data-status="{{ experience.status }}" data-name="{{ experience.name }}">
-                <div class="card box-shadow mx-auto homepage-card">
-                    <a href="{{ url_for('experience.show', id=experience.id) }}">
-                        <img src="{{ experience.image_1 }}" class="card-img-top">
-                    </a>
-                    
-                    <!-- Status box in the top right corner -->
-                    <div
-                        class="{% if experience.status == 'Inactive' %}status-grey{% elif experience.status == 'Open' %}status-green{% elif experience.status == 'Sold Out' %}status-red{% elif experience.status == 'Cancelled' %}status-black{% endif %}">
-                        {{ experience.status }}
-                    </div>
-
-                    </a>
-                    <div class="card-body">
-                        <h6 class="card-title">
-                            <b>
-                            <span class="homepage-card-name">{{experience.name}}</span>
-                            <div class="homepage-card-spacer"></div>
-                            </b>
-                        </h6>
-                        <hr>
-                        <span class="homepage-card-name">Hosted by {{ experience.user.name }}</span>
-                        <span class="homepage-card-duration float">${{experience.price}}pp</span>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-
-            
-
-        <!-- Cards -->
-        <div class="row" id="upcoming">
-            
-            <!--- No results filter message-->
-            <div id="noResultsMessage">
-                <br>
-                <div class="centered-message">
-                    <br>
-                    <h5>No results found. Please try another filter.</h5>
-                </div>
-            </div>
-
-    
-           
-
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-
-             <!-- JS to handle button click events and toggle "pressed" state -->
-                <script>
-                    document.addEventListener("DOMContentLoaded", function () {
-                    const buttons = document.querySelectorAll(".toggle-button");
-
-                    buttons.forEach(function (button) {
-                        button.addEventListener("click", function () {
-                            buttons.forEach(function (otherButton) {
-                                otherButton.classList.remove("active");
-                            });
-                            this.classList.add("active");
-                        });
-                    });
-                });
-            </script>
-
-            <script>
-                var upcomingEnabled = true;
-                var currentEnabled = true;
-
-                let global_status = "all";
-
-                var upcomingbtn = document.getElementById('eventUpcoming');
-                var currentBtn = document.getElementById('eventCurrent');
-                var currentText = document.getElementById('currentText');
-                var upcomingText = document.getElementById('hereeee');
-                var searchBar = document.getElementById('search-input');
-
-                currentBtn.addEventListener('click', function () {
-
-                    if (currentEnabled) {
-                        $('#current .custom-card').each(function() {
-                            
-                            $(this).hide();
-                            $(this).addClass("hidingCurrent");
-                            
-                        currentText.style.display = 'none';
-                        });
-                    } else {
-                        $('#current .custom-card').each(function() {
-                            
-                            if ($(this).hasClass('hidingCurrent')) {
-                                $(this).show();
-                                $(this).removeClass("hidingCurrent");
-                            }
-                            
-                            currentText.style.display = 'block';
-                        });
-                    }
-
-                    currentEnabled = !currentEnabled;
-
-                    filter();
-                });
-
-                upcomingbtn.addEventListener('click', function () {
-                    if (upcomingEnabled) {
-                        $('#upcoming .custom-card').each(function() {
-                           
-                            $(this).hide();
-                            $(this).addClass("hidingUpcoming");
-                            upcomingText.style.display = 'none';
-                        });
-                    } else {
-                        $('#upcoming .custom-card').each(function() {
-                            if ($(this).hasClass('hidingUpcoming')) {
-                                $(this).show();
-                                $(this).removeClass("hidingUpcoming");
-                            }
-
-                            upcomingText.style.display = 'block';
-
-                        });
-                    }
-
-                    upcomingEnabled = !upcomingEnabled;
-
-                    filter();
-                    
-                });
-
-                const adjustSearchMessage = document.getElementById("adjustSearchMessage");
-                adjustSearchMessage.style.display = "none";
-
-                function filter() {
-
-                    const toggleButtons = document.querySelectorAll(".toggle-button");
-                    const currentCards = document.querySelectorAll(".custom-card.mx-auto.mx-3.left-align-card");
-                    const upcomingCards = document.querySelectorAll(".custom-card.mx-auto.mx-3.left-align-card.upcoming");                
-
-                    let activeButtonType;
-
-                    toggleButtons.forEach(function (button) {
-                        
-                        if (button.classList.contains('active')) {
-
-                            anyCardsMatch = false;
-
-                            activeButtonType = button.getAttribute("data-type");
-
-                            if (!currentEnabled && !upcomingEnabled) {
-                                // Show/hide the message based on the flag
-                                adjustSearchMessage.style.display = "block";
-                            } else {
-                                adjustSearchMessage.style.display = "none";
-                            }
-       
-                            if (currentEnabled) {
-                                currentCards.forEach(function (card) {
-                                
-                                    const cardType = card.getAttribute("data-type");
-                                    const cardStatus = card.getAttribute("data-status");
-
-                                    if (activeButtonType === "all" && global_status === "all") {
-                                        card.style.display = "block";
-                                        if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
-                                        anyCardsMatch = true;
-                                    } else if (activeButtonType === "all" && cardStatus === global_status) {
-                                        card.style.display = "block";
-                                        if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
-                                        anyCardsMatch = true;  
-                                    } else if (cardType === activeButtonType && global_status === "all") {
-                                        card.style.display = "block";
-                                        if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
-                                        anyCardsMatch = true;
-                                    } else if (cardType === activeButtonType && cardStatus === global_status) {
-                                        card.style.display = "block";
-                                        if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
-                                        anyCardsMatch = true;
-                                    } else {
-                                        card.style.display = "none";
-                                        card.classList.add('hiding')
-                                    }
-                                });
-                            } else {
-                                currentCards.forEach(function (card) {
-                                    card.style.display = "none";
-                                });
-                            }
-
-                            if (upcomingEnabled) {
-                                upcomingCards.forEach(function (card) {
-                                
-                                    const cardType = card.getAttribute("data-type");
-                                    const cardStatus = card.getAttribute("data-status");
-
-
-                                    if (activeButtonType === "all" && global_status === "all") {
-                                        card.style.display = "block";
-                                        if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
-                                        anyCardsMatch = true;
-                                    } else if (activeButtonType === "all" && cardStatus === global_status) {
-                                        card.style.display = "block";
-                                        if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
-                                        anyCardsMatch = true;
-                                    } else if (cardType === activeButtonType && global_status === "all") {
-                                        card.style.display = "block";
-                                        if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
-                                        anyCardsMatch = true;
-                                    } else if (cardType === activeButtonType && cardStatus === global_status) {
-                                        card.style.display = "block";
-                                        if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
-                                        anyCardsMatch = true;
-                                    } else {
-                                        card.style.display = "none";
-                                        card.classList.add('hiding')
-                                    }
-                                });
-                            } else {
-                                upcomingCards.forEach(function (card) {
-                                    card.style.display = "none";
-                                });
-                            }
-                        }
-
-                        const noResultsMessage = document.getElementById("noResultsMessage");
-                        if (anyCardsMatch) {
-                            noResultsMessage.style.display = "none";
-                        } else {
-                            noResultsMessage.style.display = "block";
-                        }
-                        
-                        search();
-                    }); 
-                }
-
-                document.addEventListener("DOMContentLoaded", function () {
-                    const typeButtons = document.querySelectorAll(".toggle-button");
-                    const statusDropdown = new bootstrap.Dropdown(document.getElementById("filterDropdown"));
-                  
-
-                    
-                    let anyCardsMatch = false;
-
-                    typeButtons.forEach(function (button) {
-                        button.addEventListener("click", filter);
-                    });
-
-                    // Add click event listener to the status dropdown items
-                    const statusItems = document.querySelectorAll(".dropdown-item[data-status]");
-                    statusItems.forEach(function (item) {
-                        item.addEventListener("click", function (event) {
-                            event.preventDefault();
-                            status = item.getAttribute("data-status");
-                            global_status = status
-                            filter();
-                        });
-                    });
-
-
-                    // Initial filter when the page loads
-                    filter();
-                });
-
-               
-                // Function to filter cards based on the search input
-                $('#search-input').on('input', search);
-
-                function search() {
-                    var searchText = searchBar.value.toLowerCase();
-                    $('#all_cards .custom-card').each(function() {
-                        if ($(this).hasClass('hiding') || $(this).hasClass('hidingUpcoming') || $(this).hasClass('hidingCurrent')) {
-                            //skips
-                        } else {
-                            var cardName = $(this).data('name').toLowerCase();
-                            if (cardName.includes(searchText)) {
-                                $(this).show();
-                            } else {
-                                $(this).hide();
-                                
-                            }
-                        }
-                    });
-                }
+            <div class="row" id="current">
                 
-            </script>
+                <!--- No results filter message-->
+                <div id="noResultsMessage">
+                    <br>
+                    <div class="centered-message">
+                        <br>
+                        <h5>No results found. Please try another filter.</h5>
+                    </div>
+                </div>
+
+                <!--- No results filter message-->
+                <div id="adjustSearchMessage">
+                    <br>
+                    <div class="centered-message">
+                        <br>
+                        <h5>Please select at least one event type to see results.</h5>
+                    </div>
+                </div>
+
+                <!-- Cards -->
+                {% for experience in experiences %}
+                <div class="custom-card mx-auto mx-3 left-align-card" data-type="{{ experience.type }}" data-status="{{ experience.status }}" data-name="{{ experience.name }}">
+                    <div class="card box-shadow mx-auto homepage-card">
+                        <a href="{{ url_for('experience.show', id=experience.id) }}">
+                            <img src="{{ experience.image_1 }}" class="card-img-top">
+                        </a>
+                        
+                        <!-- Status box in the top right corner -->
+                        <div
+                            class="{% if experience.status == 'Inactive' %}status-grey{% elif experience.status == 'Open' %}status-green{% elif experience.status == 'Sold Out' %}status-red{% elif experience.status == 'Cancelled' %}status-black{% endif %}">
+                            {{ experience.status }}
+                        </div>
+
+                        </a>
+                        <div class="card-body">
+                            <h6 class="card-title">
+                                <b>
+                                <span class="homepage-card-name">{{experience.name}}</span>
+                                <div class="homepage-card-spacer"></div>
+                                </b>
+                            </h6>
+                            <hr>
+                            <span class="homepage-card-name">Hosted by {{ experience.user.name }}</span>
+                            <span class="homepage-card-duration float">${{experience.price}}pp</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+            <!-- JS to handle button click events and toggle "pressed" state -->
+        <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                const buttons = document.querySelectorAll(".toggle-button");
+
+                buttons.forEach(function (button) {
+                    button.addEventListener("click", function () {
+                        buttons.forEach(function (otherButton) {
+                            otherButton.classList.remove("active");
+                        });
+                        this.classList.add("active");
+                    });
+                });
+            });
+        </script>
+
+        <script>
+            var upcomingEnabled = true;
+            var currentEnabled = true;
+
+            let global_status = "all";
+
+            var upcomingbtn = document.getElementById('eventUpcoming');
+            var currentBtn = document.getElementById('eventCurrent');
+            var currentText = document.getElementById('currentText');
+            var upcomingText = document.getElementById('hereeee');
+            var searchBar = document.getElementById('search-input');
+
+            currentBtn.addEventListener('click', function () {
+
+                if (currentEnabled) {
+                    $('#current .custom-card').each(function() {
+                        
+                        $(this).hide();
+                        $(this).addClass("hidingCurrent");
+                        
+                    currentText.style.display = 'none';
+                    });
+                } else {
+                    $('#current .custom-card').each(function() {
+                        
+                        if ($(this).hasClass('hidingCurrent')) {
+                            $(this).show();
+                            $(this).removeClass("hidingCurrent");
+                        }
+                        
+                        currentText.style.display = 'block';
+                    });
+                }
+
+                currentEnabled = !currentEnabled;
+
+                filter();
+            });
+
+            upcomingbtn.addEventListener('click', function () {
+                if (upcomingEnabled) {
+                    $('#upcoming .custom-card').each(function() {
+                        
+                        $(this).hide();
+                        $(this).addClass("hidingUpcoming");
+                        upcomingText.style.display = 'none';
+                    });
+                } else {
+                    $('#upcoming .custom-card').each(function() {
+                        if ($(this).hasClass('hidingUpcoming')) {
+                            $(this).show();
+                            $(this).removeClass("hidingUpcoming");
+                        }
+
+                        upcomingText.style.display = 'block';
+
+                    });
+                }
+
+                upcomingEnabled = !upcomingEnabled;
+
+                filter();
+                
+            });
+
+            const adjustSearchMessage = document.getElementById("adjustSearchMessage");
+            adjustSearchMessage.style.display = "none";
+
+            function filter() {
+
+                const toggleButtons = document.querySelectorAll(".toggle-button");
+                const currentCards = document.querySelectorAll(".custom-card.mx-auto.mx-3.left-align-card");
+                const upcomingCards = document.querySelectorAll(".custom-card.mx-auto.mx-3.left-align-card.upcoming");                
+
+                let activeButtonType;
+
+                toggleButtons.forEach(function (button) {
+                    
+                    if (button.classList.contains('active')) {
+
+                        anyCardsMatch = false;
+
+                        activeButtonType = button.getAttribute("data-type");
+
+                        if (!currentEnabled && !upcomingEnabled) {
+                            // Show/hide the message based on the flag
+                            adjustSearchMessage.style.display = "block";
+                        } else {
+                            adjustSearchMessage.style.display = "none";
+                        }
+    
+                        if (currentEnabled) {
+                            currentCards.forEach(function (card) {
+                            
+                                const cardType = card.getAttribute("data-type");
+                                const cardStatus = card.getAttribute("data-status");
+
+                                if (activeButtonType === "all" && global_status === "all") {
+                                    card.style.display = "block";
+                                    if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
+                                    anyCardsMatch = true;
+                                } else if (activeButtonType === "all" && cardStatus === global_status) {
+                                    card.style.display = "block";
+                                    if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
+                                    anyCardsMatch = true;  
+                                } else if (cardType === activeButtonType && global_status === "all") {
+                                    card.style.display = "block";
+                                    if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
+                                    anyCardsMatch = true;
+                                } else if (cardType === activeButtonType && cardStatus === global_status) {
+                                    card.style.display = "block";
+                                    if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
+                                    anyCardsMatch = true;
+                                } else {
+                                    card.style.display = "none";
+                                    card.classList.add('hiding')
+                                }
+                            });
+                        } else {
+                            currentCards.forEach(function (card) {
+                                card.style.display = "none";
+                            });
+                        }
+
+                        if (upcomingEnabled) {
+                            upcomingCards.forEach(function (card) {
+                            
+                                const cardType = card.getAttribute("data-type");
+                                const cardStatus = card.getAttribute("data-status");
 
 
+                                if (activeButtonType === "all" && global_status === "all") {
+                                    card.style.display = "block";
+                                    if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
+                                    anyCardsMatch = true;
+                                } else if (activeButtonType === "all" && cardStatus === global_status) {
+                                    card.style.display = "block";
+                                    if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
+                                    anyCardsMatch = true;
+                                } else if (cardType === activeButtonType && global_status === "all") {
+                                    card.style.display = "block";
+                                    if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
+                                    anyCardsMatch = true;
+                                } else if (cardType === activeButtonType && cardStatus === global_status) {
+                                    card.style.display = "block";
+                                    if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
+                                    anyCardsMatch = true;
+                                } else {
+                                    card.style.display = "none";
+                                    card.classList.add('hiding')
+                                }
+                            });
+                        } else {
+                            upcomingCards.forEach(function (card) {
+                                card.style.display = "none";
+                            });
+                        }
+                    }
+
+                    const noResultsMessage = document.getElementById("noResultsMessage");
+                    if (anyCardsMatch) {
+                        noResultsMessage.style.display = "none";
+                    } else {
+                        noResultsMessage.style.display = "block";
+                    }
+                    
+                    search();
+                }); 
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const typeButtons = document.querySelectorAll(".toggle-button");
+                const statusDropdown = new bootstrap.Dropdown(document.getElementById("filterDropdown"));
+                
+
+                
+                let anyCardsMatch = false;
+
+                typeButtons.forEach(function (button) {
+                    button.addEventListener("click", filter);
+                });
+
+                // Add click event listener to the status dropdown items
+                const statusItems = document.querySelectorAll(".dropdown-item[data-status]");
+                statusItems.forEach(function (item) {
+                    item.addEventListener("click", function (event) {
+                        event.preventDefault();
+                        status = item.getAttribute("data-status");
+                        global_status = status
+                        filter();
+                    });
+                });
 
 
+                // Initial filter when the page loads
+                filter();
+            });
+
+            
+            // Function to filter cards based on the search input
+            $('#search-input').on('input', search);
+
+            function search() {
+                var searchText = searchBar.value.toLowerCase();
+                $('#all_cards .custom-card').each(function() {
+                    if ($(this).hasClass('hiding') || $(this).hasClass('hidingUpcoming') || $(this).hasClass('hidingCurrent')) {
+                        //skips
+                    } else {
+                        var cardName = $(this).data('name').toLowerCase();
+                        if (cardName.includes(searchText)) {
+                            $(this).show();
+                        } else {
+                            $(this).hide();
+                            
+                        }
+                    }
+                });
+            }
+            
+        </script>
 
 </main>
 
