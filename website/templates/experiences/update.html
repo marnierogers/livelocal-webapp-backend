@@ -17,19 +17,40 @@
                     <br><br>
                 </div>
                 <div class="col-md-12">
-                    <p class="paragraph-spacing">Need to make a change to your experience? No sweat. Easily manage all your experience information below.</p>
-                </div>                
+                    <p class="paragraph-spacing">Need to make a change to your experience? No sweat. Easily manage all
+                        your experience information below.</p>
+                </div>
+
+                <!-- Flash message to confirm event updated-->
+                <div class="container">
+                    <div>
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                        <div class="row">
+                            <div class="col-md-3"> <!-- This div spans 3 columns on medium-sized screens -->
+                                {% for message, category in messages %}
+                                <div class="alert alert-success">
+                                    Experience successfully updated.
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endwith %}
+                    </div>
+                </div>
+
+
                 <!--- Spacer -->
                 <hr class="comment-spacer">
             </div>
         </div>
-    </div>  
+    </div>
 
-    <!-- Update events cards -->
+    <!-- Booking history cards -->
     <div class="container">
         <div class="row">
 
-            {% if experiences %}
             <!-- Booking History Entry 1 -->
             {% for experience in experiences %}
             <div class="col-12 col-md-12 col-lg-6">
@@ -47,22 +68,27 @@
                             <div class="card-body">
                                 <h6 class="card-title">
                                     <b>
-                                    <span class="homepage-card-name">{{experience.name}}<br>
-                                    </span>
-                                    <div class="homepage-card-spacer"></div>
+                                        <span class="homepage-card-name">{{experience.name}}<br>
+                                        </span>
+                                        <div class="homepage-card-spacer"></div>
                                     </b>
                                 </h6>
                                 <hr>
                                 <p class="card-text">Experience ID: {{experience.id}}</p>
                                 <p class="card-text">
-                                    <i class="bi bi-calendar3 calendar3-icon"></i> {{ experience.start_time.strftime("%I:%M %p") }} - {{ experience.start_time.strftime("%d/%m/%Y") }}<br>
-                                    <i class="bi bi-geo-alt geo-alt-icon"></i> {{experience.address_line1}}, {{experience.suburb}}</p>
+                                    <i class="bi bi-calendar3 calendar3-icon"></i> {{
+                                    experience.start_time.strftime("%I:%M %p") }} - {{
+                                    experience.start_time.strftime("%d/%m/%Y") }}<br>
+                                    <i class="bi bi-geo-alt geo-alt-icon"></i> {{experience.address_line1}},
+                                    {{experience.suburb}}
+                                </p>
 
                             </div>
-                            
+
                             <div class="d-flex justify-content-start">
                                 <div>
-                                    <a href="{{ url_for('experience.show', id=experience.id) }}" class="btn custom-btn toggle-button rounded me-2 ms-2">
+                                    <a href="{{ url_for('experience.show', id=experience.id) }}"
+                                        class="btn custom-btn toggle-button rounded me-2 ms-2">
                                         View
                                     </a>
                                 </div>
@@ -81,51 +107,82 @@
 
                                 <!-- Cancel button + modal -->
                                 {% if experience.status in ['Sold Out', 'Open'] %}
-                                <button type="button" class="btn custom-btn toggle-button rounded me-2 ms-2" data-bs-toggle="modal"
+                                <button type="button" class="btn custom-btn toggle-button rounded me-2 ms-2"
+                                    data-bs-toggle="modal"
                                     data-bs-target="#cancelConfirmationModal-{{ experience.id }}">
                                     Cancel Event
                                 </button>
                                 {% endif %}
 
                                 <div class="modal fade" id="cancelConfirmationModal-{{ experience.id }}" tabindex="-1"
-                                    aria-labelledby="cancelConfirmationModalLabel-{{ experience.id }}" aria-hidden="true">
+                                    aria-labelledby="cancelConfirmationModalLabel-{{ experience.id }}"
+                                    aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="cancelConfirmationModalLabel-{{ experience.id }}">Confirm Event Cancellation
+                                                <h5 class="modal-title"
+                                                    id="cancelConfirmationModalLabel-{{ experience.id }}">Confirm Event
+                                                    Cancellation
                                                 </h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 Are you sure you want to cancel this event?
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <form method="POST" action="{{ url_for('experience.cancel_event', experience_id=experience.id) }}">
-                                                    <input type="hidden" name="experience_id" value="{{ experience.id }}">
-                                                    <button type="submit" id="loginButton" class="btn btn-primary btn-md custom-btn ms-0">Confirm Cancellation</button>
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <form method="POST"
+                                                    action="{{ url_for('experience.cancel_event', experience_id=experience.id) }}">
+                                                    <input type="hidden" name="experience_id"
+                                                        value="{{ experience.id }}">
+                                                    <button type="submit" id="loginButton"
+                                                        class="btn btn-primary btn-md custom-btn ms-0">Confirm
+                                                        Cancellation</button>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!--- Flash message when no experiences created yet -->
-                                {% endfor %}
-                                {% else %}
-                                <div class="col-4">
-                                    <div class="alert alert-warning" role="alert">
-                                        You haven't created any experiences yet.
-                                    </div>
-                                </div>
-                                {% endif %}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
     </div>
+
+    <!-- JS scripting import -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+
+    <!-- JS login modal script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var buttons = document.querySelectorAll('.btn.custom-btn.toggle-button');
+            buttons.forEach(function (button) {
+                button.addEventListener("click", function () {
+                    var experienceId = button.getAttribute("data-experience-id");
+                    var confirmationModal = document.getElementById("cancelConfirmationModal");
+                    confirmationModal.dataset.experienceId = experienceId;
+                });
+            });
+
+            var confirmCancelBtn = document.getElementById("confirmCancelBtn");
+            confirmCancelBtn.addEventListener("click", function () {
+                var confirmationModal = document.getElementById("cancelConfirmationModal");
+                var experienceId = confirmationModal.dataset.experienceId;
+                document.querySelector("#cancelConfirmationModal input[name='experience_id']").value = experienceId;
+                document.querySelector("#cancelConfirmationModal form").submit();
+            });
+        });
+    </script>
+
+
 
 </main>
 {% endblock %}
