@@ -19,13 +19,17 @@ eventbp = Blueprint('experience', __name__, url_prefix='/experiences')
 def show(id):
     experience = db.session.scalar(db.select(Experience).where(Experience.id==id))
 
-    print(experience)
+    # Experience with the given ID doesn't exist, redirect to the error route.
+    if experience is None:
+        return redirect(url_for('experience.show_error', status_code=404, error_message="Page not found"))
+
     update_experience_statuses()
     
     # create the comment form
     form = CommentForm()  
     ticket_selector_form = TicketSelectorForm()  
     return render_template('experiences/show.html', experience=experience, form=form, ticket_selector_form=ticket_selector_form)
+
 
 
 @eventbp.route('/create', methods=['GET', 'POST'])
@@ -408,3 +412,7 @@ def process_ticket_selection(experience_id):
     return render_template('experiences/show.html', experience=experience, form=ticket_selector_form)
 
 
+# Define a new route to handle custom errors
+@eventbp.route('/error/<int:status_code>/<string:error_message>')
+def show_error(status_code, error_message):
+    return render_template('errors/error.html', status_code=status_code, error_message=error_message)

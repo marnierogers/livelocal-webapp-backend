@@ -197,9 +197,8 @@
 
             <!-- Row 1 -->
             <!-- Card 1 -->
-            <h3 id='currentText' class="custom-heading mb-4 mt-3 ms-0 me-0">Current events:</h3>
             {% for experience in experiences %}
-            <div class="custom-card mx-auto mx-3 left-align-card" data-type="tours" data-status="open" data-name="Noosa Kayak Adventure">
+            <div class="custom-card mx-auto mx-3 left-align-card" data-type="{{ experience.type }}" data-status="{{ experience.status }}" data-name="{{ experience.name }}">
                 <div class="card box-shadow mx-auto homepage-card">
                     <a href="{{ url_for('experience.show', id=experience.id) }}">
                         <img src="{{ experience.image_1 }}" class="card-img-top">
@@ -241,43 +240,7 @@
                 </div>
             </div>
 
-            <!-- Row 1 -->
-            <!-- Card 1 -->
-            <!-- <h3 id="hereeee" class="custom-heading mb-4 mt-3 ms-0 me-0">Upcoming events:</h3>
-            <div class="row">
-                {% for experience in experiences %}
-                {% set start_date = datetime(experience.start_date.year, experience.start_date.month, experience.start_date.day) %}
-                {% if start_date > current_time and (experience.status == 'Open' or experience.status == 'Sold Out') %}
-                <div class="custom-card mx-auto mx-3 left-align-card" data-type="tours" data-status="open"
-                    data-name="Noosa Kayak Adventure">
-                    <div class="card box-shadow mx-auto homepage-card">
-                        <a href="{{ url_for('experience.show', id=experience.id) }}">
-                            <img src="{{ experience.image_1 }}" class="card-img-top" alt="Man kayaking on river">
-                        </a>
-                
-                        <div
-                            class="{% if experience.status == 'Inactive' %}status-grey{% elif experience.status == 'Open' %}status-green{% elif experience.status == 'Sold Out' %}status-red{% elif experience.status == 'Cancelled' %}status-black{% endif %}">
-                            {{ experience.status }}
-                        </div>
-                        <div class="card-body">
-                            <h6 class="card-title">
-                                <b>
-                                    <span class="homepage-card-name">{{experience.name}}</span>
-                                    <div class="homepage-card-spacer"></div>
-                                </b>
-                            </h6>
-                            <hr>
-                            <span class="homepage-card-name">Hosted by {{ experience.user.name }}</span>
-                            <span class="homepage-card-duration float">${{experience.price}}pp</span>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
-                {% endfor %}
-
-            </div> -->
-
-
+    
            
 
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
