@@ -8,7 +8,7 @@ from flask_login import login_required, current_user
 from sqlalchemy.orm import joinedload
 from datetime import datetime
 from .models import User
-from .utils import update_experience_statuses
+from .utils import update_experience_statuses, is_valid_image_dimension
 from PIL import Image
 
 
@@ -266,12 +266,12 @@ def cancel_event(experience_id):
 
 
 
-def is_valid_image_dimension(file, width, height):
-    try:
-        image = Image.open(file)
-        return image.width == width and image.height == height
-    except Exception:
-        return False
+# def is_valid_image_dimension(file, width, height):
+#     try:
+#         image = Image.open(file)
+#         return image.width == width and image.height == height
+#     except Exception:
+#         return False
 
 def check_upload_file(form):
   
