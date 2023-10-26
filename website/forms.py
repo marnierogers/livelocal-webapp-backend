@@ -89,8 +89,8 @@ class ExperienceForm(FlaskForm):
     postcode = StringField("Postcode", validators=[InputRequired(),Regexp('^\d{4}$', message="Postcode must be a 4-digit number")])
     start_date = DateField('Event Date', format='%Y-%m-%d',validators=[InputRequired()])
     
-    start_time = TimeField('Start Date and Time', validators=[validators.InputRequired()])
-    end_time = TimeField('End Date and Time', validators=[validators.InputRequired()])
+    start_time = TimeField('Start Time', validators=[validators.InputRequired()])
+    end_time = TimeField('End Time', validators=[validators.InputRequired()])
     
     ticket_qty = SelectField('Number of Tickets', choices=[(str(i), str(i)) for i in range(1, 21)], validators=[InputRequired()])    
     price = DecimalField('Price', validators=[InputRequired(), NumberRange(

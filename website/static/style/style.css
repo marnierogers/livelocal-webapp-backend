@@ -258,32 +258,16 @@
 
 /* Search-bar size */
 .custom-input-group {
-    width: 600px;
     height: 40px;
 }
 
-/* Small screen (up to 576px) */
-@media (max-width: 1400px) {
-    .custom-input-group {
-        width: 80%; /* Adjust as needed */
-    }
-}
-
-/* Small screen (up to 576px) */
-@media (max-width: 1000px) {
-    .custom-input-group {
-        width: 100%; /* Adjust as needed */
-    }
-}
-
+/* ------ Homepage checkbox buttons ----------*/
 
 /* Define style for checkbox */
 input.form-check-input {
     position: relative;
     appearance: none;
     outline: none;
-    width: 17px;
-    height: 15px;
     border: none;
     background-color: #ccc;
 }
@@ -294,19 +278,16 @@ input:active {
     box-shadow: none;
 }
 
-/* Color of checkbox */
+/* Color of checkbox when checked */
 input.form-check-input:checked {
     background-color: #849BFF;
 }
 
-/* Change shadow when forms are in focus */
+/* Change shadow when form inputs are in focus */
 input.form-control:focus {
     box-shadow: 0 0 0 1.5px #849BFF;
     outline: none; /* Optionally remove the default outline */
 }
-  
-  
-
 
 /* ---------------------------------------  Homepage radio buttons  --------------------------------------- */
 
@@ -333,6 +314,30 @@ input.form-control:focus {
 
 
 /* ------ Homepage radio buttons stacking ----------*/
+
+/* Default size for radio buttons */
+.custom-width-50 {
+    width: 65%;
+}
+
+/* Media Queries for radio buttons - percentage size*/
+@media (min-width: 1px) and (max-width: 768px) {
+    .custom-class {
+        width: 100%;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+    .custom-class {
+        width: 100%;
+    }
+}
+
+@media (min-width: 993px) and (max-width: 1200px) {
+    .custom-class {
+        width: 80%;
+    }
+}
 
 /* Media query for large screens */
 @media (min-width: 1200px) {
@@ -673,6 +678,7 @@ h5 {
 .rounded-circle {
     border-radius: 50%;
 }
+
 
 /* ---------------------------------------  Event page paragraph spacing  --------------------------------------- */
 /* Event page paragraph spacing */

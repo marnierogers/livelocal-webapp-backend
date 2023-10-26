@@ -75,52 +75,60 @@
     <!--- Main body - buttons + cards -->
     <div class="container wrapper">
         <br>
-        <div class="toggle-button-group">
-            <h3 class="custom-heading" style="padding-bottom: 5px;">Book an experience</h3>
+        <div class="container-fluid">
+            
+            <!-- Title row -->
+            <div class="row">
+                <h3 class="custom-heading pb-2 pt-1 fs-sm-4 fs-md-3">Book an experience</h3>
+            </div>
 
-            <div class="drop-down-container">
+            <!--- Search and radio button row -->
+            <div class="row">
+                <div class="col-md-6 mb-3 d-flex flex-column">
 
-                <!-- Filter Upcoming toggle -->
-                <div class="form-check form-switch" style="padding-top: 3px; padding-right: 12px;">
-                    <input class="form-check-input" type="checkbox" id="upcomingEventsCheckboxFilter"
-                        name="upcomingEventsCheckboxFilter">
-                    <label class="form-check-label" for="upcomingEventsCheckboxFilter">Upcoming Events</label>
-                </div>
+                    <!-- Search bar  -->
+                    <form class="mb-3 d-flex custom-input-group me-2" action="{{url_for('main.search')}}">
+                        <input id="search-input" placeholder="Search here..." type="text" name="search" class="form-control custom-btn custom-search-bar m-0"  id="custom-search-bar">
+                    </form>
 
-                <!-- Filter dropdown -->
-                <div class="dropdown" style="padding-top: 5px; padding-right: 15px;">
-                    <button class="btn btn-outline-light me-2 custom-btn filter-button" type="button" id="filterDropdown"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="bi bi-filter custom-filter-icon"></i>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="filterDropdown">
-                        <a class="dropdown-item" href="#" data-status="all">All</a>
-                        <a class="dropdown-item" href="#" data-status="Open">Open</a>
-                        <a class="dropdown-item" href="#" data-status="Inactive">Inactive</a>
-                        <a class="dropdown-item" href="#" data-status="Sold Out">Sold Out</a>
-                        <a class="dropdown-item" href="#" data-status="Cancelled">Cancelled</a>
+                    <!-- Filter Upcoming toggle -->
+                    <div class="d-flex">
+                        <div class="d-flex align-items-center">
+                            <label class="form-check-label me-2" for="upcomingEventsCheckboxFilter">Upcoming Events</label>
+                            <div class="form-check form-switch" style="padding-top: 1px;">
+                                <input class="form-check-input" type="checkbox" id="upcomingEventsCheckboxFilter" name="upcomingEventsCheckboxFilter">
+                            </div>
+                        </div>
+                        
+
+                        <!-- Filter dropdown -->
+                        <div class="dropdown dflex justify-content-end">
+                            <button class="btn custom-btn filter-button d-flex custom-positioning" type="button" id="filterDropdown"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class= "bi bi-filter custom-filter-icon"></i> Status Filter
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="filterDropdown">
+                                <a class="dropdown-item" href="#" data-status="all">All</a>
+                                <a class="dropdown-item" href="#" data-status="Open">Open</a>
+                                <a class="dropdown-item" href="#" data-status="Inactive">Inactive</a>
+                                <a class="dropdown-item" href="#" data-status="Sold Out">Sold Out</a>
+                                <a class="dropdown-item" href="#" data-status="Cancelled">Cancelled</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Filter radio buttons -->
-                <div class="radio-buttons">
-                    <button class="btn btn-outline-light me-2 custom-btn toggle-button" data-type="all">
-                        All
-                    </button>
-                    <button class="btn btn-outline-light me-2 custom-btn toggle-button" data-type="ArtCulture">
-                        Art & Culture
-                    </button>
-                    <button class="btn btn-outline-light me-2 custom-btn toggle-button" data-type="Tours">
-                        Tours
-                    </button>
-                    <button class="btn btn-outline-light me-2 custom-btn toggle-button" data-type="FoodDrink">
-                        Food & Drink
-                    </button>
-                    <button class="btn btn-outline-light me-2 custom-btn toggle-button" data-type="Unique">
-                        Unique
-                    </button>
-                </div>
 
+                <!-- Filter radio buttons -->
+                <div class="col-md-6 mb-3 d-flex justify-content-end radio-buttons">
+                    <div class=" btn-group  flex-wrap custom-width-50 custom-class">
+                        <button class="btn custom-btn toggle-button me-2 mb-2 rounded active" data-type="all">All</button>
+                        <button class="btn custom-btn toggle-button me-2 mb-2 rounded" data-type="ArtCulture">Art & Culture</button>
+                        <button class="btn custom-btn toggle-button me-2 mb-2 rounded" data-type="Tours">Tours</button>
+                        <button class="btn custom-btn toggle-button me-2 mb-2 rounded" data-type="FoodDrink">Food & Drink</button>
+                        <button class="btn custom-btn toggle-button me-2 mb-2 rounded" data-type="Unique">Unique</button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -138,15 +146,6 @@
                         <h5>No results found. Please try another filter.</h5>
                     </div>
                 </div>
-
-                <!--- No results filter message-->
-                <!-- <div id="adjustSearchMessage">
-                    <br>
-                    <div class="centered-message">
-                        <br>
-                        <h5>Please select at least one event type to see results.</h5>
-                    </div>
-                </div> -->
 
                 <!-- Cards -->
                 {% for experience in experiences %}

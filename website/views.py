@@ -16,10 +16,17 @@ def index():
      
     return render_template('index.html', experiences=experiences, datetime=datetime, current_time=current_time)
 
-@bp.route('/booking-history')
-def history():
-    update_experience_statuses()
-    return render_template('booking-history.html')
+@bp.route('/search')
+def search():
+    if 'search' in request.args and request.args['search'] != "":
+        print(request.args['search'])
+        query = "%" + request.args['search'] + "%"
+        experiences = db.session.scalars(db.select(Experience).filter(Experience.name.ilike(query)))
+
+        return render_template('index.html', experiences=experiences)
+    else:
+        return redirect(url_for('main.index'))
+    
 
 
 
