@@ -85,66 +85,46 @@
             <div class="row">
                 <div class="col-md-8 mb-3 d-flex flex-column">
 
-                    <!-- Search bar  -->
-                    <div class="input-group custom-input-group mb-3">
-                        <input id="search-input" type="text" class="form-control custom-btn custom-search-bar m-0 me-2" placeholder="Search..." id="custom-search-bar">
-                    </div>
-
                     <!-- Event availabilty checkbox buttons  -->
                     <div class="d-flex">
                         <div>
                             <label class="pe-2">Events:</label>
                             <div id="checkbox_filter" class="form-check form-check-inline">
                                 <input class="form-check-input" type="checkbox" id="eventUpcoming" name="eventFilter" value="Upcoming" checked>
-                                <label class="form-check-label" for="eventUpcoming">Upcoming</label>
+                                <label class="form-check-label" for="eventUpcoming"  style="padding-bottom: 15px">Upcoming</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="checkbox" id="eventCurrent" name="eventFilter" value="Current" checked>
                                 <label class="form-check-label" for="eventCurrent">Current</label>
                             </div>
                         </div>
-                        
-                        <!-- Event status dropdown -->
-                        <div class= "dropdown d-flex"> 
-                            <button class= "btn custom-btn filter-button d-flex" type= "button" id= "filterDropdown"
-                                data-bs-toggle= "dropdown" aria-haspopup= "true" aria-expanded= "false">
-                                <i class= "bi bi-filter custom-filter-icon "></i> Status
+                    </div>
+
+
+                    <!-- Event category radio buttons -->
+                    <div class="col-md-12 d-flex mb-3">
+                        <div class="btn-group d-flex flex-wrap">
+                            <button class="btn custom-btn toggle-button me-2 mb-2 rounded active" data-type="all">
+                                All
                             </button>
-                            <div class= "dropdown-menu" aria-labelledby= "filterDropdown">
-                                <a class= "dropdown-item" href="#" data-status= "all">All</a>
-                                <a class= "dropdown-item" href="#" data-status= "open">Open</a>
-                                <a class= "dropdown-item" href="#" data-status= "inactive">Inactive</a>
-                                <a class= "dropdown-item" href="#" data-status= "sold-out">Sold Out</a>
-                                <a class= "dropdown-item" href="#" data-status= "cancelled">Cancelled</a> 
-                            </div> 
+                            <button class="btn custom-btn toggle-button me-2 mb-2 rounded" data-type="art-culture">
+                                Art & Culture
+                            </button>
+                            <button class="btn custom-btn toggle-button me-2 mb-2 rounded" data-type="tours">
+                                Tours
+                            </button>
+                            <button class="btn custom-btn toggle-button me-2 mb-2 rounded" data-type="food-drink">
+                                Food & Drink
+                            </button>
+                            <button class="btn custom-btn toggle-button me-2 mb-2 rounded" data-type="unique">
+                                Unique
+                            </button>
                         </div>
                     </div>
                 </div>
-
-                <!-- Event category radio buttons -->
-                <div class="col-md-4 d-flex mb-3">
-                    <div class="btn-group d-flex flex-wrap">
-                        <button class="btn custom-btn toggle-button me-2 mb-2 rounded active" data-type="all">
-                            All
-                        </button>
-                        <button class="btn custom-btn toggle-button me-2 mb-2 rounded" data-type="art-culture">
-                            Art & Culture
-                        </button>
-                        <button class="btn custom-btn toggle-button me-2 mb-2 rounded" data-type="tours">
-                            Tours
-                        </button>
-                        <button class="btn custom-btn toggle-button me-2 mb-2 rounded" data-type="food-drink">
-                            Food & Drink
-                        </button>
-                        <button class="btn custom-btn toggle-button me-2 mb-2 rounded" data-type="unique">
-                            Unique
-                        </button>
-                    </div>
-                </div>
+                <hr>
             </div>        
         </div>
-    
-        <hr>
 
         <!-- Cards -->
         <div id="all_cards">
@@ -204,10 +184,12 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 
-            <!-- JS to handle button click events and toggle "pressed" state -->
+        <!-- JS to handle button click events and toggle "pressed" state -->
         <script>
-                document.addEventListener("DOMContentLoaded", function () {
+            document.addEventListener("DOMContentLoaded", function () {
                 const buttons = document.querySelectorAll(".toggle-button");
+                const upcomingBtn = document.getElementById('eventUpcoming');
+                const currentBtn = document.getElementById('eventCurrent');
 
                 buttons.forEach(function (button) {
                     button.addEventListener("click", function () {
@@ -215,10 +197,21 @@
                             otherButton.classList.remove("active");
                         });
                         this.classList.add("active");
+                        filter(); // Call the filter function
+                    });
+
+                    // Add click event listeners to the upcoming and current checkboxes
+                    upcomingBtn.addEventListener('change', function () {
+                        filter();
+                    });
+
+                    currentBtn.addEventListener('change', function () {
+                        filter();
                     });
                 });
             });
         </script>
+
 
         <script>
             var upcomingEnabled = true;
@@ -288,107 +281,125 @@
             const adjustSearchMessage = document.getElementById("adjustSearchMessage");
             adjustSearchMessage.style.display = "none";
 
-            function filter() {
+            // Function to filter cards based on the selected filters
+                function filter() {
+                    const toggleButtons = document.querySelectorAll(".toggle-button");
+                    const currentCards = document.querySelectorAll(".custom-card.mx-auto.mx-3.left-align-card");
+                    const upcomingCards = document.querySelectorAll(".custom-card.mx-auto.mx-3.left-align-card.upcoming");
+                    let activeButtonType;
 
-                const toggleButtons = document.querySelectorAll(".toggle-button");
-                const currentCards = document.querySelectorAll(".custom-card.mx-auto.mx-3.left-align-card");
-                const upcomingCards = document.querySelectorAll(".custom-card.mx-auto.mx-3.left-align-card.upcoming");                
-
-                let activeButtonType;
-
-                toggleButtons.forEach(function (button) {
-                    
-                    if (button.classList.contains('active')) {
-
-                        anyCardsMatch = false;
-
-                        activeButtonType = button.getAttribute("data-type");
-
-                        if (!currentEnabled && !upcomingEnabled) {
-                            // Show/hide the message based on the flag
-                            adjustSearchMessage.style.display = "block";
-                        } else {
-                            adjustSearchMessage.style.display = "none";
+                    toggleButtons.forEach(function (button) {
+                        if (button.classList.contains('active')) {
+                            activeButtonType = button.getAttribute("data-type");
                         }
-    
-                        if (currentEnabled) {
-                            currentCards.forEach(function (card) {
-                            
-                                const cardType = card.getAttribute("data-type");
-                                const cardStatus = card.getAttribute("data-status");
-
-                                if (activeButtonType === "all" && global_status === "all") {
-                                    card.style.display = "block";
-                                    if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
-                                    anyCardsMatch = true;
-                                } else if (activeButtonType === "all" && cardStatus === global_status) {
-                                    card.style.display = "block";
-                                    if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
-                                    anyCardsMatch = true;  
-                                } else if (cardType === activeButtonType && global_status === "all") {
-                                    card.style.display = "block";
-                                    if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
-                                    anyCardsMatch = true;
-                                } else if (cardType === activeButtonType && cardStatus === global_status) {
-                                    card.style.display = "block";
-                                    if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
-                                    anyCardsMatch = true;
-                                } else {
-                                    card.style.display = "none";
-                                    card.classList.add('hiding')
-                                }
-                            });
-                        } else {
-                            currentCards.forEach(function (card) {
-                                card.style.display = "none";
-                            });
-                        }
-
-                        if (upcomingEnabled) {
-                            upcomingCards.forEach(function (card) {
-                            
-                                const cardType = card.getAttribute("data-type");
-                                const cardStatus = card.getAttribute("data-status");
-
-
-                                if (activeButtonType === "all" && global_status === "all") {
-                                    card.style.display = "block";
-                                    if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
-                                    anyCardsMatch = true;
-                                } else if (activeButtonType === "all" && cardStatus === global_status) {
-                                    card.style.display = "block";
-                                    if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
-                                    anyCardsMatch = true;
-                                } else if (cardType === activeButtonType && global_status === "all") {
-                                    card.style.display = "block";
-                                    if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
-                                    anyCardsMatch = true;
-                                } else if (cardType === activeButtonType && cardStatus === global_status) {
-                                    card.style.display = "block";
-                                    if (card.classList.contains('hiding')) {card.classList.remove('hiding')}
-                                    anyCardsMatch = true;
-                                } else {
-                                    card.style.display = "none";
-                                    card.classList.add('hiding')
-                                }
-                            });
-                        } else {
-                            upcomingCards.forEach(function (card) {
-                                card.style.display = "none";
-                            });
-                        }
-                    }
+                    });
 
                     const noResultsMessage = document.getElementById("noResultsMessage");
+                    let anyCardsMatch = false;
+
+                    if (upcomingEnabled && currentEnabled) {
+                        // Both checkboxes are checked
+                        currentCards.forEach(function (card) {
+                            const cardType = card.getAttribute("data-type");
+                            const cardStatus = card.getAttribute("data-status");
+
+                            if (activeButtonType === "all" && global_status === "all") {
+                                card.style.display = "block";
+                                anyCardsMatch = true;
+                            } else if (activeButtonType === "all" && cardStatus === global_status) {
+                                card.style.display = "block";
+                                anyCardsMatch = true;
+                            } else if (cardType === activeButtonType && global_status === "all") {
+                                card.style.display = "block";
+                                anyCardsMatch = true;
+                            } else if (cardType === activeButtonType && cardStatus === global_status) {
+                                card.style.display = "block";
+                                anyCardsMatch = true;
+                            } else {
+                                card.style.display = "none";
+                            }
+                        });
+                        upcomingCards.forEach(function (card) {
+                            const cardType = card.getAttribute("data-type");
+                            const cardStatus = card.getAttribute("data-status");
+
+                            if (activeButtonType === "all" && global_status === "all") {
+                                card.style.display = "block";
+                                anyCardsMatch = true;
+                            } else if (activeButtonType === "all" && cardStatus === global_status) {
+                                card.style.display = "block";
+                                anyCardsMatch = true;
+                            } else if (cardType === activeButtonType && global_status === "all") {
+                                card.style.display = "block";
+                                anyCardsMatch = true;
+                            } else if (cardType === activeButtonType && cardStatus === global_status) {
+                                card.style.display = "block";
+                                anyCardsMatch = true;
+                            } else {
+                                card.style.display = "none";
+                            }
+                        });
+                    } else if (upcomingEnabled) {
+                        // Only upcoming checkbox is checked
+                        currentCards.forEach(function (card) {
+                            card.style.display = "none";
+                        });
+                        upcomingCards.forEach(function (card) {
+                            const cardType = card.getAttribute("data-type");
+                            const cardStatus = card.getAttribute("data-status");
+
+                            if (activeButtonType === "all" && global_status === "all") {
+                                card.style.display = "block";
+                                anyCardsMatch = true;
+                            } else if (activeButtonType === "all" && cardStatus === global_status) {
+                                card.style display = "block";
+                                anyCardsMatch = true;
+                            } else if (cardType === activeButtonType && global_status === "all") {
+                                card.style.display = "block";
+                                anyCardsMatch = true;
+                            } else if (cardType === activeButtonType && cardStatus === global_status) {
+                                card.style.display = "block";
+                                anyCardsMatch = true;
+                            } else {
+                                card.style.display = "none";
+                            }
+                        });
+                    } else if (currentEnabled) {
+                        // Only current checkbox is checked
+                        upcomingCards.forEach(function (card) {
+                            card.style.display = "none";
+                        });
+                        currentCards.forEach(function (card) {
+                            const cardType = card.getAttribute("data-type");
+                            const cardStatus = card.getAttribute("data-status");
+
+                            if (activeButtonType === "all" && global_status === "all") {
+                                card.style.display = "block";
+                                anyCardsMatch = true;
+                            } else if (activeButtonType === "all" && cardStatus === global_status) {
+                                card.style.display = "block";
+                                anyCardsMatch = true;
+                            } else if (cardType === activeButtonType && global_status === "all") {
+                                card.style.display = "block";
+                                anyCardsMatch = true;
+                            } else if (cardType === activeButtonType && cardStatus === global_status) {
+                                card.style.display = "block";
+                                anyCardsMatch = true;
+                            } else {
+                                card.style.display = "none";
+                            }
+                        });
+                    }
+
                     if (anyCardsMatch) {
                         noResultsMessage.style.display = "none";
                     } else {
                         noResultsMessage.style.display = "block";
                     }
-                    
+
                     search();
-                }); 
-            }
+                }
+
 
             document.addEventListener("DOMContentLoaded", function () {
                 const typeButtons = document.querySelectorAll(".toggle-button");
