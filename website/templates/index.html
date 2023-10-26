@@ -77,6 +77,12 @@
         <br>
         <div class="toggle-button-group">
             <h3 class="custom-heading">Book an experience</h3>
+
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="upcomingEventsCheckboxFilter" name="upcomingEventsCheckboxFilter">
+                <label class="form-check-label" for="upcomingEventsCheckboxFilter">Upcoming Events</label>
+            </div>
+
             <div class="drop-down-container">
                 <button class="btn btn-outline-light me-2 custom-btn toggle-button" data-type="all">
                     All
@@ -112,53 +118,6 @@
         </div>
 
         <hr>
-        <!-- <div class="container-fluid">
-
-            <div class="row">
-                <h3 class="custom-heading pb-2 pt-1">Book an experience</h3>
-            </div>
-            
-            <div class="row">
-                <div class="col-md-8 mb-3 d-flex flex-column">
-
-                    <div class="d-flex">
-                        <div>
-                            <label class="pe-2">Events:</label>
-                            <div id="checkbox_filter" class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="eventUpcoming" name="eventFilter" value="Upcoming" checked>
-                                <label class="form-check-label" for="eventUpcoming"  style="padding-bottom: 15px">Upcoming</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="eventCurrent" name="eventFilter" value="Current" checked>
-                                <label class="form-check-label" for="eventCurrent">Current</label>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-12 d-flex mb-3">
-                        <div class="btn-group d-flex flex-wrap">
-                            <button class="btn custom-btn toggle-button me-2 mb-2 rounded active" data-type="all">
-                                All
-                            </button>
-                            <button class="btn custom-btn toggle-button me-2 mb-2 rounded" data-type="art-culture">
-                                Art & Culture
-                            </button>
-                            <button class="btn custom-btn toggle-button me-2 mb-2 rounded" data-type="tours">
-                                Tours
-                            </button>
-                            <button class="btn custom-btn toggle-button me-2 mb-2 rounded" data-type="food-drink">
-                                Food & Drink
-                            </button>
-                            <button class="btn custom-btn toggle-button me-2 mb-2 rounded" data-type="unique">
-                                Unique
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-            </div>        
-        </div> -->
 
         <!-- Cards -->
         <div id="all_cards">
@@ -315,6 +274,59 @@
             });
         </script>
 
+        <!-- JS Script to handle Upcoming events toggle -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const upcomingEventsCheckbox = document.getElementById("upcomingEventsCheckboxFilter");
+                const cards = document.querySelectorAll(".custom-card.mx-auto.mx-3.left-align-card");
+
+                let global_type = "all";
+                let global_status = "all";
+                let anyCardsMatch = false;
+
+                // Function to filter cards based on type
+                function filterCards(type, status) {
+                    // Show/hide the message based on the flag
+                    anyCardsMatch = false;
+
+                    cards.forEach(function (card) {
+                        const cardType = card.getAttribute("data-type");
+                        const cardStatus = card.getAttribute("data-status");
+
+                        if ((cardStatus === "Sold Out" || cardStatus === "Open")) {
+                            card.style.display = "block";
+                            anyCardsMatch = true;
+                        } else {
+                            card.style.display = "none";
+                        }
+                    });
+
+                    // Show/hide the message based on the flag
+                    const noResultsMessage = document.getElementById("noResultsMessage");
+                    if (anyCardsMatch) {
+                        noResultsMessage.style.display = "none";
+                    } else {
+                        noResultsMessage.style.display = "block";
+                    }
+                }
+
+                // Function to unfilter cards
+                function unfilterCards() {
+                    cards.forEach(function (card) {
+                        card.style.display = "block";
+                    });
+                }
+
+                // Add an event listener for the checkbox
+                upcomingEventsCheckbox.addEventListener("change", function () {
+                    if (upcomingEventsCheckbox.checked) {
+                        filterCards(global_type, global_status);
+                    } else {
+                        unfilterCards();
+                    }
+                });
+            });
+        </script>
 
 
 
