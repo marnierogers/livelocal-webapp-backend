@@ -76,32 +76,19 @@
     <div class="container wrapper">
         <br>
         <div class="toggle-button-group">
-            <h3 class="custom-heading">Book an experience</h3>
-
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="upcomingEventsCheckboxFilter" name="upcomingEventsCheckboxFilter">
-                <label class="form-check-label" for="upcomingEventsCheckboxFilter">Upcoming Events</label>
-            </div>
+            <h3 class="custom-heading" style="padding-bottom: 5px;">Book an experience</h3>
 
             <div class="drop-down-container">
-                <button class="btn btn-outline-light me-2 custom-btn toggle-button" data-type="all">
-                    All
-                </button>
-                <button class="btn btn-outline-light me-2 custom-btn toggle-button" data-type="ArtCulture">
-                    Art & Culture
-                </button>
-                <button class="btn btn-outline-light me-2 custom-btn toggle-button" data-type="Tours">
-                    Tours
-                </button>
-                <button class="btn btn-outline-light me-2 custom-btn toggle-button" data-type="FoodDrink">
-                    Food & Drink
-                </button>
-                <button class="btn btn-outline-light me-2 custom-btn toggle-button" data-type="Unique">
-                    Unique
-                </button>
-        
-                <!-- Filter dropdown with custom class -->
-                <div class="dropdown">
+
+                <!-- Filter Upcoming toggle -->
+                <div class="form-check form-switch" style="padding-top: 3px; padding-right: 12px;">
+                    <input class="form-check-input" type="checkbox" id="upcomingEventsCheckboxFilter"
+                        name="upcomingEventsCheckboxFilter">
+                    <label class="form-check-label" for="upcomingEventsCheckboxFilter">Upcoming Events</label>
+                </div>
+
+                <!-- Filter dropdown -->
+                <div class="dropdown" style="padding-top: 5px; padding-right: 15px;">
                     <button class="btn btn-outline-light me-2 custom-btn filter-button" type="button" id="filterDropdown"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="bi bi-filter custom-filter-icon"></i>
@@ -114,6 +101,26 @@
                         <a class="dropdown-item" href="#" data-status="Cancelled">Cancelled</a>
                     </div>
                 </div>
+
+                <!-- Filter radio buttons -->
+                <div class="radio-buttons">
+                    <button class="btn btn-outline-light me-2 custom-btn toggle-button" data-type="all">
+                        All
+                    </button>
+                    <button class="btn btn-outline-light me-2 custom-btn toggle-button" data-type="ArtCulture">
+                        Art & Culture
+                    </button>
+                    <button class="btn btn-outline-light me-2 custom-btn toggle-button" data-type="Tours">
+                        Tours
+                    </button>
+                    <button class="btn btn-outline-light me-2 custom-btn toggle-button" data-type="FoodDrink">
+                        Food & Drink
+                    </button>
+                    <button class="btn btn-outline-light me-2 custom-btn toggle-button" data-type="Unique">
+                        Unique
+                    </button>
+                </div>
+
             </div>
         </div>
 
