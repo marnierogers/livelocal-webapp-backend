@@ -20,7 +20,6 @@ def create_app():
 
     #this is a much safer way to store passwords
     bcrypt = Bcrypt(app)
-    print('Hello World!')
 
     #a secret key for the session object
     #(it would be better to use an environment variable here)
