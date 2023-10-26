@@ -199,15 +199,24 @@
                         </a>
                         <div class="card-body">
                             <h6 class="card-title">
-                                <b>
-                                <span class="homepage-card-name">{{experience.name}}</span>
-                                <div class="homepage-card-spacer"></div>
+                                <b class="d-flex justify-content-between align-items-center">
+                                    <span class="homepage-card-name">{{ experience.name }}</span>
+                                    {% if experience.type == 'Unique' %}
+                                    <i class="bi bi-water water-icon"></i>
+                                    {% elif experience.type == 'FoodDrink' %}
+                                    <i class="bi bi-cup-straw"></i>
+                                    {% elif experience.type == 'ArtCulture' %}
+                                    <i class="bi bi-buildings"></i>
+                                    {% elif experience.type == 'Tours' %}
+                                    <i class="bi bi-bus-front"></i>
+                                    {% endif %}
                                 </b>
                             </h6>
                             <hr>
                             <span class="homepage-card-name">Hosted by {{ experience.user.name }}</span>
-                            <span class="homepage-card-duration float">${{experience.price}}pp</span>
+                            <span class="homepage-card-duration float">${{ experience.price }}pp</span>
                         </div>
+
                     </div>
                 </div>
                 {% endfor %}
