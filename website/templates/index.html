@@ -75,17 +75,52 @@
     <!--- Main body - buttons + cards -->
     <div class="container wrapper">
         <br>
-        <div class="container-fluid">
+        <div class="toggle-button-group">
+            <h3 class="custom-heading">Book an experience</h3>
+            <div class="drop-down-container">
+                <button class="btn btn-outline-light me-2 custom-btn toggle-button" data-type="all">
+                    All
+                </button>
+                <button class="btn btn-outline-light me-2 custom-btn toggle-button" data-type="ArtCulture">
+                    Art & Culture
+                </button>
+                <button class="btn btn-outline-light me-2 custom-btn toggle-button" data-type="Tours">
+                    Tours
+                </button>
+                <button class="btn btn-outline-light me-2 custom-btn toggle-button" data-type="FoodDrink">
+                    Food & Drink
+                </button>
+                <button class="btn btn-outline-light me-2 custom-btn toggle-button" data-type="Unique">
+                    Unique
+                </button>
+        
+                <!-- Filter dropdown with custom class -->
+                <div class="dropdown">
+                    <button class="btn btn-outline-light me-2 custom-btn filter-button" type="button" id="filterDropdown"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="bi bi-filter custom-filter-icon"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="filterDropdown">
+                        <a class="dropdown-item" href="#" data-status="all">All</a>
+                        <a class="dropdown-item" href="#" data-status="Open">Open</a>
+                        <a class="dropdown-item" href="#" data-status="Inactive">Inactive</a>
+                        <a class="dropdown-item" href="#" data-status="Sold Out">Sold Out</a>
+                        <a class="dropdown-item" href="#" data-status="Cancelled">Cancelled</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        <!-- <div class="container-fluid">
 
             <div class="row">
                 <h3 class="custom-heading pb-2 pt-1">Book an experience</h3>
             </div>
             
-            <!--- Search and radio button row -->
             <div class="row">
                 <div class="col-md-8 mb-3 d-flex flex-column">
 
-                    <!-- Event availabilty checkbox buttons  -->
                     <div class="d-flex">
                         <div>
                             <label class="pe-2">Events:</label>
@@ -101,7 +136,6 @@
                     </div>
 
 
-                    <!-- Event category radio buttons -->
                     <div class="col-md-12 d-flex mb-3">
                         <div class="btn-group d-flex flex-wrap">
                             <button class="btn custom-btn toggle-button me-2 mb-2 rounded active" data-type="all">
@@ -124,7 +158,7 @@
                 </div>
                 <hr>
             </div>        
-        </div>
+        </div> -->
 
         <!-- Cards -->
         <div id="all_cards">
@@ -140,13 +174,13 @@
                 </div>
 
                 <!--- No results filter message-->
-                <div id="adjustSearchMessage">
+                <!-- <div id="adjustSearchMessage">
                     <br>
                     <div class="centered-message">
                         <br>
                         <h5>Please select at least one event type to see results.</h5>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Cards -->
                 {% for experience in experiences %}
@@ -184,12 +218,11 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 
+
         <!-- JS to handle button click events and toggle "pressed" state -->
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 const buttons = document.querySelectorAll(".toggle-button");
-                const upcomingBtn = document.getElementById('eventUpcoming');
-                const currentBtn = document.getElementById('eventCurrent');
 
                 buttons.forEach(function (button) {
                     button.addEventListener("click", function () {
@@ -197,220 +230,64 @@
                             otherButton.classList.remove("active");
                         });
                         this.classList.add("active");
-                        filter(); // Call the filter function
-                    });
-
-                    // Add click event listeners to the upcoming and current checkboxes
-                    upcomingBtn.addEventListener('change', function () {
-                        filter();
-                    });
-
-                    currentBtn.addEventListener('change', function () {
-                        filter();
                     });
                 });
             });
         </script>
-
-
+        
+        <!-- JS to handle card filtering -->
         <script>
-            var upcomingEnabled = true;
-            var currentEnabled = true;
+            document.addEventListener("DOMContentLoaded", function () {
+                const typeButtons = document.querySelectorAll(".toggle-button");
+                const statusDropdown = new bootstrap.Dropdown(document.getElementById("filterDropdown"));
+                const cards = document.querySelectorAll(".custom-card.mx-auto.mx-3.left-align-card");
 
-            let global_status = "all";
+                let global_type = "all";
+                let global_status = "all";
+                let anyCardsMatch = false;
 
-            var upcomingbtn = document.getElementById('eventUpcoming');
-            var currentBtn = document.getElementById('eventCurrent');
-            var currentText = document.getElementById('currentText');
-            var upcomingText = document.getElementById('hereeee');
-            var searchBar = document.getElementById('search-input');
+                // Function to filter cards based on type
+                function filterCards(type, status) {
 
-            currentBtn.addEventListener('click', function () {
+                    // Show/hide the message based on the flag
+                    anyCardsMatch = false;
 
-                if (currentEnabled) {
-                    $('#current .custom-card').each(function() {
-                        
-                        $(this).hide();
-                        $(this).addClass("hidingCurrent");
-                        
-                    currentText.style.display = 'none';
-                    });
-                } else {
-                    $('#current .custom-card').each(function() {
-                        
-                        if ($(this).hasClass('hidingCurrent')) {
-                            $(this).show();
-                            $(this).removeClass("hidingCurrent");
-                        }
-                        
-                        currentText.style.display = 'block';
-                    });
-                }
+                    cards.forEach(function (card) {
+                        const cardType = card.getAttribute("data-type");
+                        const cardStatus = card.getAttribute("data-status");
 
-                currentEnabled = !currentEnabled;
-
-                filter();
-            });
-
-            upcomingbtn.addEventListener('click', function () {
-                if (upcomingEnabled) {
-                    $('#upcoming .custom-card').each(function() {
-                        
-                        $(this).hide();
-                        $(this).addClass("hidingUpcoming");
-                        upcomingText.style.display = 'none';
-                    });
-                } else {
-                    $('#upcoming .custom-card').each(function() {
-                        if ($(this).hasClass('hidingUpcoming')) {
-                            $(this).show();
-                            $(this).removeClass("hidingUpcoming");
-                        }
-
-                        upcomingText.style.display = 'block';
-
-                    });
-                }
-
-                upcomingEnabled = !upcomingEnabled;
-
-                filter();
-                
-            });
-
-            const adjustSearchMessage = document.getElementById("adjustSearchMessage");
-            adjustSearchMessage.style.display = "none";
-
-            // Function to filter cards based on the selected filters
-                function filter() {
-                    const toggleButtons = document.querySelectorAll(".toggle-button");
-                    const currentCards = document.querySelectorAll(".custom-card.mx-auto.mx-3.left-align-card");
-                    const upcomingCards = document.querySelectorAll(".custom-card.mx-auto.mx-3.left-align-card.upcoming");
-                    let activeButtonType;
-
-                    toggleButtons.forEach(function (button) {
-                        if (button.classList.contains('active')) {
-                            activeButtonType = button.getAttribute("data-type");
+                        if (type === "all" && status === "all") {
+                            card.style.display = "block";
+                            anyCardsMatch = true;
+                        } else if (type === "all" && cardStatus === global_status) {
+                            card.style.display = "block";
+                            anyCardsMatch = true;
+                        } else if (cardType === type && global_status === "all") {
+                            card.style.display = "block";
+                            anyCardsMatch = true;
+                        } else if (cardType === type && cardStatus === global_status) {
+                            card.style.display = "block";
+                            anyCardsMatch = true;
+                        } else {
+                            card.style.display = "none";
                         }
                     });
 
+                    // Show/hide the message based on the flag
                     const noResultsMessage = document.getElementById("noResultsMessage");
-                    let anyCardsMatch = false;
-
-                    if (upcomingEnabled && currentEnabled) {
-                        // Both checkboxes are checked
-                        currentCards.forEach(function (card) {
-                            const cardType = card.getAttribute("data-type");
-                            const cardStatus = card.getAttribute("data-status");
-
-                            if (activeButtonType === "all" && global_status === "all") {
-                                card.style.display = "block";
-                                anyCardsMatch = true;
-                            } else if (activeButtonType === "all" && cardStatus === global_status) {
-                                card.style.display = "block";
-                                anyCardsMatch = true;
-                            } else if (cardType === activeButtonType && global_status === "all") {
-                                card.style.display = "block";
-                                anyCardsMatch = true;
-                            } else if (cardType === activeButtonType && cardStatus === global_status) {
-                                card.style.display = "block";
-                                anyCardsMatch = true;
-                            } else {
-                                card.style.display = "none";
-                            }
-                        });
-                        upcomingCards.forEach(function (card) {
-                            const cardType = card.getAttribute("data-type");
-                            const cardStatus = card.getAttribute("data-status");
-
-                            if (activeButtonType === "all" && global_status === "all") {
-                                card.style.display = "block";
-                                anyCardsMatch = true;
-                            } else if (activeButtonType === "all" && cardStatus === global_status) {
-                                card.style.display = "block";
-                                anyCardsMatch = true;
-                            } else if (cardType === activeButtonType && global_status === "all") {
-                                card.style.display = "block";
-                                anyCardsMatch = true;
-                            } else if (cardType === activeButtonType && cardStatus === global_status) {
-                                card.style.display = "block";
-                                anyCardsMatch = true;
-                            } else {
-                                card.style.display = "none";
-                            }
-                        });
-                    } else if (upcomingEnabled) {
-                        // Only upcoming checkbox is checked
-                        currentCards.forEach(function (card) {
-                            card.style.display = "none";
-                        });
-                        upcomingCards.forEach(function (card) {
-                            const cardType = card.getAttribute("data-type");
-                            const cardStatus = card.getAttribute("data-status");
-
-                            if (activeButtonType === "all" && global_status === "all") {
-                                card.style.display = "block";
-                                anyCardsMatch = true;
-                            } else if (activeButtonType === "all" && cardStatus === global_status) {
-                                card.style display = "block";
-                                anyCardsMatch = true;
-                            } else if (cardType === activeButtonType && global_status === "all") {
-                                card.style.display = "block";
-                                anyCardsMatch = true;
-                            } else if (cardType === activeButtonType && cardStatus === global_status) {
-                                card.style.display = "block";
-                                anyCardsMatch = true;
-                            } else {
-                                card.style.display = "none";
-                            }
-                        });
-                    } else if (currentEnabled) {
-                        // Only current checkbox is checked
-                        upcomingCards.forEach(function (card) {
-                            card.style.display = "none";
-                        });
-                        currentCards.forEach(function (card) {
-                            const cardType = card.getAttribute("data-type");
-                            const cardStatus = card.getAttribute("data-status");
-
-                            if (activeButtonType === "all" && global_status === "all") {
-                                card.style.display = "block";
-                                anyCardsMatch = true;
-                            } else if (activeButtonType === "all" && cardStatus === global_status) {
-                                card.style.display = "block";
-                                anyCardsMatch = true;
-                            } else if (cardType === activeButtonType && global_status === "all") {
-                                card.style.display = "block";
-                                anyCardsMatch = true;
-                            } else if (cardType === activeButtonType && cardStatus === global_status) {
-                                card.style.display = "block";
-                                anyCardsMatch = true;
-                            } else {
-                                card.style.display = "none";
-                            }
-                        });
-                    }
-
                     if (anyCardsMatch) {
                         noResultsMessage.style.display = "none";
                     } else {
                         noResultsMessage.style.display = "block";
                     }
 
-                    search();
                 }
 
-
-            document.addEventListener("DOMContentLoaded", function () {
-                const typeButtons = document.querySelectorAll(".toggle-button");
-                const statusDropdown = new bootstrap.Dropdown(document.getElementById("filterDropdown"));
-                
-
-                
-                let anyCardsMatch = false;
-
                 typeButtons.forEach(function (button) {
-                    button.addEventListener("click", filter);
+                    button.addEventListener("click", function () {
+                        global_type = this.getAttribute("data-type");
+                        filterCards(global_type, global_status);
+                    });
                 });
 
                 // Add click event listener to the status dropdown items
@@ -420,37 +297,17 @@
                         event.preventDefault();
                         status = item.getAttribute("data-status");
                         global_status = status
-                        filter();
+                        filterCards(global_type, global_status);
                     });
                 });
 
-
                 // Initial filter when the page loads
-                filter();
+                filterCards(global_type, global_status);
             });
-
-            
-            // Function to filter cards based on the search input
-            $('#search-input').on('input', search);
-
-            function search() {
-                var searchText = searchBar.value.toLowerCase();
-                $('#all_cards .custom-card').each(function() {
-                    if ($(this).hasClass('hiding') || $(this).hasClass('hidingUpcoming') || $(this).hasClass('hidingCurrent')) {
-                        //skips
-                    } else {
-                        var cardName = $(this).data('name').toLowerCase();
-                        if (cardName.includes(searchText)) {
-                            $(this).show();
-                        } else {
-                            $(this).hide();
-                            
-                        }
-                    }
-                });
-            }
-            
         </script>
+
+
+
 
 </main>
 
