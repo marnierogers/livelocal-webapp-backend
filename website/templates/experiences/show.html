@@ -15,8 +15,17 @@
             </div>
 
             <div class="event-page-right-header">
+                {% if experience.type == 'Unique' %}
                 <i class="bi bi-water water-icon"></i> {{ experience.type }}
+                {% elif experience.type == 'FoodDrink' %}
+                <i class="bi bi-cup-straw"></i> {{ experience.type }}
+                {% elif experience.type == 'ArtCulture' %}
+                <i class="bi bi-buildings"></i> {{ experience.type }}
+                {% elif experience.type == 'Tours' %}
+                <i class="bi bi-bus-front"></i> {{ experience.type }}
+                {% endif %}
             </div>
+
 
             <div class="event-page-right-header">
                 <i class="bi bi-calendar3 calendar3-icon"></i> {{ experience.start_time.strftime("%I:%M %p") }} - {{ experience.start_time.strftime("%d/%m/%Y") }}
