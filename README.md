@@ -15,35 +15,42 @@ To create new tables in the database:
 
 ### Homepage - logged out
 
-![homepage-loggedout](https://github.com/marnierogers/livelocal-webapp-backend/assets/63851542/c1d1667e-7651-4f34-895b-cf5a892b6752)
+![homepage-loggedout](https://github.com/marnierogers/livelocal-webapp-backend/assets/63851542/e7db2337-e2aa-47cf-bed6-a51eabba6838)
+
 
 ### Homepage - logged in, filtered cards
 
-![homepage-loggedin-filtered](https://github.com/marnierogers/livelocal-webapp-backend/assets/63851542/3c949e72-2b3e-4d40-9479-90f4c8a598b9)
+![homepage-loggedin-filtered](https://github.com/marnierogers/livelocal-webapp-backend/assets/63851542/c0280832-bdfd-4c90-b45d-f8934cfac8d2)
+
 
 ### Create experience page
 
-![create-experience-page](https://github.com/marnierogers/livelocal-webapp-backend/assets/63851542/7e0f274f-08cf-4867-b103-384f821d9e98)
+![create-experience-page](https://github.com/marnierogers/livelocal-webapp-backend/assets/63851542/87ce8cb4-532b-4cb9-9f55-8fc96cb9f252)
+
 
 ### Experience page
 
-![event-page](https://github.com/marnierogers/livelocal-webapp-backend/assets/63851542/f3d60064-19c2-438e-8017-c99a989ccc60)
+![event-page](https://github.com/marnierogers/livelocal-webapp-backend/assets/63851542/50def7b4-7f5d-4eff-86f3-c4e38248e06b)
+
 
 ### Update experience page
 
-![update-experiences-page](https://github.com/marnierogers/livelocal-webapp-backend/assets/63851542/815a9616-a4b2-4b88-b98b-f55448b16340)
+![update-experiences-page](https://github.com/marnierogers/livelocal-webapp-backend/assets/63851542/ee09269a-de73-41f4-883a-b0d07bcd01da)
+
 
 ### Booking history
 
-![booking-history-page](https://github.com/marnierogers/livelocal-webapp-backend/assets/63851542/d9a7d710-1b0f-47e9-ae49-8710a7ddcdb1)
+![booking-history-page](https://github.com/marnierogers/livelocal-webapp-backend/assets/63851542/372fc3b7-5153-48fa-80b8-6f4a17dd3251)
+
 
 ### Registration
 
-![register](https://github.com/marnierogers/livelocal-webapp-backend/assets/63851542/840df6ca-293b-4535-824e-6028c42a7a0a)
+![register](https://github.com/marnierogers/livelocal-webapp-backend/assets/63851542/89775fa7-6a42-42a5-8267-b50fafb5ec77)
+
 
 ### Login
 
-![login](https://github.com/marnierogers/livelocal-webapp-backend/assets/63851542/ed9659ba-fc66-4c48-a96a-678fe812e6d0)
+![login](https://github.com/marnierogers/livelocal-webapp-backend/assets/63851542/40268524-21f7-45d0-b8aa-121d7f4d5bf1)
 
 
 
